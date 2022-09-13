@@ -1,0 +1,126 @@
+$myWidth:80%;
+
+.footer {
+    background: url(https://superchinese.vn/images/footer.svg) no-repeat center;
+    background-size: cover;
+    width: 100%;
+    height: 372px;
+}
+
+.container{
+    width: $myWidth;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.row{
+    display: flex;
+    flex-wrap: wrap;
+    .col_item{
+        &:nth-child(1){
+            a{
+                &:after{
+                    content: "";
+                    width: 45px;
+                    height: 40px;
+                    background: url("https://superchinese.vn/images/course.svg") no-repeat center;
+                    position: relative;
+                    display: block;
+                    margin: 0 auto;
+                }
+            }
+        }
+        &:nth-child(2){
+            a{
+                &:after{
+                    content: "";
+                    width: 45px;
+                    height: 40px;
+                    background: url("https://superchinese.vn/images/exam.svg") no-repeat center;
+                    position: relative;
+                    display: block;
+                    margin: 0 auto;
+                }
+            }
+        }
+        &:nth-child(3){
+            a{
+                &:after{
+                    content: "";
+                    width: 45px;
+                    height: 40px;
+                    background: url("https://superchinese.vn/images/library.svg") no-repeat center;
+                    position: relative;
+                    display: block;
+                    margin: 0 auto;
+                }
+            }
+        }
+        &:nth-child(4){
+            a{
+                &:after{
+                    content: "";
+                    width: 45px;
+                    height: 40px;
+                    background: url("https://superchinese.vn/images/blog.svg") no-repeat center;
+                    position: relative;
+                    display: block;
+                    margin: 0 auto;
+                }
+            }
+        }
+    }
+}
+  
+.col_item{
+    width: 100%;
+    height: 100px;
+    border-width: 3px;
+    border-style: solid;
+    border-radius: 10px;
+    box-shadow: none;
+    font-family: 'VAGRoundedStd-Bold', 'VAG Rounded Std Bold', 'VAG Rounded Std', sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 20px;
+    color: #FFFFFF;
+    margin: 10px;
+    text-align: center;
+    flex: 1 0 0%;
+}
+
+.logo {
+    height: 1em;
+    margin-left: 0.5rem;
+}
+
+.footer_bottom{
+    background: linear-gradient( 135deg,rgba(154,31,243,1) 0%,rgba(57,159,254,1) 100%);
+    height: 60px;
+}
+
+.copyright{
+    display: table;
+    height: 60px;
+}
+
+.footer_bottom span{
+    color: #fff;
+    font-size: 13px;
+    line-height: 22px;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.col_content{
+    width: 100%;
+    height: 240px;
+    box-shadow: none;
+    color: #FFFFFF;
+    flex: 1 0 0%;
+    border-width: 3px;
+    border-style: solid;
+    margin:10px;
+}
+
+
