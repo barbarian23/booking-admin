@@ -2,7 +2,7 @@ import { memo } from "react"
 import styles from "../assets/styles/footer.module.scss"
 import Image from 'next/image'
 import Announced from '../assets/images/announced.png'
-import footerConstants from "../constant/footer.constant"
+import footerConstants from "../constants/footer.constant"
 
 const Footer = () => {
     return (
