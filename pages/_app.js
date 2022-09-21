@@ -3,12 +3,14 @@ import { useRouter } from 'next/router';
 import '../assets/globals.css'
 // import Header from "../components/header.component"
 // import Footer from "../components/footer.component"
+import LeftMenu from '../components/leftMenu.component'
 import createSagaMiddleware from 'redux-saga'
 import { createStore, applyMiddleware } from 'redux'
 import rootReducer from '../reducers/index'
 import rootSaga from '../sagas/index'
-import { createWrapper } from 'next-redux-wrapper';
-import { PAGE_URLS } from '../constants/urls';
+import { createWrapper } from 'next-redux-wrapper'
+import { PAGE_URLS } from '../constants/urls'
+import '../services/i18n/i18n.service'
 
 export const makeStore = (context) => {
   const sagaMiddleware = createSagaMiddleware();
@@ -25,7 +27,7 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     // on initial load - run auth check 
-    authCheck(router.asPath);
+    // authCheck(router.asPath);
   }, []);
 
   const authCheck = (url) => {
@@ -47,7 +49,10 @@ function MyApp({ Component, pageProps }) {
   return (
     <React.Suspense fallback={<div>Loading...</div>}>
       {/* <Header/> */}
-      <Component {...pageProps} />
+      <div>
+        <LeftMenu />
+        <Component {...pageProps} />
+      </div>
       {/* <Footer/> */}
     </React.Suspense>
 

@@ -13,7 +13,12 @@ const watchAndLog = function* () {
 };
 
 const rootSaga = function* () {
-  yield all([watchAndLog(), indexWatcher(), goivipsuperchineseWatcher(), kythihsklagiWatcher()]);
+  yield all([
+    watchAndLog(), 
+    indexWatcher(), 
+    goivipsuperchineseWatcher(), 
+    kythihsklagiWatcher()
+  ]);
 };
 
 export default rootSaga;

@@ -1,5 +1,7 @@
 import { combineReducers } from "redux";
-// import indexReducer from "./index.reducer";
+
+import leftMenuReducer from "./leftmenu.reducer";
 
 export default combineReducers({
+    leftMenu: leftMenuReducer
 });
