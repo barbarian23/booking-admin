@@ -1,8 +1,13 @@
 const en={
     translation:{
         menu: {
-            orders_manager: 'Orders Manager',
-            services_manager: 'Services Manager',
+            orders: 'Orders',
+            services: 'Services',
+            stores: 'Stores',
+            customers: 'Customers',
+            booking: "Booking",
+            staffs: "Staffs"
+
         }
     }
 }

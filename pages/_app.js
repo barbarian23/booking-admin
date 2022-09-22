@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react'
 import { useRouter } from 'next/router';
 import '../assets/globals.css'
-// import Header from "../components/header.component"
-// import Footer from "../components/footer.component"
-import LeftMenu from '../components/leftMenu.component'
 import createSagaMiddleware from 'redux-saga'
 import { createStore, applyMiddleware } from 'redux'
 import rootReducer from '../reducers/index'
@@ -12,6 +9,26 @@ import { createWrapper } from 'next-redux-wrapper'
 import { PAGE_URLS } from '../constants/urls'
 import '../services/i18n/i18n.service'
 
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import List from '@mui/material/List';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import Badge from '@mui/material/Badge';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+
+import AppBar from '../components/app/appBar.component';
+import Drawer from '../components/app/drawer.component';
+import LeftMenu from '../components/leftMenu/leftMenu.component'
+
+//store
 export const makeStore = (context) => {
   const sagaMiddleware = createSagaMiddleware();
   const store = createStore(rootReducer, applyMiddleware(sagaMiddleware))
@@ -21,6 +38,9 @@ export const makeStore = (context) => {
 }
 
 const wrapper = createWrapper(makeStore, { debug: true })
+
+//components
+const mdTheme = createTheme();
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
@@ -46,16 +66,95 @@ function MyApp({ Component, pageProps }) {
     }
   }
 
+  const [open, setOpen] = React.useState(true);
+  const toggleDrawer = () => {
+    setOpen(!open);
+  };
+
   return (
     <React.Suspense fallback={<div>Loading...</div>}>
-      {/* <Header/> */}
-      <div>
-        <LeftMenu />
-        <Component {...pageProps} />
-      </div>
-      {/* <Footer/> */}
-    </React.Suspense>
+      <ThemeProvider theme={mdTheme}>
+        <Box sx={{ display: 'flex' }}>
+          <CssBaseline />
+          {/* AppBar */}
+          <AppBar position="absolute" open={open}>
+            <Toolbar
+              sx={{
+                pr: '24px', // keep right padding when drawer closed
+              }}
+            >
+              <IconButton
+                edge="start"
+                color="inherit"
+                aria-label="open drawer"
+                onClick={toggleDrawer}
+                sx={{
+                  marginRight: '36px',
+                  ...(open && { display: 'none' }),
+                }}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Typography
+                component="h1"
+                variant="h6"
+                color="inherit"
+                noWrap
+                sx={{ flexGrow: 1 }}
+              >
+                Dashboard
+              </Typography>
+              <IconButton color="inherit">
+                <Badge badgeContent={4} color="secondary">
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
+            </Toolbar>
+          </AppBar>
 
+          {/* Drawer */}
+          <Drawer variant="permanent" open={open}>
+            <Toolbar
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'flex-end',
+                px: [1],
+              }}
+            >
+              <IconButton onClick={toggleDrawer}>
+                <ChevronLeftIcon />
+              </IconButton>
+            </Toolbar>
+            <Divider />
+            <List component="nav">
+              <LeftMenu />
+              {/* <Divider sx={{ my: 1 }} /> */}
+              {/* {secondaryListItems} */}
+            </List>
+          </Drawer>
+
+          {/* Main */}
+          <Box
+            component="main"
+            sx={{
+              backgroundColor: (theme) =>
+                theme.palette.mode === 'light'
+                  ? theme.palette.grey[100]
+                  : theme.palette.grey[900],
+              flexGrow: 1,
+              height: '100vh',
+              overflow: 'auto',
+            }}
+          >
+            <Toolbar />
+            <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+              <Component {...pageProps} />
+            </Container>
+          </Box>
+        </Box>
+      </ThemeProvider>
+    </React.Suspense>
   )
 }
 

@@ -1,8 +1,12 @@
 const vn={
     translation:{
         menu: {
-            orders_manager: 'Quản lý order',
-            services_manager: 'Quản lý dịch vụ',
+            orders: 'Order',
+            services: 'Dịch vụ',
+            stores: 'Cửa hàng',
+            customers: 'Khách hàng',
+            booking: "Booking",
+            staffs: "Nhân viên"
         }
     }
 }
