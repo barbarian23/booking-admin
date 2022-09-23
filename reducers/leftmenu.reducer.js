@@ -23,6 +23,12 @@ const initState = {
             icon: 'store-front',
             items: [
                 {
+                    name: 'branch',
+                    title: 'menu.branchs',
+                    icon: 'mediation',
+                    link: PAGE_URLS.BRANCHS,
+                },
+                {
                     name: 'service',
                     title: 'menu.services',
                     icon: 'layers',
@@ -32,7 +38,25 @@ const initState = {
                     name: 'customer',
                     title: 'menu.customers',
                     icon: 'people',
-                    link: PAGE_URLS.SERVICES,
+                    link: PAGE_URLS.CUSTOMERS,
+                },
+                {
+                    name: 'staff_schedule',
+                    title: 'menu.staff_schedule',
+                    icon: 'event-available',
+                    link: PAGE_URLS.STAFF_SCHEDULE,
+                },
+                {
+                    name: 'storage',
+                    title: 'menu.storage',
+                    icon: 'warehouse',
+                    link: PAGE_URLS.STORAGE,
+                },
+                {
+                    name: 'payroll',
+                    title: 'menu.payroll',
+                    icon: 'currency-exchange',
+                    link: PAGE_URLS.PAYROLL,
                 }
             ]
         },
@@ -42,6 +66,24 @@ const initState = {
             title: 'menu.booking',
             icon: 'add-task',
             items: [
+                {
+                    name: 'bill',
+                    title: 'menu.bills',
+                    icon: 'local-atm',
+                    link: PAGE_URLS.BILLS,
+                },
+                {
+                    name: 'appointment_reminder',
+                    title: 'menu.appointment_reminder',
+                    icon: 'access-alarms',
+                    link: PAGE_URLS.APPOINTMENT_REMINDER,
+                },
+                {
+                    name: 'customer_review',
+                    title: 'menu.customer_review',
+                    icon: 'message',
+                    link: PAGE_URLS.CUSTOMER_REVIEW,
+                }
             ]
         },
         {
@@ -50,6 +92,18 @@ const initState = {
             title: 'menu.staffs',
             icon: 'manager-accounts',
             items: [
+                {
+                    name: 'staffs_list',
+                    title: 'menu.staffs_list',
+                    icon: 'switch-account',
+                    link: PAGE_URLS.STAFFS,
+                },
+                {
+                    name: 'structure',
+                    title: 'menu.structure',
+                    icon: 'account-tree',
+                    link: PAGE_URLS.STRUCTURE,
+                }
             ]
         },
     ]
