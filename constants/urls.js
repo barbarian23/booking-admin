@@ -8,7 +8,7 @@ export const PAGE_URLS = {
     CHANGE_PASSWORD: "/change-password",
 
     ORDERS: "/orders",
-    BRANCHS: "/branchs",
+    BRANCHES: "/branches",
     SERVICES: "/services",
     CUSTOMERS: "/customers",
     STAFF_SCHEDULE: "/staff-schedule",

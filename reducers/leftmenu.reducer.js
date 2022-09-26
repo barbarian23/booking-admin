@@ -24,9 +24,9 @@ const initState = {
             items: [
                 {
                     name: 'branch',
-                    title: 'menu.branchs',
+                    title: 'menu.branches',
                     icon: 'mediation',
-                    link: PAGE_URLS.BRANCHS,
+                    link: PAGE_URLS.BRANCHES,
                 },
                 {
                     name: 'service',

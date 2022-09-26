@@ -1,13 +1,30 @@
 const en={
     translation:{
         menu: {
-            orders: 'Orders',
-            services: 'Services',
+            orders: 'Order',
+            
             stores: 'Stores',
+            branches: 'Branches',
+            services: 'Services',
             customers: 'Customers',
-            booking: "Booking",
-            staffs: "Staffs"
+            staff_schedule: 'Staff schedule',
+            storage: 'Storage',
+            payroll: 'Payroll',
 
+            booking: 'Booking',
+            bills: 'Bills',
+            appointment_reminder: 'Appointment reminder',
+            customer_review: 'Customer review',
+
+            staffs: 'Staffs',
+            staffs_list: 'Staffs list',
+            structure: 'Structure',
+        },
+        orders: {
+            customer: "Customer",
+            service: "Service",
+            quantity: "Quantity",
+            total: "Total"
         }
     }
 }

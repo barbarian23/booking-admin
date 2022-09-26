@@ -4,7 +4,7 @@ const vn={
             orders: 'Order',
             
             stores: 'Cửa hàng',
-            branchs: 'Chi nhánh',
+            branches: 'Chi nhánh',
             services: 'Dịch vụ',
             customers: 'Khách hàng',
             staff_schedule: 'Đặt lịch nhân viên',
@@ -19,6 +19,12 @@ const vn={
             staffs: 'Nhân viên',
             staffs_list: 'Danh sách nhân viên',
             structure: 'Cơ cấu tổ chức',
+        },
+        orders: {
+            customer: "Khách hàng",
+            service: "Dịch vụ",
+            quantity: "Số lượng",
+            total: "Tổng"
         }
     }
 }
