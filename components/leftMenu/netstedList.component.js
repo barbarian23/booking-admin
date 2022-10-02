@@ -1,7 +1,7 @@
 import React, { useState, memo } from 'react';
 import { useRouter } from 'next/router'
 import { useTranslation } from 'react-i18next'
-
+import styles from '../../assets/styles/leftMenu.module.scss'
 
 import Collapse from '@mui/material/Collapse';
 import List from '@mui/material/List';
@@ -26,7 +26,7 @@ const NestedList = ({ group }) => {
     }
 
     return <React.Fragment>
-        <ListItemButton onClick={handleClick}>
+        <ListItemButton onClick={handleClick} className={styles.items_group}>
             <ListItemIcon>
                 <Icon name={group.icon} />
             </ListItemIcon>

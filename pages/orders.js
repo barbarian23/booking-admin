@@ -26,7 +26,7 @@ const Orders = () => {
     const { t, i18n } = useTranslation();
 
     return <Grid container>
-        <Grid xs={12}>
+        <Box>
             <Breadcrumbs
                 separator={<NavigateNextIcon fontSize="small" />}
                 aria-label="breadcrumb">
@@ -44,7 +44,7 @@ const Orders = () => {
                     {t('menu.orders')}
                 </Typography>
             </Breadcrumbs>
-        </Grid>
+        </Box>
 
         <Grid container>
             <Grid item xs={10}>
