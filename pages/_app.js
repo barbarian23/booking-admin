@@ -147,7 +147,7 @@ function MyApp({ Component, pageProps }) {
             }}
           >
             <Toolbar />
-            <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+            <Container maxWidth="1670" sx={{ mt: 1}}>
               <Component {...pageProps} />
             </Container>
           </Box>

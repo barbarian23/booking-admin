@@ -1,12 +1,15 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import Pagination from '@mui/material/Pagination';
 
 import HomeIcon from '@mui/icons-material/Home';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
@@ -47,20 +50,20 @@ const Orders = () => {
             <Grid item xs={10}>
                 <h3>{t('menu.orders')}</h3>
             </Grid>
-            <Grid item 
-                xs={2} 
+            <Grid item
+                xs={2}
                 sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                <Button 
+                <Button
                     variant="contained"
                     startIcon={<AddIcon />}
                     sx={{ m: 2 }}
-                    >
+                >
                     Add
                 </Button>
             </Grid>
         </Grid>
 
-        <Grid xs={12}>
+        <Grid container>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
@@ -89,6 +92,19 @@ const Orders = () => {
                         ))} */}
                     </TableBody>
                 </Table>
+
+                <Box>
+                    <Grid container>
+                        <Grid item lg={6}>
+                        </Grid>
+                        <Grid item lg={6}
+                            sx={{ display: 'flex', justifyContent: 'flex-end', height: "3em", mt: 2 }}>
+                            <Stack spacing={2}>
+                                <Pagination count={10} shape="rounded" />
+                            </Stack>
+                        </Grid>
+                    </Grid>
+                </Box>
             </TableContainer>
         </Grid>
     </Grid>
