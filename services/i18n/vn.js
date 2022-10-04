@@ -1,5 +1,9 @@
 const vn={
     translation:{
+        login: {
+            username: 'Tên đăng nhập',
+            password: 'Mật khẩu',
+        },
         menu: {
             orders: 'Order',
             

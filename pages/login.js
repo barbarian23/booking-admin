@@ -1,3 +1,8 @@
+import React, { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useSelector, useDispatch } from 'react-redux';
+import { userAction } from '../actions';
+
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -27,14 +32,31 @@ function Copyright(props) {
 
 function Login() {
   const theme = createTheme();
-  
+  const { t, i18n } = useTranslation();
+  const dispatch = useDispatch();
+
+  let username = "";
+  let password = "";
+
+  let updateUsername = (e) => {
+    username = e.target.value;
+  }
+
+  let updatePassword = (e) => {
+    password = e.target.value;
+  }
+
   const handleSubmit = (event) => {
-    // event.preventDefault();
+    event.preventDefault();
     // const data = new FormData(event.currentTarget);
     // console.log({
     //   email: data.get('email'),
     //   password: data.get('password'),
     // });
+    dispatch({
+      type: userAction.LOG_IN,
+      value: { username: username, password: password }
+    });
   };
 
   return (
@@ -64,26 +86,28 @@ function Login() {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="username"
+              label={t('login.username')}
+              name="username"
+              autoComplete="username"
               autoFocus
+              onChange={updateUsername}
             />
             <TextField
               margin="normal"
               required
               fullWidth
               name="password"
-              label="Password"
+              label={t('login.password')}
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={updatePassword}
             />
-            <FormControlLabel
+            {/* <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
-            />
+            /> */}
             <Button
               type="submit"
               fullWidth
@@ -92,7 +116,7 @@ function Login() {
             >
               Sign In
             </Button>
-            <Grid container>
+            {/* <Grid container>
               <Grid item xs>
                 <Link href="\forget-password" variant="body2">
                   Forgot password?
@@ -103,7 +127,7 @@ function Login() {
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
-            </Grid>
+            </Grid> */}
           </Box>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />

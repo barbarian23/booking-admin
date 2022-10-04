@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
 import '../assets/globals.css'
 import createSagaMiddleware from 'redux-saga'
 import { createStore, applyMiddleware } from 'redux'
@@ -46,7 +47,7 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     // on initial load - run auth check 
-    // authCheck(router.asPath);
+    authCheck(router.asPath);
   }, []);
 
   const authCheck = (url) => {
@@ -70,9 +71,12 @@ function MyApp({ Component, pageProps }) {
     setOpen(!open);
   };
 
+  let { isLogedIn } = useSelector(state => state.user);
+
   return (
     <React.Suspense fallback={<div>Loading...</div>}>
-      <ThemeProvider theme={mdTheme}>
+      {isLogedIn 
+      ? <ThemeProvider theme={mdTheme}>
         <Box sx={{ display: 'flex' }}>
           <CssBaseline />
           {/* AppBar */}
@@ -153,6 +157,7 @@ function MyApp({ Component, pageProps }) {
           </Box>
         </Box>
       </ThemeProvider>
+      : <Component {...pageProps} />}
     </React.Suspense>
   )
 }

@@ -1,7 +1,7 @@
-import { indexWatcher } from "./index.saga";
-import { goivipsuperchineseWatcher } from "./goi-vip-superchinese.saga";
-import { kythihsklagiWatcher } from "./ky-thi-hsk-la-gi.saga";
 import { all, take, select } from "redux-saga/effects";
+
+import { indexWatcher } from "./index.saga";
+import { userSaga } from "./user.saga";
 
 //quan sát toàn bộ các action
 const watchAndLog = function* () {
@@ -14,10 +14,9 @@ const watchAndLog = function* () {
 
 const rootSaga = function* () {
   yield all([
-    watchAndLog(), 
-    indexWatcher(), 
-    goivipsuperchineseWatcher(), 
-    kythihsklagiWatcher()
+    watchAndLog(),
+    indexWatcher(),
+    userSaga(),
   ]);
 };
 

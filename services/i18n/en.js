@@ -1,5 +1,9 @@
 const en={
     translation:{
+        login: {
+            username: 'Username',
+            password: 'Password',
+        },
         menu: {
             orders: 'Order',
             
