@@ -25,6 +25,7 @@ const userReducer = (state = initState, action) => {
             }
         case userAction.LOG_IN_SUCCESS:
             return {
+                ...state,
                 isLogedIn: true,
                 refresh_token: action.value.refresh_token,
                 access_token: action.value.access_token,
@@ -34,10 +35,10 @@ const userReducer = (state = initState, action) => {
                 fullName: action.value.fullName,
                 email: action.value.email,
                 jti: action.value.jti,
-                ...state,
             }
         case userAction.LOG_IN_FAIL:
             return {
+                ...state,
                 isLogedIn: false,
                 refresh_token: '',
                 access_token: '',
@@ -48,7 +49,6 @@ const userReducer = (state = initState, action) => {
                 fullName: '',
                 email: '',
                 jti: '',
-                ...state,
             }
         default:
             return state;

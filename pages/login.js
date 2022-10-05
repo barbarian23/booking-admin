@@ -1,7 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector, useDispatch } from 'react-redux';
 import { userAction } from '../actions';
+
+import { useRouter } from 'next/router';
+import { PAGE_URLS } from '../constants/urls';
 
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -31,19 +34,28 @@ function Copyright(props) {
 }
 
 function Login() {
+  const router = useRouter();
+  let { isLogedIn } = useSelector(state => state.user);
+
+  useEffect(() => {
+    if(isLogedIn){
+      router.push(PAGE_URLS.ORDERS);
+    }
+  }, [isLogedIn]);
+
   const theme = createTheme();
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
 
-  let username = "";
-  let password = "";
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   let updateUsername = (e) => {
-    username = e.target.value;
+    setUsername(e.target.value);
   }
 
   let updatePassword = (e) => {
-    password = e.target.value;
+    setPassword(e.target.value);
   }
 
   const handleSubmit = (event) => {

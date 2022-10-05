@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import '../assets/globals.css'
@@ -66,7 +66,7 @@ function MyApp({ Component, pageProps }) {
     }
   }
 
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
