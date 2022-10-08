@@ -2,22 +2,22 @@ import store from 'store'
 
 const _prefix = 'nail.'
 
-const _getFullKey = (key, noPrefix = false) => {
-    if (noPrefix) {
-        return key
+const _getFullKey = (key, prefix = '') => {
+    if (prefix) {
+        return prefix + key
     }
 
     return _prefix + key
 }
 
-export const removeLocalData = (key, noPrefix = false) => {
-    const realKey = _getFullKey(key, noPrefix)
+export const removeLocalData = (key, prefix = '') => {
+    const realKey = _getFullKey(key, prefix)
 
     return store.remove(realKey)
 }
 
-export const getLocalData = (key, defaultValue = null, noPrefix = false) => {
-    const realKey = _getFullKey(key, noPrefix)
+export const getLocalData = (key, defaultValue = null, prefix = '') => {
+    const realKey = _getFullKey(key, prefix)
 
     const value = store.get(realKey) || defaultValue
 
@@ -28,8 +28,8 @@ export const getLocalData = (key, defaultValue = null, noPrefix = false) => {
     }
 }
 
-export const setLocalData = (key, value, noPrefix = false) => {
-    const realKey = _getFullKey(key, noPrefix)
+export const setLocalData = (key, value, prefix = '') => {
+    const realKey = _getFullKey(key, prefix)
 
     const type = typeof value
     if (type === 'object') {

@@ -57,10 +57,10 @@ function MyApp({ Component, pageProps }) {
     const path = url.split('?')[0];
     if (!publicPaths.includes(path)) {
       // setAuthorized(false);
-      router.push({
-        pathname: PAGE_URLS.LOGIN,
-        query: { returnUrl: router.asPath }
-      });
+      // router.push({
+      //   pathname: PAGE_URLS.LOGIN,
+      //   query: { returnUrl: router.asPath }
+      // });
     } else {
       // setAuthorized(true);
     }
@@ -73,10 +73,9 @@ function MyApp({ Component, pageProps }) {
 
   let { isLogedIn } = useSelector(state => state.user);
 
-  return (
-    <React.Suspense fallback={<div>Loading...</div>}>
-      {isLogedIn 
-      ? <ThemeProvider theme={mdTheme}>
+  // if (isLogedIn) {
+    return <React.Suspense fallback={<div>Loading...</div>}>
+      <ThemeProvider theme={mdTheme}>
         <Box sx={{ display: 'flex' }}>
           <CssBaseline />
           {/* AppBar */}
@@ -107,11 +106,11 @@ function MyApp({ Component, pageProps }) {
               >
                 Dashboard
               </Typography>
-              <IconButton color="inherit">
+              {/* <IconButton color="inherit">
                 <Badge badgeContent={4} color="secondary">
                   <NotificationsIcon />
                 </Badge>
-              </IconButton>
+              </IconButton> */}
             </Toolbar>
           </AppBar>
 
@@ -151,15 +150,19 @@ function MyApp({ Component, pageProps }) {
             }}
           >
             <Toolbar />
-            <Container maxWidth="1670" sx={{ mt: 1}}>
+            <Container maxWidth="1670" sx={{ mt: 1 }}>
               <Component {...pageProps} />
             </Container>
           </Box>
         </Box>
       </ThemeProvider>
-      : <Component {...pageProps} />}
     </React.Suspense>
-  )
+  // } else {
+  //   return <React.Suspense fallback={<div>Loading...</div>}>
+  //     <Component {...pageProps} />
+  //   </React.Suspense>
+  // }
+
 }
 
 export default wrapper.withRedux(MyApp);

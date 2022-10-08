@@ -21,8 +21,8 @@ class Request{
         }
     }
 
-    get(url, data=null, respData=true){
-        return this.callService(url, 'GET', data, respData);
+    get(url, data=null, respData=true, header={}){
+        return this.callService(url, 'GET', data, respData, header);
     }
 
     post(url, data=null, respData=true, header={}){

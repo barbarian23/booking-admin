@@ -37,7 +37,7 @@ const Orders = () => {
                     href="/"
                 >
                     <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-                    Home
+                    {t('menu.home')}
                 </Link>
 
                 <Typography color="text.primary">
@@ -58,7 +58,7 @@ const Orders = () => {
                     startIcon={<AddIcon />}
                     sx={{ m: 2 }}
                 >
-                    Add
+                    {t('button.add')}
                 </Button>
             </Grid>
         </Grid>

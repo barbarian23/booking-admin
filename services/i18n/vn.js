@@ -1,12 +1,19 @@
-const vn={
-    translation:{
+const vn = {
+    translation: {
+        button: {
+            add: "Thêm",
+            delete: "Xóa",
+            edit: "Sửa",
+            cancel: "Hủy",
+            detail: "Chi tiết",
+        },
         login: {
             username: 'Tên đăng nhập',
             password: 'Mật khẩu',
         },
         menu: {
+            home: 'Trang chủ',
             orders: 'Order',
-            
             stores: 'Cửa hàng',
             branches: 'Chi nhánh',
             services: 'Dịch vụ',
@@ -29,6 +36,31 @@ const vn={
             service: "Dịch vụ",
             quantity: "Số lượng",
             total: "Tổng"
+        },
+        service: {
+            id: "ID",
+            name: "Tên",
+            price: "Giá cả",
+            time: "Thời gian",
+            description: "Mô tả",
+            branch: "Chi nhánh",
+            status: "Trạng thái",
+            created_date: "Ngày tạo",
+            modifided_date: "Ngày sửa",
+            total_employee: "Nhân viên",
+            action: "Hành động",
+        },
+        branch: {
+            id: "ID",
+            name: "Tên",
+            address: "Địa chỉ",
+            description: "Mô tả",
+            hot_line: "Hotline",
+            status: "Trạng thái",
+            created_date: "Ngày tạo",
+            modifided_date: "Ngày sửa",
+            total_employee: "Nhân viên",
+            action: "Hành động",
         }
     }
 }

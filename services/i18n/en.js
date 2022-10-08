@@ -1,12 +1,19 @@
-const en={
+const en = {
     translation:{
+        button: {
+            add: "Add",
+            delete: "Delete",
+            edit: "Edit",
+            cancel: "Cancel",
+            detail: "Detail",
+        },
         login: {
             username: 'Username',
             password: 'Password',
         },
         menu: {
+            home: 'Home',
             orders: 'Order',
-            
             stores: 'Stores',
             branches: 'Branches',
             services: 'Services',
@@ -29,6 +36,31 @@ const en={
             service: "Service",
             quantity: "Quantity",
             total: "Total"
+        },
+        service: {
+            id: "ID",
+            name: "Name",
+            price: "Price",
+            time: "Time",
+            description: "Description",
+            branch: "Branch",
+            status: "Status",
+            created_date: "Created date",
+            modifided_date: "Modifided date",
+            total_employee: "Total employee",
+            action: "Action",
+        },
+        branch: {
+            id: "ID",
+            name: "Tên",
+            address: "Địa chỉ",
+            description: "Mô tả",
+            hot_line: "Hotline",
+            status: "Trạng thái",
+            created_date: "Ngày tạo",
+            modifided_date: "Ngày sửa",
+            total_employee: "Nhân viên",
+            action: "Hành động",
         }
     }
 }

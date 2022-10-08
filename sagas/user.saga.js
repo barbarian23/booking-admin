@@ -6,7 +6,7 @@ const loginSaga = function* (action) {
     const { username, password } = action.value;
     const user = yield select(state => state.user);
     try {
-        let response = yield call(userApi.login, username, password, user.grant_type, user.scope);
+        let response = yield call(userApi.login, username, password, user.grantType, user.scope);
         if (response.status === 200) {
             let data = response.data;
             console.log('login success!');

@@ -12,14 +12,14 @@ const initState = {
         {
             name: 'order',
             isGroup: false,
-            title: 'menu.orders',
+            title: 'menu.stores',
             icon: 'shopping-cart',
             link: PAGE_URLS.ORDERS,
         }, 
         {
             name: 'store',
             isGroup: true,
-            title: 'menu.stores',
+            title: 'menu.orders',
             icon: 'store-front',
             items: [
                 {

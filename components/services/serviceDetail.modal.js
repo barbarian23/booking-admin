@@ -1,22 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { serviceAction } from '../actions';
-import { useTranslation } from 'react-i18next'
-import styles from '../assets/styles/services.module.scss';
+import { useTranslation } from 'react-i18next';
+import { serviceAction } from '../../actions';
 
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import Breadcrumbs from '@mui/material/Breadcrumbs';
-import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import Pagination from '@mui/material/Pagination';
-
-import HomeIcon from '@mui/icons-material/Home';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import AddIcon from '@mui/icons-material/Add';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -25,70 +15,41 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
-const Services = () => {
+const ServiceDetailModal = ({ service }) => {
     const { t, i18n } = useTranslation();
     const dispatch = useDispatch();
-    let { services, page, totalPage } = useSelector(state => state.service);
+    let { isShowServiceDetails } = useSelector(state => state.service);
+    const { serviceDetails } = service;
 
-    useEffect(() => {
+    const handleClose = () => {
         dispatch({
-            type: serviceAction.GET_ALL_SERVICES,
-        });
-    }, []);
-
-    const showServiceDetails = (service) => {
-        dispatch({
-            type: serviceAction.SELECT_SERVICE,
-            value: service
+            type: serviceAction.HIDE_SERVICE_DETAILS_MODAL,
         });
     }
 
-    const onDeleteBtnClicked = (service) => {
-        dispatch({
-            type: serviceAction.SELECT_SERVICE,
-            value: service
-        }); 
-    }
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        border: '1px solid #000',
+        boxShadow: 24,
+        p: 4,
+    };
 
-    return <Grid container>
-        <Box>
-            <Breadcrumbs
-                separator={<NavigateNextIcon fontSize="small" />}
-                aria-label="breadcrumb">
-                <Link
-                    underline="hover"
-                    sx={{ display: 'flex', alignItems: 'center' }}
-                    color="inherit"
-                    href="/"
-                >
-                    <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-                    {t('menu.home')}
-                </Link>
+    return <Modal
+        open={isShowServiceDetails}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+    >
+        <Box sx={style} >
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+                {service?.name}
+            </Typography>
 
-                <Typography color="text.primary">
-                    {t('menu.services')}
-                </Typography>
-            </Breadcrumbs>
-        </Box>
-
-        <Grid container>
-            <Grid item xs={10}>
-                <h3>{t('menu.services')}</h3>
-            </Grid>
-            <Grid item
-                xs={2}
-                sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                <Button
-                    variant="contained"
-                    startIcon={<AddIcon />}
-                    sx={{ m: 2 }}
-                >
-                    {t('button.add')}
-                </Button>
-            </Grid>
-        </Grid>
-
-        <Grid container>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
@@ -131,7 +92,7 @@ const Services = () => {
                                             fontSize: 14,
                                             fontWeight: '700'
                                         }}
-                                        onClick={() => {showServiceDetails(row)}}
+                                        onClick={() => { showServiceDetails(row) }}
                                     >
                                         {t('button.detail')}
                                     </Button>
@@ -140,23 +101,9 @@ const Services = () => {
                         ))}
                     </TableBody>
                 </Table>
-
-                <Box>
-                    <Grid container>
-                        <Grid item lg={6}>
-                        </Grid>
-                        <Grid item lg={6}
-                            sx={{ display: 'flex', justifyContent: 'flex-end', height: "3em", mt: 2 }}>
-                            <Stack spacing={page}>
-                                <Pagination count={totalPage} shape="rounded" />
-                            </Stack>
-                        </Grid>
-                    </Grid>
-                </Box>
             </TableContainer>
-        </Grid>
-    </Grid>
-
+        </Box>
+    </Modal>
 
 }
-export default Services;
+export default memo(ServiceDetailModal);

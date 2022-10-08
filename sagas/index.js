@@ -3,6 +3,8 @@ import { all, take, select } from "redux-saga/effects";
 import { indexWatcher } from "./index.saga";
 import { userSaga } from "./user.saga";
 
+import { serviceSaga } from "./service.saga";
+
 //quan sát toàn bộ các action
 const watchAndLog = function* () {
   while (true) {
@@ -17,6 +19,8 @@ const rootSaga = function* () {
     watchAndLog(),
     indexWatcher(),
     userSaga(),
+
+    serviceSaga(),
   ]);
 };
 

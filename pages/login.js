@@ -25,7 +25,7 @@ function Copyright(props) {
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        Texas Nail Bar
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -37,11 +37,11 @@ function Login() {
   const router = useRouter();
   let { isLogedIn } = useSelector(state => state.user);
 
-  useEffect(() => {
-    if(isLogedIn){
-      router.push(PAGE_URLS.ORDERS);
-    }
-  }, [isLogedIn]);
+  // useEffect(() => {
+  //   if(isLogedIn){
+  //     router.push(PAGE_URLS.ORDERS);
+  //   }
+  // }, [isLogedIn]);
 
   const theme = createTheme();
   const { t, i18n } = useTranslation();
