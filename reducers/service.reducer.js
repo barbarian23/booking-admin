@@ -12,7 +12,9 @@ const initState = {
         name: '',
         serviceDetails: [],
     },
-    isShowServiceDetails: false,
+
+    isShowAddServiceModal: false,
+    branches: [],
 }
 
 const serviceReducer = (state = initState, action) => {
@@ -41,17 +43,29 @@ const serviceReducer = (state = initState, action) => {
                 selectedService: action.value,
             }
         //service details modal
-        case serviceAction.SHOW_SERVICE_DETAILS_MODAL:
+        case serviceAction.SHOW_ADD_SERVICE_MODAL:
             return {
                 ...state,
-                isShowServiceDetails: true,
+                isShowAddServiceModal: true,
             }
-        case serviceAction.HIDE_SERVICE_DETAILS_MODAL:
+        case serviceAction.HIDE_ADD_SERVICE_MODAL:
             return {
                 ...state,
-                isShowServiceDetails: false,
+                isShowAddServiceModal: false,
             }
 
+        //get combo braches
+        case serviceAction.GET_COMBO_BRANCHES_SUCCESS:
+            console.log(action.value)
+            return {
+                ...state,
+                branches: action.value,
+            }
+        case serviceAction.GET_COMBO_BRANCHES_FAIL:
+            return {
+                ...state,
+                branches: [],
+            }
         default:
             return state;
     }

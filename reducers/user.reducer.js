@@ -94,6 +94,8 @@ const userReducer = (state = initState, action) => {
             setLocalData('expires_in', 0);
             setLocalData('roles', []);
             setLocalData('jti', '');
+            
+            console.log('log out!');
             return {
                 ...state,
                 isLogedIn: false,

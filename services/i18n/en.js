@@ -49,6 +49,7 @@ const en = {
             modifided_date: "Modifided date",
             total_employee: "Total employee",
             action: "Action",
+            add_service: "Add service",
         },
         branch: {
             id: "ID",

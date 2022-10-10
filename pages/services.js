@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { serviceAction } from '../actions';
 import { useTranslation } from 'react-i18next'
 import styles from '../assets/styles/services.module.scss';
+import AddServiceModal from '../components/services/addService.modal';
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -41,6 +42,12 @@ const Services = () => {
             type: serviceAction.SELECT_SERVICE,
             value: service
         });
+    }
+
+    const onAddBtnClicked = () => {
+        dispatch({
+            type: serviceAction.SHOW_ADD_SERVICE_MODAL,
+        }); 
     }
 
     const onDeleteBtnClicked = (service) => {
@@ -82,6 +89,7 @@ const Services = () => {
                     variant="contained"
                     startIcon={<AddIcon />}
                     sx={{ m: 2 }}
+                    onClick={onAddBtnClicked}
                 >
                     {t('button.add')}
                 </Button>
@@ -155,6 +163,8 @@ const Services = () => {
                 </Box>
             </TableContainer>
         </Grid>
+
+        <AddServiceModal />
     </Grid>
 
 

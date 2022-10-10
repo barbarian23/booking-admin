@@ -49,6 +49,7 @@ const vn = {
             modifided_date: "Ngày sửa",
             total_employee: "Nhân viên",
             action: "Hành động",
+            add_service: "Thêm dịch vụ",
         },
         branch: {
             id: "ID",
