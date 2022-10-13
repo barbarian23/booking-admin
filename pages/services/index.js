@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { serviceAction } from '../actions';
+import { serviceAction } from '../../actions';
 import { useTranslation } from 'react-i18next'
-import styles from '../assets/styles/services.module.scss';
-import AddServiceModal from '../components/services/addService.modal';
+import styles from '../../assets/styles/services.module.scss';
+import AddServiceModal from '../../components/services/addService.modal';
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';

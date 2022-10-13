@@ -11,6 +11,17 @@ class serviceApi {
             });
     }
 
+    add(branch_id, name){
+        return Request.post(`manager/business/service`,
+            {
+                branch_id: branch_id,
+                name: name,
+            },
+            true,
+            {
+                'Authorization': `Bearer ${getLocalData('access_token')}`,
+            });
+    }
 }
 
 export default new serviceApi();

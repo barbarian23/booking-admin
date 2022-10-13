@@ -40,6 +40,7 @@ const en = {
         service: {
             id: "ID",
             name: "Name",
+            service_name: "Service Name",
             price: "Price",
             time: "Time",
             description: "Description",

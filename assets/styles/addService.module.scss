@@ -1,0 +1,23 @@
+.form {
+    width: 100%;
+    list-style: none;
+    padding-left: 0;
+
+    li {
+        display: flex;
+        margin-bottom: 10px;
+    }
+
+    .input_title {
+        flex: 2;
+        margin: auto;
+    }
+
+    .input {
+        flex: 5;
+    }
+}
+
+.btn{
+    margin-left: 10px;
+}

@@ -40,6 +40,7 @@ const vn = {
         service: {
             id: "ID",
             name: "Tên",
+            service_name: "Tên dịch vụ",
             price: "Giá cả",
             time: "Thời gian",
             description: "Mô tả",

@@ -71,9 +71,44 @@ const getComboBranchesSaga = function* (action) {
     }
 };
 
+const addServiceSaga = function* (action) {
+    const {branchID, serviceName} = action.value;
+    try {
+        let response = yield call(serviceApi.add, branchID, serviceName);
+        if (response.status === 200) {
+            let data = response.data;
+            console.log(data);
+            yield put({
+                type: serviceAction.ADD_SERVICE_SUCCESS,
+                value: data.data,
+            });
+        } else {
+            yield put({
+                type: serviceAction.ADD_SERVICE_FAIL,
+                value: ''
+            });
+        }
+    } catch (err) {
+        const errorMsg = err.response.data.error;
+        if (errorMsg == 'invalid_token') {
+            yield put({
+                type: userAction.LOG_OUT,
+            });
+        } else {
+            yield put({
+                type: serviceAction.ADD_SERVICE_FAIL,
+                value: errorMsg
+            });
+        }
+    }
+};
+
+
 export const serviceSaga = function* () {
     yield all([
         takeEvery(serviceAction.GET_ALL_SERVICES, getAllServicesSage),
         takeEvery(serviceAction.GET_COMBO_BRANCHES, getComboBranchesSaga),
+        takeEvery(serviceAction.ADD_SERVICE, addServiceSaga),
+        takeEvery(serviceAction.ADD_SERVICE_SUCCESS, getAllServicesSage),
     ])
 };
