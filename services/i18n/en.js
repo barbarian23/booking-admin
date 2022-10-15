@@ -54,15 +54,19 @@ const en = {
         },
         branch: {
             id: "ID",
-            name: "Tên",
-            address: "Địa chỉ",
-            description: "Mô tả",
+            code: "Code",
+            name: "Name",
+            address: "Address",
+            description: "Description",
             hot_line: "Hotline",
-            status: "Trạng thái",
-            created_date: "Ngày tạo",
-            modifided_date: "Ngày sửa",
-            total_employee: "Nhân viên",
-            action: "Hành động",
+            status: "Status",
+            created_date: "Created date",
+            modifided_date: "Modifided date",
+            total_employee: "Total employee",
+            action: "Action",
+            is_deleted: "Is deleted",
+            add_branch: "Add branch",
+            active: "Active",
         }
     }
 }
