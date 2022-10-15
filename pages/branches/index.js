@@ -4,6 +4,7 @@ import { branchAction } from '../../actions';
 import { useTranslation } from 'react-i18next'
 import styles from '../../assets/styles/branches.module.scss';
 import AddBranchModal from '../../components/branches/addBranch.modal';
+import DeleteBranchModal from '../../components/branches/deleteBranch.modal';
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -55,6 +56,10 @@ const Branches = () => {
             type: branchAction.SELECT_BRANCH,
             value: branch
         });
+        dispatch({
+            type: branchAction.SHOW_DELETE_BRANCH_MODAL,
+            value: branch
+        }); 
     }
 
     return <Grid container>
@@ -133,6 +138,7 @@ const Branches = () => {
                                             fontSize: 14,
                                             fontWeight: '700'
                                         }}
+                                        onClick={() => { onDeleteBtnClicked(row) }}
                                     >
                                         {t('button.delete')}
                                     </Button>
@@ -145,7 +151,7 @@ const Branches = () => {
                                         }}
                                         onClick={() => { showBranchDetails(row) }}
                                     >
-                                        {t('button.detail')}
+                                        {t('button.stores')}
                                     </Button>
                                 </TableCell>
                             </TableRow>
@@ -169,6 +175,7 @@ const Branches = () => {
         </Grid>
 
         <AddBranchModal />
+        <DeleteBranchModal />
     </Grid>
 
 

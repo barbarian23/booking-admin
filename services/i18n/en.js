@@ -6,6 +6,9 @@ const en = {
             edit: "Edit",
             cancel: "Cancel",
             detail: "Detail",
+            yes: "Yes",
+            no: "No",
+            stores: "Stores",
         },
         login: {
             username: 'Username',
@@ -51,6 +54,8 @@ const en = {
             total_employee: "Total employee",
             action: "Action",
             add_service: "Add service",
+            delete_service: "Delete service",
+            do_you_want_to_delete_service: "Do you want to delete service",
         },
         branch: {
             id: "ID",
@@ -67,6 +72,28 @@ const en = {
             is_deleted: "Is deleted",
             add_branch: "Add branch",
             active: "Active",
+            stores: "Stores",
+            do_you_want_to_delete_branch: "Do you want to delete branch",
+        },
+        staff:{
+            id: "ID",
+            code: "Code",
+            full_name: "Fullname",
+            phone: "Phone",
+            id_card: "ID card",
+            address: "Address",
+            dob: "DoB",
+            branch: "Branch",
+            is_manager : "Is Manager",
+            manager: "Manager",
+            level : "Level",
+            pass_code : "Pass code",
+            status: "Status",
+            created_date: "Created date",
+            modifided_date: "Modifided date",
+            action: "Action",
+            active: "Active",
+            do_you_want_to_delete_branch: "Do you want to delete staff",
         }
     }
 }

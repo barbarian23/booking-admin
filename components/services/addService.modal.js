@@ -13,7 +13,7 @@ import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
-const AddServiceModal = ({ service }) => {
+const AddServiceModal = () => {
     const { t, i18n } = useTranslation();
     const dispatch = useDispatch();
     let { isShowAddServiceModal, branches } = useSelector(state => state.service);

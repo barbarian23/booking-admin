@@ -5,6 +5,7 @@ import { userSaga } from "./user.saga";
 
 import { serviceSaga } from "./service.saga";
 import { branchSaga } from "./branch.saga";
+import { staffSaga } from "./staff.saga";
 
 //quan sát toàn bộ các action
 const watchAndLog = function* () {
@@ -23,6 +24,7 @@ const rootSaga = function* () {
 
     serviceSaga(),
     branchSaga(),
+    staffSaga(),
   ]);
 };
 

@@ -2,21 +2,21 @@ import { all, put, call, select, takeEvery } from "redux-saga/effects";
 import { serviceAction, userAction } from "../actions";
 import { serviceApi, branchApi } from "../services/api";
 
-const getAllServicesSage = function* (action) {
+const getPaggingServicesSage = function* (action) {
     const service = yield select(state => state.service);
     const { page, pageSize } = service;
     try {
-        let response = yield call(serviceApi.getAll, page, pageSize);
+        let response = yield call(serviceApi.getPagging, page, pageSize);
         if (response.status === 200) {
             let data = response.data;
             console.log(data);
             yield put({
-                type: serviceAction.GET_ALL_SERVICES_SUCCESS,
+                type: serviceAction.GET_PAGGING_SERVICES_SUCCESS,
                 value: data.data,
             });
         } else {
             yield put({
-                type: serviceAction.GET_ALL_SERVICES_FAIL,
+                type: serviceAction.GET_PAGGING_SERVICES_FAIL,
                 value: ''
             });
         }
@@ -28,7 +28,7 @@ const getAllServicesSage = function* (action) {
             });
         } else {
             yield put({
-                type: serviceAction.GET_ALL_SERVICES_FAIL,
+                type: serviceAction.GET_PAGGING_SERVICES_FAIL,
                 value: errorMsg
             });
         }
@@ -72,7 +72,7 @@ const getComboBranchesSaga = function* (action) {
 };
 
 const addServiceSaga = function* (action) {
-    const {branchID, serviceName} = action.value;
+    const { branchID, serviceName } = action.value;
     try {
         let response = yield call(serviceApi.add, branchID, serviceName);
         if (response.status === 200) {
@@ -103,12 +103,46 @@ const addServiceSaga = function* (action) {
     }
 };
 
+const deleteServiceSaga = function* (action) {
+    const { serviceId } = action.value;
+    try {
+        let response = yield call(serviceApi.delete, serviceId);
+        if (response.status === 200) {
+            let data = response.data;
+            console.log(data);
+            yield put({
+                type: serviceAction.DELETE_SERVICE_SUCCESS,
+                value: data.data,
+            });
+        } else {
+            yield put({
+                type: serviceAction.DELETE_SERVICE_FAIL,
+                value: ''
+            });
+        }
+    } catch (err) {
+        const errorMsg = err.response.data.error;
+        if (errorMsg == 'invalid_token') {
+            yield put({
+                type: userAction.LOG_OUT,
+            });
+        } else {
+            yield put({
+                type: serviceAction.DELETE_SERVICE_FAIL,
+                value: errorMsg
+            });
+        }
+    }
+};
+
 
 export const serviceSaga = function* () {
     yield all([
-        takeEvery(serviceAction.GET_ALL_SERVICES, getAllServicesSage),
+        takeEvery(serviceAction.GET_PAGGING_SERVICES, getPaggingServicesSage),
         takeEvery(serviceAction.GET_COMBO_BRANCHES, getComboBranchesSaga),
         takeEvery(serviceAction.ADD_SERVICE, addServiceSaga),
-        takeEvery(serviceAction.ADD_SERVICE_SUCCESS, getAllServicesSage),
+        takeEvery(serviceAction.ADD_SERVICE_SUCCESS, getPaggingServicesSage),
+        takeEvery(serviceAction.DELETE_SERVICE, deleteServiceSaga),
+        takeEvery(serviceAction.DELETE_SERVICE_SUCCESS, getPaggingServicesSage),
     ])
 };

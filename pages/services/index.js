@@ -4,6 +4,7 @@ import { serviceAction } from '../../actions';
 import { useTranslation } from 'react-i18next'
 import styles from '../../assets/styles/services.module.scss';
 import AddServiceModal from '../../components/services/addService.modal';
+import DeleteServiceModal from '../../components/services/deleteService.modal';
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -33,7 +34,7 @@ const Services = () => {
 
     useEffect(() => {
         dispatch({
-            type: serviceAction.GET_ALL_SERVICES,
+            type: serviceAction.GET_PAGGING_SERVICES,
         });
     }, []);
 
@@ -53,6 +54,10 @@ const Services = () => {
     const onDeleteBtnClicked = (service) => {
         dispatch({
             type: serviceAction.SELECT_SERVICE,
+            value: service
+        }); 
+        dispatch({
+            type: serviceAction.SHOW_DELETE_SERVICE_MODAL,
             value: service
         }); 
     }
@@ -129,6 +134,7 @@ const Services = () => {
                                             fontSize: 14,
                                             fontWeight: '700'
                                         }}
+                                        onClick={() => {onDeleteBtnClicked(row)}}
                                     >
                                         {t('button.delete')}
                                     </Button>
@@ -165,6 +171,7 @@ const Services = () => {
         </Grid>
 
         <AddServiceModal />
+        <DeleteServiceModal />
     </Grid>
 
 

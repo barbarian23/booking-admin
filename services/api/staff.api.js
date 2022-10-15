@@ -2,7 +2,7 @@ import Request from './api.request';
 import { getLocalData } from '../localStorage';
 
 class employeeApi {
-    getAll(page = 1, pageSize = 10) {
+    getPagging(page = 1, pageSize = 10) {
         return Request.get(`manager/employee?pageNum=${page}&pageSize=${pageSize}`,
             {},
             true,
@@ -28,6 +28,15 @@ class employeeApi {
             {
                 'Authorization': `Bearer ${getLocalData('access_token')}`,
             });
+    }
+
+    delete(staffId){
+        return Request.delete(`manager/employee/${staffId}`,
+        {},
+        true,
+        {
+            'Authorization': `Bearer ${getLocalData('access_token')}`,
+        });
     }
 }
 

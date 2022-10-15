@@ -2,7 +2,7 @@ import Request from './api.request';
 import { getLocalData } from '../localStorage';
 
 class serviceApi {
-    getAll(page = 1, pageSize = 10) {
+    getPagging(page = 1, pageSize = 10) {
         return Request.get(`manager/business/service?pageNum=${page}&pageSize=${pageSize}`,
             {},
             true,
@@ -21,6 +21,15 @@ class serviceApi {
             {
                 'Authorization': `Bearer ${getLocalData('access_token')}`,
             });
+    }
+
+    delete(serviceId){
+        return Request.delete(`manager/business/service/${serviceId}`,
+        {},
+        true,
+        {
+            'Authorization': `Bearer ${getLocalData('access_token')}`,
+        });
     }
 }
 

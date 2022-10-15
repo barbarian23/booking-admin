@@ -34,6 +34,15 @@ class branchApi {
             });
     }
 
+    delete(branchId){
+        return Request.delete(`manager/branch/${branchId}`,
+        {},
+        true,
+        {
+            'Authorization': `Bearer ${getLocalData('access_token')}`,
+        });
+    }
+
 }
 
 export default new branchApi();

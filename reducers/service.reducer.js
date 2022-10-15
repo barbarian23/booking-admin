@@ -15,18 +15,21 @@ const initState = {
 
     isShowAddServiceModal: false,
     branches: [],
+
+    isShowDeleteServiceModal: false,
+
 }
 
 const serviceReducer = (state = initState, action) => {
     switch (action.type) {
-        case serviceAction.GET_ALL_SERVICES_SUCCESS:
+        case serviceAction.GET_PAGGING_SERVICES_SUCCESS:
             return {
                 ...state,
                 services: action.value.list,
                 total: action.value.totalRecord,
                 totalPage: action.value.totalPage,
             }
-        case serviceAction.GET_ALL_SERVICES_FAIL:
+        case serviceAction.GET_PAGGING_SERVICES_FAIL:
             return {
                 ...state,
                 services: [],
@@ -66,6 +69,19 @@ const serviceReducer = (state = initState, action) => {
                 ...state,
                 branches: [],
             }
+
+        //service details modal
+        case serviceAction.SHOW_DELETE_SERVICE_MODAL:
+            return {
+                ...state,
+                isShowDeleteServiceModal: true,
+            }
+        case serviceAction.HIDE_DELETE_SERVICE_MODAL:
+            return {
+                ...state,
+                isShowDeleteServiceModal: false,
+            }
+            
         default:
             return state;
     }

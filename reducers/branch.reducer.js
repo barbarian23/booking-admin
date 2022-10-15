@@ -15,6 +15,8 @@ const initState = {
 
     isShowAddBranchModal: false,
     branches: [],
+
+    isShowDeleteBranchModal:false,
 }
 
 const branchReducer = (state = initState, action) => {
@@ -53,7 +55,18 @@ const branchReducer = (state = initState, action) => {
                 ...state,
                 isShowAddBranchModal: false,
             }
-            
+
+        //branch details modal
+        case branchAction.SHOW_DELETE_BRANCH_MODAL:
+            return {
+                ...state,
+                isShowDeleteBranchModal: true,
+            }
+        case branchAction.HIDE_DELETE_BRANCH_MODAL:
+            return {
+                ...state,
+                isShowDeleteBranchModal: false,
+            }
         default:
             return state;
     }

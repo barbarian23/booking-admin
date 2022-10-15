@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { employeeAction } from '../../actions';
+import { staffAction } from '../../actions';
 import { useTranslation } from 'react-i18next'
-import styles from '../../assets/styles/employees.module.scss';
-// import AddEmployeeModal from '../../components/employees/addEmployee.modal';
+import styles from '../../assets/styles/staffs.module.scss';
+// import AddStaffModal from '../../components/staffs/addStaff.modal';
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -26,34 +26,34 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
-const Employees = () => {
+const Staffs = () => {
     const { t, i18n } = useTranslation();
     const dispatch = useDispatch();
-    let { employees, page, totalPage } = useSelector(state => state.employee);
+    let { staffs, page, totalPage } = useSelector(state => state.staff);
 
     useEffect(() => {
         dispatch({
-            type: employeeAction.GET_ALL_SERVICES,
+            type: staffAction.GET_PAGGING_STAFFS,
         });
     }, []);
 
-    const showEmployeeDetails = (employee) => {
+    const showStaffDetails = (staff) => {
         dispatch({
-            type: employeeAction.SELECT_SERVICE,
-            value: employee
+            type: staffAction.SELECT_STAFF,
+            value: staff
         });
     }
 
     const onAddBtnClicked = () => {
         dispatch({
-            type: employeeAction.SHOW_ADD_SERVICE_MODAL,
+            type: staffAction.SHOW_ADD_STAFF_MODAL,
         }); 
     }
 
-    const onDeleteBtnClicked = (employee) => {
+    const onDeleteBtnClicked = (staff) => {
         dispatch({
-            type: employeeAction.SELECT_SERVICE,
-            value: employee
+            type: staffAction.SELECT_STAFF,
+            value: staff
         }); 
     }
 
@@ -73,14 +73,14 @@ const Employees = () => {
                 </Link>
 
                 <Typography color="text.primary">
-                    {t('menu.employees')}
+                    {t('menu.staffs')}
                 </Typography>
             </Breadcrumbs>
         </Box>
 
         <Grid container>
             <Grid item xs={10}>
-                <h3>{t('menu.employees')}</h3>
+                <h3>{t('menu.staffs')}</h3>
             </Grid>
             <Grid item
                 xs={2}
@@ -101,24 +101,26 @@ const Employees = () => {
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('employee.id')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('employee.name')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('employee.branch')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('employee.created_date')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('employee.modifided_date')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('employee.action')}</TableCell>
+                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('staff.id')}</TableCell>
+                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('staff.code')}</TableCell>
+                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('staff.full_name')}</TableCell>
+                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('staff.phone')}</TableCell>
+                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('staff.created_date')}</TableCell>
+                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('staff.modifided_date')}</TableCell>
+                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('staff.action')}</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {employees.map((row) => (
+                        {staffs.map((row) => (
                             <TableRow
                                 key={row.id}
                             >
                                 <TableCell component="th" scope="row" align="center" sx={{ fontWeight: '700' }}>
                                     {row.id}
                                 </TableCell>
-                                <TableCell align="center">{row.name}</TableCell>
-                                <TableCell align="center">{row.branch.name}</TableCell>
+                                <TableCell align="center">{row.code}</TableCell>
+                                <TableCell align="center">{row.fullName}</TableCell>
+                                <TableCell align="center">{row.phone}</TableCell>
                                 <TableCell align="center">{row.createdDate}</TableCell>
                                 <TableCell align="center">{row.modifiedDate}</TableCell>
                                 <TableCell align="center" className={styles.buttons}>
@@ -139,7 +141,7 @@ const Employees = () => {
                                             fontSize: 14,
                                             fontWeight: '700'
                                         }}
-                                        onClick={() => {showEmployeeDetails(row)}}
+                                        onClick={() => {showStaffDetails(row)}}
                                     >
                                         {t('button.detail')}
                                     </Button>
@@ -164,9 +166,9 @@ const Employees = () => {
             </TableContainer>
         </Grid>
 
-        {/* <AddEmployeeModal /> */}
+        {/* <AddStaffModal /> */}
     </Grid>
 
 
 }
-export default Employees;
+export default Staffs;
