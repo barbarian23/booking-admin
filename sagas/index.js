@@ -3,6 +3,7 @@ import { all, take, select } from "redux-saga/effects";
 import { indexWatcher } from "./index.saga";
 import { userSaga } from "./user.saga";
 
+import { notificationSaga } from "./notification.saga";
 import { serviceSaga } from "./service.saga";
 import { branchSaga } from "./branch.saga";
 import { staffSaga } from "./staff.saga";
@@ -22,6 +23,7 @@ const rootSaga = function* () {
     indexWatcher(),
     userSaga(),
 
+    notificationSaga(),
     serviceSaga(),
     branchSaga(),
     staffSaga(),

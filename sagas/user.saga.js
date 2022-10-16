@@ -1,5 +1,5 @@
 import { all, put, call, select, takeEvery } from "redux-saga/effects";
-import { userAction } from "../actions";
+import { userAction, notificationAction } from "../actions";
 import userApi from "../services/api/user.api";
 
 const loginSaga = function* (action) {
@@ -14,14 +14,18 @@ const loginSaga = function* (action) {
                 type: userAction.LOG_IN_SUCCESS,
                 value: data,
             });
-            // yield put(alertActions.success('Đăng nhập thành công !'));
+            yield put({
+                type: notificationAction.SUCCESS,
+                value: 'notification.login_success',
+            });
         } else {
-            // console.log('username and password wrong');
-            // yield put(alertActions.error('Tên đăng nhập hoặc mật khâu không chính xác!'));
-            // yield put(actions.loginFailure());
             yield put({
                 type: userAction.LOG_IN_FAIL,
                 value: ''
+            });
+            yield put({
+                type: notificationAction.ERROR,
+                value: 'Incorrect username or password!',
             });
         }
 
@@ -30,6 +34,10 @@ const loginSaga = function* (action) {
         yield put({
             type: userAction.LOG_IN_FAIL,
             value: ''
+        });
+        yield put({
+            type: notificationAction.ERROR,
+            value: error,
         });
     }
 };

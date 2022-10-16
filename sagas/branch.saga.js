@@ -1,5 +1,5 @@
 import { all, put, call, select, takeEvery } from "redux-saga/effects";
-import { branchAction, userAction } from "../actions";
+import { branchAction, userAction, notificationAction } from "../actions";
 import { branchApi } from "../services/api";
 
 const getPaggingBranchesSage = function* (action) {
@@ -47,10 +47,19 @@ const addBranchSaga = function* (action) {
                 type: branchAction.ADD_BRANCH_SUCCESS,
                 value: data.data,
             });
+            yield put({
+                type: notificationAction.SUCCESS,
+                value: "Add branch success!"
+            });
         } else {
             yield put({
                 type: branchAction.ADD_BRANCH_FAIL,
                 value: ''
+            });
+
+            yield put({
+                type: notificationAction.ERROR,
+                value: "Add branch error!"
             });
         }
     } catch (err) {
@@ -58,6 +67,10 @@ const addBranchSaga = function* (action) {
         if (errorMsg == 'invalid_token') {
             yield put({
                 type: userAction.LOG_OUT,
+            });
+            yield put({
+                type: notificationAction.ERROR,
+                value: "The session is expired!"
             });
         } else {
             yield put({

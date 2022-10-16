@@ -10,6 +10,9 @@ const en = {
             no: "No",
             stores: "Stores",
         },
+        notification:{
+            login_success: "Login success!",
+        },
         login: {
             username: 'Username',
             password: 'Password',

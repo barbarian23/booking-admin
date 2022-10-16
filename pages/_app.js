@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
+
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import '../assets/globals.css'
 import createSagaMiddleware from 'redux-saga'
 import { createStore, applyMiddleware } from 'redux'
@@ -18,11 +22,9 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 
 import AppBar from '../components/app/appBar.component';
 import Drawer from '../components/app/drawer.component';
@@ -154,11 +156,15 @@ function MyApp({ Component, pageProps }) {
             </Container>
           </Box>
         </Box>
+
       </ThemeProvider>
+      
+      <ToastContainer />
     </React.Suspense>
   } else {
     return <React.Suspense fallback={<div>Loading...</div>}>
       <Component {...pageProps} />
+      <ToastContainer />
     </React.Suspense>
   }
 
