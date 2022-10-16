@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { serviceAction } from '../../actions';
+import { staffAction } from '../../actions';
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -9,32 +9,32 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
-const DeleteServiceModal = () => {
+const DeleteStaffModal = () => {
     const { t, i18n } = useTranslation();
     const dispatch = useDispatch();
-    let { isShowDeleteServiceModal, selectedService } = useSelector(state => state.service);
+    let { isShowDeleteStaffModal, selectedStaff } = useSelector(state => state.staff);
 
     const handleClose = () => {
         dispatch({
-            type: serviceAction.HIDE_DELETE_SERVICE_MODAL,
+            type: staffAction.HIDE_DELETE_STAFF_MODAL,
         });
     }
 
     const onBtnNoClicked = () => {
         dispatch({
-            type: serviceAction.HIDE_DELETE_SERVICE_MODAL,
+            type: staffAction.HIDE_DELETE_STAFF_MODAL,
         });
     }
 
     const onBtnYesClicked = () => {
         dispatch({
-            type: serviceAction.DELETE_SERVICE,
+            type: staffAction.DELETE_STAFF,
             value: {
-                serviceId: selectedService.id,
+                staffId: selectedStaff.id,
             }
         });
         dispatch({
-            type: serviceAction.HIDE_DELETE_SERVICE_MODAL,
+            type: staffAction.HIDE_DELETE_STAFF_MODAL,
         });
     }
 
@@ -52,14 +52,14 @@ const DeleteServiceModal = () => {
     };
 
     return <Modal
-        open={isShowDeleteServiceModal}
+        open={isShowDeleteStaffModal}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
     >
         <Box sx={style} >
             <Typography id="modal-modal-title" variant="h5" component="h2">
-                {t('service.do_you_want_to_delete_service')} ?
+                {t('staff.do_you_want_to_delete_staff')} ?
             </Typography>
 
             <Grid sx={{ mt: 2 }}>
@@ -91,4 +91,4 @@ const DeleteServiceModal = () => {
     </Modal>
 
 }
-export default memo(DeleteServiceModal);
+export default memo(DeleteStaffModal);

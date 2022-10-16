@@ -58,6 +58,18 @@ const staffReducer = (state = initState, action) => {
                 isShowAddStaffModal: false,
             }
 
+        //get combo braches
+        case staffAction.GET_COMBO_BRANCHES_SUCCESS:
+            return {
+                ...state,
+                branches: action.value,
+            }
+        case staffAction.GET_COMBO_BRANCHES_FAIL:
+            return {
+                ...state,
+                branches: [],
+            }
+
         //staff delete modal
         case staffAction.SHOW_DELETE_STAFF_MODAL:
             return {
@@ -69,7 +81,7 @@ const staffReducer = (state = initState, action) => {
                 ...state,
                 isShowDeleteStaffModal: false,
             }
-            
+
         default:
             return state;
     }

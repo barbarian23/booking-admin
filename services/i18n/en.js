@@ -93,7 +93,8 @@ const en = {
             modifided_date: "Modifided date",
             action: "Action",
             active: "Active",
-            do_you_want_to_delete_branch: "Do you want to delete staff",
+            add_staff: "Add staff",
+            do_you_want_to_delete_staff: "Do you want to delete staff",
         }
     }
 }

@@ -16,7 +16,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 const AddBranchModal = ({ branch }) => {
     const { t, i18n } = useTranslation();
     const dispatch = useDispatch();
-    let { isShowAddBranchModal, branches } = useSelector(state => state.branch);
+    let { isShowAddBranchModal } = useSelector(state => state.branch);
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
     const [hotLine, setHotLine] = useState('');

@@ -1,6 +1,6 @@
 import { all, put, call, select, takeEvery } from "redux-saga/effects";
 import { staffAction, userAction } from "../actions";
-import { staffApi } from "../services/api";
+import { staffApi, branchApi } from "../services/api";
 
 const getPaggingStaffsSage = function* (action) {
     const staff = yield select(state => state.staff);
@@ -32,6 +32,41 @@ const getPaggingStaffsSage = function* (action) {
                 value: errorMsg
             });
         }
+    }
+};
+
+const getComboBranchesSaga = function* (action) {
+    try {
+        let response = yield call(branchApi.getComboData);
+        if (response.status === 200) {
+            let data = response.data;
+            console.log(data);
+            yield put({
+                type: staffAction.GET_COMBO_BRANCHES_SUCCESS,
+                value: data.data,
+            });
+        } else {
+            yield put({
+                type: staffAction.GET_COMBO_BRANCHES_FAIL,
+                value: 'API error!'
+            });
+        }
+    } catch (err) {
+        const errorMsg = err.response.data.error;
+        console.log(errorMsg);
+        if (errorMsg == 'invalid_token') {
+            yield put({
+                type: userAction.LOG_OUT,
+                value: ''
+            });
+        } else {
+            yield put({
+                type: staffAction.GET_COMBO_BRANCHES_FAIL,
+                value: errorMsg
+            });
+        }
+
+
     }
 };
 
@@ -68,11 +103,46 @@ const addStaffSaga = function* (action) {
     }
 };
 
+const deleteStaffSaga = function* (action) {
+    const { staffId } = action.value;
+    try {
+        let response = yield call(staffApi.delete, staffId);
+        if (response.status === 200) {
+            let data = response.data;
+            console.log(data);
+            yield put({
+                type: staffAction.DELETE_STAFF_SUCCESS,
+                value: data.data,
+            });
+        } else {
+            yield put({
+                type: staffAction.DELETE_STAFF_FAIL,
+                value: ''
+            });
+        }
+    } catch (err) {
+        const errorMsg = err.response.data.error;
+        if (errorMsg == 'invalid_token') {
+            yield put({
+                type: userAction.LOG_OUT,
+            });
+        } else {
+            yield put({
+                type: staffAction.DELETE_STAFF_FAIL,
+                value: errorMsg
+            });
+        }
+    }
+};
+
 
 export const staffSaga = function* () {
     yield all([
         takeEvery(staffAction.GET_PAGGING_STAFFS, getPaggingStaffsSage),
+        takeEvery(staffAction.GET_COMBO_BRANCHES, getComboBranchesSaga),
         takeEvery(staffAction.ADD_STAFF, addStaffSaga),
         takeEvery(staffAction.ADD_STAFF_SUCCESS, getPaggingStaffsSage),
+        takeEvery(staffAction.DELETE_STAFF, deleteStaffSaga),
+        takeEvery(staffAction.DELETE_STAFF_SUCCESS, getPaggingStaffsSage),
     ])
 };

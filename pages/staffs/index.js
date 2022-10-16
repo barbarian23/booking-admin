@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { staffAction } from '../../actions';
 import { useTranslation } from 'react-i18next'
 import styles from '../../assets/styles/staffs.module.scss';
-// import AddStaffModal from '../../components/staffs/addStaff.modal';
+import AddStaffModal from '../../components/staffs/addStaff.modal';
+import DeleteStaffModal from '../../components/staffs/deleteStaff.modal';
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -53,6 +54,11 @@ const Staffs = () => {
     const onDeleteBtnClicked = (staff) => {
         dispatch({
             type: staffAction.SELECT_STAFF,
+            value: staff
+        }); 
+
+        dispatch({
+            type: staffAction.SHOW_DELETE_STAFF_MODAL,
             value: staff
         }); 
     }
@@ -131,6 +137,7 @@ const Staffs = () => {
                                             fontSize: 14,
                                             fontWeight: '700'
                                         }}
+                                        onClick={() => {onDeleteBtnClicked(row)}}
                                     >
                                         {t('button.delete')}
                                     </Button>
@@ -166,7 +173,8 @@ const Staffs = () => {
             </TableContainer>
         </Grid>
 
-        {/* <AddStaffModal /> */}
+        <AddStaffModal />
+        <DeleteStaffModal />
     </Grid>
 
 
