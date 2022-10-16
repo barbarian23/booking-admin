@@ -44,25 +44,29 @@ const mdTheme = createTheme();
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
+  const [authorized, setAuthorized] = useState(false)
+  let { isLogedIn } = useSelector(state => state.user);
 
   useEffect(() => {
     // on initial load - run auth check 
     authCheck(router.asPath);
-  }, []);
+
+  }, [isLogedIn]);
 
   const authCheck = (url) => {
-    // redirect to login page if accessing a private page and not logged in 
-    // setUser(userService.userValue);
     const publicPaths = [PAGE_URLS.LOGIN, PAGE_URLS.REGISTER, PAGE_URLS.FORGET_PASSWORD];
     const path = url.split('?')[0];
-    if (!publicPaths.includes(path)) {
-      // setAuthorized(false);
-      // router.push({
-      //   pathname: PAGE_URLS.LOGIN,
-      //   query: { returnUrl: router.asPath }
-      // });
+
+    if (!isLogedIn) {
+      setAuthorized(false);
+      if(!publicPaths.includes(path)){
+        router.push({
+          pathname: PAGE_URLS.LOGIN,
+          query: { returnUrl: router.asPath }
+        });
+      }
     } else {
-      // setAuthorized(true);
+      setAuthorized(true)
     }
   }
 
@@ -71,9 +75,9 @@ function MyApp({ Component, pageProps }) {
     setOpen(!open);
   };
 
-  let { isLogedIn } = useSelector(state => state.user);
 
-  // if (isLogedIn) {
+  console.log("authorized ", authorized)
+  if (authorized) {
     return <React.Suspense fallback={<div>Loading...</div>}>
       <ThemeProvider theme={mdTheme}>
         <Box sx={{ display: 'flex' }}>
@@ -106,11 +110,6 @@ function MyApp({ Component, pageProps }) {
               >
                 Dashboard
               </Typography>
-              {/* <IconButton color="inherit">
-                <Badge badgeContent={4} color="secondary">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton> */}
             </Toolbar>
           </AppBar>
 
@@ -157,11 +156,11 @@ function MyApp({ Component, pageProps }) {
         </Box>
       </ThemeProvider>
     </React.Suspense>
-  // } else {
-  //   return <React.Suspense fallback={<div>Loading...</div>}>
-  //     <Component {...pageProps} />
-  //   </React.Suspense>
-  // }
+  } else {
+    return <React.Suspense fallback={<div>Loading...</div>}>
+      <Component {...pageProps} />
+    </React.Suspense>
+  }
 
 }
 

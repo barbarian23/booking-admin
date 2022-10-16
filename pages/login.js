@@ -37,11 +37,11 @@ function Login() {
   const router = useRouter();
   let { isLogedIn } = useSelector(state => state.user);
 
-  // useEffect(() => {
-  //   if(isLogedIn){
-  //     router.push(PAGE_URLS.ORDERS);
-  //   }
-  // }, [isLogedIn]);
+  useEffect(() => {
+    if(isLogedIn){
+      router.push(PAGE_URLS.ORDERS);
+    }
+  }, [isLogedIn]);
 
   const theme = createTheme();
   const { t, i18n } = useTranslation();
