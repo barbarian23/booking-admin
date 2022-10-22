@@ -3,7 +3,7 @@ import i18n from '../i18n/i18n.service';
 
 const defaultConfig = {
     position: "top-right",
-    autoClose: 3000,
+    autoClose: 1000,
     hideProgressBar: true,
     closeOnClick: true,
     pauseOnHover: false,

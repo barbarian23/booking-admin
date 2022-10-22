@@ -1,5 +1,5 @@
 import { all, put, call, select, takeEvery } from "redux-saga/effects";
-import { serviceAction, userAction } from "../actions";
+import { serviceAction, userAction, notificationAction } from "../actions";
 import { serviceApi, branchApi } from "../services/api";
 
 const getPaggingServicesSage = function* (action) {
@@ -19,6 +19,10 @@ const getPaggingServicesSage = function* (action) {
                 type: serviceAction.GET_PAGGING_SERVICES_FAIL,
                 value: ''
             });
+            yield put({
+                type: notificationAction.ERROR,
+                value: "notification.api_error",
+            });
         }
     } catch (err) {
         const errorMsg = err.response.data.error;
@@ -26,10 +30,18 @@ const getPaggingServicesSage = function* (action) {
             yield put({
                 type: userAction.LOG_OUT,
             });
+            yield put({
+                type: notificationAction.ERROR,
+                value: "notification.session_is_expired"
+            });
         } else {
             yield put({
                 type: serviceAction.GET_PAGGING_SERVICES_FAIL,
                 value: errorMsg
+            });
+            yield put({
+                type: notificationAction.ERROR,
+                value: errorMsg,
             });
         }
     }
@@ -51,6 +63,10 @@ const getComboBranchesSaga = function* (action) {
                 type: serviceAction.GET_COMBO_BRANCHES_FAIL,
                 value: 'API error!'
             });
+            yield put({
+                type: notificationAction.ERROR,
+                value: "notification.api_error",
+            });
         }
     } catch (err) {
         const errorMsg = err.response.data.error;
@@ -60,10 +76,18 @@ const getComboBranchesSaga = function* (action) {
                 type: userAction.LOG_OUT,
                 value: ''
             });
+            yield put({
+                type: notificationAction.ERROR,
+                value: "notification.session_is_expired"
+            });
         } else {
             yield put({
                 type: serviceAction.GET_COMBO_BRANCHES_FAIL,
                 value: errorMsg
+            });
+            yield put({
+                type: notificationAction.ERROR,
+                value: errorMsg,
             });
         }
 
@@ -82,10 +106,18 @@ const addServiceSaga = function* (action) {
                 type: serviceAction.ADD_SERVICE_SUCCESS,
                 value: data.data,
             });
+            yield put({
+                type: notificationAction.SUCCESS,
+                value: "notification.adding_success"
+            });
         } else {
             yield put({
                 type: serviceAction.ADD_SERVICE_FAIL,
                 value: ''
+            });
+            yield put({
+                type: notificationAction.ERROR,
+                value: "notification.adding_fail"
             });
         }
     } catch (err) {
@@ -94,10 +126,18 @@ const addServiceSaga = function* (action) {
             yield put({
                 type: userAction.LOG_OUT,
             });
+            yield put({
+                type: notificationAction.ERROR,
+                value: "notification.session_is_expired"
+            });
         } else {
             yield put({
                 type: serviceAction.ADD_SERVICE_FAIL,
                 value: errorMsg
+            });
+            yield put({
+                type: notificationAction.ERROR,
+                value: errorMsg,
             });
         }
     }
@@ -114,10 +154,18 @@ const deleteServiceSaga = function* (action) {
                 type: serviceAction.DELETE_SERVICE_SUCCESS,
                 value: data.data,
             });
+            yield put({
+                type: notificationAction.SUCCESS,
+                value: "notification.deleting_success"
+            });
         } else {
             yield put({
                 type: serviceAction.DELETE_SERVICE_FAIL,
                 value: ''
+            });
+            yield put({
+                type: notificationAction.ERROR,
+                value: "notification.deleting_fail"
             });
         }
     } catch (err) {
@@ -126,10 +174,18 @@ const deleteServiceSaga = function* (action) {
             yield put({
                 type: userAction.LOG_OUT,
             });
+            yield put({
+                type: notificationAction.ERROR,
+                value: "notification.session_is_expired"
+            });
         } else {
             yield put({
                 type: serviceAction.DELETE_SERVICE_FAIL,
                 value: errorMsg
+            });
+            yield put({
+                type: notificationAction.ERROR,
+                value: errorMsg,
             });
         }
     }

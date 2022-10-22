@@ -25,7 +25,7 @@ const loginSaga = function* (action) {
             });
             yield put({
                 type: notificationAction.ERROR,
-                value: 'Incorrect username or password!',
+                value: 'notification.incorrect_username_password',
             });
         }
 

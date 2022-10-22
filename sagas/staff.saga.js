@@ -19,12 +19,20 @@ const getPaggingStaffsSage = function* (action) {
                 type: staffAction.GET_PAGGING_STAFFS_FAIL,
                 value: ''
             });
+            yield put({
+                type: notificationAction.ERROR,
+                value: "notification.api_error",
+            });
         }
     } catch (err) {
         const errorMsg = err.response.data.error;
         if (errorMsg == 'invalid_token') {
             yield put({
                 type: userAction.LOG_OUT,
+            });
+            yield put({
+                type: notificationAction.ERROR,
+                value: "notification.session_is_expired"
             });
         } else {
             yield put({
@@ -50,6 +58,10 @@ const getComboBranchesSaga = function* (action) {
                 type: staffAction.GET_COMBO_BRANCHES_FAIL,
                 value: 'API error!'
             });
+            yield put({
+                type: notificationAction.ERROR,
+                value: "notification.api_error",
+            });
         }
     } catch (err) {
         const errorMsg = err.response.data.error;
@@ -59,10 +71,18 @@ const getComboBranchesSaga = function* (action) {
                 type: userAction.LOG_OUT,
                 value: ''
             });
+            yield put({
+                type: notificationAction.ERROR,
+                value: "notification.session_is_expired"
+            });
         } else {
             yield put({
                 type: staffAction.GET_COMBO_BRANCHES_FAIL,
                 value: errorMsg
+            });
+            yield put({
+                type: notificationAction.ERROR,
+                value: errorMsg,
             });
         }
 
@@ -82,10 +102,18 @@ const addStaffSaga = function* (action) {
                 type: staffAction.ADD_STAFF_SUCCESS,
                 value: data.data,
             });
+            yield put({
+                type: notificationAction.SUCCESS,
+                value: "notification.adding_success"
+            });
         } else {
             yield put({
                 type: staffAction.ADD_STAFF_FAIL,
                 value: ''
+            });
+            yield put({
+                type: notificationAction.ERROR,
+                value: "notification.adding_fail"
             });
         }
     } catch (err) {
@@ -94,10 +122,18 @@ const addStaffSaga = function* (action) {
             yield put({
                 type: userAction.LOG_OUT,
             });
+            yield put({
+                type: notificationAction.ERROR,
+                value: "notification.session_is_expired"
+            });
         } else {
             yield put({
                 type: staffAction.ADD_STAFF_FAIL,
                 value: errorMsg
+            });
+            yield put({
+                type: notificationAction.ERROR,
+                value: errorMsg,
             });
         }
     }
@@ -126,10 +162,18 @@ const deleteStaffSaga = function* (action) {
             yield put({
                 type: userAction.LOG_OUT,
             });
+            yield put({
+                type: notificationAction.ERROR,
+                value: "notification.session_is_expired"
+            });
         } else {
             yield put({
                 type: staffAction.DELETE_STAFF_FAIL,
                 value: errorMsg
+            });
+            yield put({
+                type: notificationAction.ERROR,
+                value: errorMsg,
             });
         }
     }

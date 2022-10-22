@@ -19,6 +19,10 @@ const getPaggingBranchesSage = function* (action) {
                 type: branchAction.GET_PAGGING_BRANCHES_FAIL,
                 value: ''
             });
+            yield put({
+                type: notificationAction.ERROR,
+                value: "notification.api_error",
+            });
         }
     } catch (err) {
         const errorMsg = err.response.data.error;
@@ -26,10 +30,18 @@ const getPaggingBranchesSage = function* (action) {
             yield put({
                 type: userAction.LOG_OUT,
             });
+            yield put({
+                type: notificationAction.ERROR,
+                value: "notification.session_is_expired"
+            });
         } else {
             yield put({
                 type: branchAction.GET_PAGGING_BRANCHES_FAIL,
                 value: errorMsg
+            });
+            yield put({
+                type: notificationAction.ERROR,
+                value: errorMsg,
             });
         }
     }
@@ -49,17 +61,16 @@ const addBranchSaga = function* (action) {
             });
             yield put({
                 type: notificationAction.SUCCESS,
-                value: "Add branch success!"
+                value: "notification.adding_success"
             });
         } else {
             yield put({
                 type: branchAction.ADD_BRANCH_FAIL,
                 value: ''
             });
-
             yield put({
                 type: notificationAction.ERROR,
-                value: "Add branch error!"
+                value: "notification.adding_fail"
             });
         }
     } catch (err) {
@@ -70,12 +81,16 @@ const addBranchSaga = function* (action) {
             });
             yield put({
                 type: notificationAction.ERROR,
-                value: "The session is expired!"
+                value: "notification.session_is_expired"
             });
         } else {
             yield put({
                 type: branchAction.ADD_BRANCH_FAIL,
                 value: errorMsg
+            });
+            yield put({
+                type: notificationAction.ERROR,
+                value: errorMsg,
             });
         }
     }
@@ -92,10 +107,18 @@ const deleteBranchSaga = function* (action) {
                 type: branchAction.DELETE_BRANCH_SUCCESS,
                 value: data.data,
             });
+            yield put({
+                type: notificationAction.SUCCESS,
+                value: "notification.deleting_success"
+            });
         } else {
             yield put({
                 type: branchAction.DELETE_BRANCH_FAIL,
                 value: ''
+            });
+            yield put({
+                type: notificationAction.ERROR,
+                value: "notification.deleting_fail"
             });
         }
     } catch (err) {
@@ -104,10 +127,18 @@ const deleteBranchSaga = function* (action) {
             yield put({
                 type: userAction.LOG_OUT,
             });
+            yield put({
+                type: notificationAction.ERROR,
+                value: "notification.session_is_expired"
+            });
         } else {
             yield put({
                 type: branchAction.DELETE_BRANCH_FAIL,
                 value: errorMsg
+            });
+            yield put({
+                type: notificationAction.ERROR,
+                value: errorMsg,
             });
         }
     }

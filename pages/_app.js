@@ -28,6 +28,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
 import AppBar from '../components/app/appBar.component';
 import Drawer from '../components/app/drawer.component';
+import UserSetting from '../components/header/userBox.component';
 import LeftMenu from '../components/leftMenu/leftMenu.component'
 
 //store
@@ -103,6 +104,7 @@ function MyApp({ Component, pageProps }) {
               >
                 <MenuIcon />
               </IconButton>
+
               <Typography
                 component="h1"
                 variant="h6"
@@ -112,7 +114,11 @@ function MyApp({ Component, pageProps }) {
               >
                 Dashboard
               </Typography>
+
+              <UserSetting />
             </Toolbar>
+
+            
           </AppBar>
 
           {/* Drawer */}

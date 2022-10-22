@@ -13,6 +13,7 @@ import WarehouseIcon from '@mui/icons-material/Warehouse';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 import SwitchAccountIcon from '@mui/icons-material/SwitchAccount';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const Icon = (props) => {
     switch (props.name) {
@@ -46,6 +47,8 @@ const Icon = (props) => {
             return <EventAvailableIcon />;
         case 'switch-account':
             return <SwitchAccountIcon />;
+        case 'account-circle':
+            return <AccountCircleIcon />;
 
         default:
             return null;

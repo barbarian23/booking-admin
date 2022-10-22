@@ -11,11 +11,23 @@ const en = {
             stores: "Stores",
         },
         notification:{
+            API_error: "API error!",
             login_success: "Login success!",
+            incorrect_username_password: "Incorrect username or password!",
+            session_is_expired : "The session is expired!",
+            adding_success: "Adding success!",
+            adding_fail: "Adding fail!",
+            deleting_success: "Deleting success!",
+            deleting_fail: "Deleting fail!",
+
         },
         login: {
             username: 'Username',
             password: 'Password',
+        },
+        header:{
+            profile: "Profile",
+            log_out: "Log out",
         },
         menu: {
             home: 'Home',
