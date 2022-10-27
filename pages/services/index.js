@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next'
 import styles from '../../assets/styles/services.module.scss';
 import AddServiceModal from '../../components/services/addService.modal';
 import DeleteServiceModal from '../../components/services/deleteService.modal';
+import ServiceDetailsModal from '../../components/services/serviceDetails.modal';
+import AddServiceDetailModal from '../../components/services/addServiceDetail.modal';
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -43,6 +45,10 @@ const Services = () => {
             type: serviceAction.SELECT_SERVICE,
             value: service
         });
+
+        dispatch({
+            type: serviceAction.SHOW_SERVICE_DETAILS_MODAL,
+        }); 
     }
 
     const onAddBtnClicked = () => {
@@ -172,6 +178,9 @@ const Services = () => {
 
         <AddServiceModal />
         <DeleteServiceModal />
+
+        <ServiceDetailsModal />
+        <AddServiceDetailModal />
     </Grid>
 
 

@@ -18,6 +18,9 @@ const initState = {
 
     isShowDeleteServiceModal: false,
 
+    isShowServiceDetailsModal: false,
+    isShowAddServiceDetailModal: false,
+    isShowDeleteServiceDetailModal: false,
 }
 
 const serviceReducer = (state = initState, action) => {
@@ -70,7 +73,7 @@ const serviceReducer = (state = initState, action) => {
                 branches: [],
             }
 
-        //service details modal
+        //delete service modal
         case serviceAction.SHOW_DELETE_SERVICE_MODAL:
             return {
                 ...state,
@@ -80,6 +83,42 @@ const serviceReducer = (state = initState, action) => {
             return {
                 ...state,
                 isShowDeleteServiceModal: false,
+            }
+
+        //service details modal
+        case serviceAction.SHOW_SERVICE_DETAILS_MODAL:
+            return {
+                ...state,
+                isShowServiceDetailsModal: true,
+            }
+        case serviceAction.HIDE_SERVICE_DETAILS_MODAL:
+            return {
+                ...state,
+                isShowServiceDetailsModal: false,
+            }
+
+        //add service details modal
+        case serviceAction.SHOW_ADD_SERVICE_DETAIL_MODAL:
+            return {
+                ...state,
+                isShowAddServiceDetailModal: true,
+            }
+        case serviceAction.HIDE_ADD_SERVICE_DETAIL_MODAL:
+            return {
+                ...state,
+                isShowAddServiceDetailModal: false,
+            }
+
+        //delete service details modal
+        case serviceAction.SHOW_DELETE_SERVICE_DETAIL_MODAL:
+            return {
+                ...state,
+                isShowDeleteServiceDetailModal: true,
+            }
+        case serviceAction.HIDE_DELETE_SERVICE_DETAIL_MODAL:
+            return {
+                ...state,
+                isShowDeleteServiceDetailModal: false,
             }
             
         default:
