@@ -36,6 +36,16 @@ const ServiceDetailsModal = () => {
         }); 
     }
 
+    const onDeleteBtnClicked = (serviceDetail) => {
+        dispatch({
+            type: serviceAction.SELECTE_SERVICE_DETAIL,
+            value: serviceDetail
+        }); 
+        dispatch({
+            type: serviceAction.SHOW_DELETE_SERVICE_DETAIL_MODAL,
+        }); 
+    }
+
 
     const style = {
         position: 'absolute',

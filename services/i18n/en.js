@@ -75,6 +75,7 @@ const en = {
             add_service_detail: "Add service detail",
             delete_service: "Delete service",
             do_you_want_to_delete_service: "Do you want to delete service",
+            do_you_want_to_delete_service_detail: "Do you want to delete service detail",
         },
         branch: {
             id: "ID",

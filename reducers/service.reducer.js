@@ -20,6 +20,11 @@ const initState = {
 
     isShowServiceDetailsModal: false,
     isShowAddServiceDetailModal: false,
+
+    selectedServiceDetail: {
+        id: 0,
+    },
+
     isShowDeleteServiceDetailModal: false,
 }
 
@@ -109,6 +114,12 @@ const serviceReducer = (state = initState, action) => {
                 isShowAddServiceDetailModal: false,
             }
 
+        case serviceAction.SELECTE_SERVICE_DETAIL:
+            return {
+                ...state,
+                selectedServiceDetail: action.value,
+            }
+
         //delete service details modal
         case serviceAction.SHOW_DELETE_SERVICE_DETAIL_MODAL:
             return {
@@ -120,7 +131,7 @@ const serviceReducer = (state = initState, action) => {
                 ...state,
                 isShowDeleteServiceDetailModal: false,
             }
-            
+
         default:
             return state;
     }

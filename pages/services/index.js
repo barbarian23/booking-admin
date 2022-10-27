@@ -7,6 +7,7 @@ import AddServiceModal from '../../components/services/addService.modal';
 import DeleteServiceModal from '../../components/services/deleteService.modal';
 import ServiceDetailsModal from '../../components/services/serviceDetails.modal';
 import AddServiceDetailModal from '../../components/services/addServiceDetail.modal';
+import DeleteServiceDetailModal from '../../components/services/deleteServiceDetail.modal';
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -181,6 +182,7 @@ const Services = () => {
 
         <ServiceDetailsModal />
         <AddServiceDetailModal />
+        <DeleteServiceDetailModal />
     </Grid>
 
 

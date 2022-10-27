@@ -239,6 +239,53 @@ const addServiceDetailSaga = function* (action) {
     }
 };
 
+const deleteServiceDetailSaga = function* (action) {
+    const { serviceDetailId } = action.value;
+    try {
+        let response = yield call(serviceDetailApi.delete, serviceDetailId);
+        if (response.status === 200) {
+            let data = response.data;
+            console.log(data);
+            yield put({
+                type: serviceAction.DELETE_SERVICE_DETAIL_SUCCESS,
+                value: data.data,
+            });
+            yield put({
+                type: notificationAction.SUCCESS,
+                value: "notification.deleting_success"
+            });
+        } else {
+            yield put({
+                type: serviceAction.DELETE_SERVICE_DETAIL_FAIL,
+                value: ''
+            });
+            yield put({
+                type: notificationAction.ERROR,
+                value: "notification.deleting_fail"
+            });
+        }
+    } catch (err) {
+        const errorMsg = err.response.data.error;
+        if (errorMsg == 'invalid_token') {
+            yield put({
+                type: userAction.LOG_OUT,
+            });
+            yield put({
+                type: notificationAction.ERROR,
+                value: "notification.session_is_expired"
+            });
+        } else {
+            yield put({
+                type: serviceAction.DELETE_SERVICE_DETAIL_FAIL,
+                value: errorMsg
+            });
+            yield put({
+                type: notificationAction.ERROR,
+                value: errorMsg,
+            });
+        }
+    }
+};
 
 export const serviceSaga = function* () {
     yield all([
@@ -250,5 +297,7 @@ export const serviceSaga = function* () {
         takeEvery(serviceAction.ADD_SERVICE_DETAIL_SUCCESS, getPaggingServicesSage),
         takeEvery(serviceAction.DELETE_SERVICE, deleteServiceSaga),
         takeEvery(serviceAction.DELETE_SERVICE_SUCCESS, getPaggingServicesSage),
+        takeEvery(serviceAction.DELETE_SERVICE_DETAIL, deleteServiceDetailSaga),
+        takeEvery(serviceAction.DELETE_SERVICE_DETAIL_SUCCESS, getPaggingServicesSage),
     ])
 };
