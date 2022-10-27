@@ -38,6 +38,16 @@ class employeeApi {
             'Authorization': `Bearer ${getLocalData('access_token')}`,
         });
     }
+
+    
+    getComboLevels(){
+        return Request.get(`common/combobox/level`, 
+        {},
+        true,
+        {
+            'Authorization': `Bearer ${getLocalData('access_token')}`,
+        });
+    }
 }
 
 export default new employeeApi();

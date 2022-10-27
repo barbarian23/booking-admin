@@ -15,6 +15,9 @@ const initState = {
 
     isShowAddStaffModal: false,
     branches: [],
+    levels: [],
+
+    isShowDetailStaffModal: false,
 
     isShowDeleteStaffModal: false,
 
@@ -38,6 +41,11 @@ const staffReducer = (state = initState, action) => {
             return {
                 ...state,
                 currentAction: action.value,
+            }
+        case staffAction.PAGE_CHANGE:
+            return {
+                ...state,
+                page: action.value,
             }
 
         case staffAction.SELECT_STAFF:
@@ -68,6 +76,30 @@ const staffReducer = (state = initState, action) => {
             return {
                 ...state,
                 branches: [],
+            }
+
+        //get combo braches
+        case staffAction.GET_COMBO_LEVELS_SUCCESS:
+            return {
+                ...state,
+                levels: action.value,
+            }
+        case staffAction.GET_COMBO_LEVELS_FAIL:
+            return {
+                ...state,
+                levels: [],
+            }
+
+        //staff detail modal
+        case staffAction.SHOW_DETAIL_STAFF_MODAL:
+            return {
+                ...state,
+                isShowDetailStaffModal: true,
+            }
+        case staffAction.HIDE_DETAIL_STAFF_MODAL:
+            return {
+                ...state,
+                isShowDetailStaffModal: false,
             }
 
         //staff delete modal

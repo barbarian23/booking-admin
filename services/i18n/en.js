@@ -8,6 +8,7 @@ const en = {
             detail: "Detail",
             yes: "Yes",
             no: "No",
+            ok: "OK",
             stores: "Stores",
         },
         notification:{

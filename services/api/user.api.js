@@ -14,7 +14,6 @@ class userApi {
             'login-type': 'jwt'
         });
     }
-
 }
 
 export default new userApi();

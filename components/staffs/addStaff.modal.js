@@ -17,45 +17,33 @@ import Checkbox from '@mui/material/Checkbox';
 const AddStaffModal = () => {
     const { t, i18n } = useTranslation();
     const dispatch = useDispatch();
-    let { isShowAddStaffModal, branches } = useSelector(state => state.staff);
-    const [options, setOptions] = useState([]);
+    let { isShowAddStaffModal, branches, levels } = useSelector(state => state.staff);
+    const [branchOptions, setBranchOptions] = useState([]);
+    const [levelOptions, setLevelOptions] = useState([]);
     const [branchId, setBranchId] = useState(0);
+    const [level, setLevel] = useState('');
     const [dob, setDoB] = useState(new Date());
     const [fullName, setFullName] = useState('');
     const [passCode, setPassCode] = useState('');
     const [idCard, setIdCard] = useState('');
     const [address, setAddress] = useState('');
     const [phone, setPhone] = useState('');
-    const [isManager, setIsManager] = useState('');
-
-    const levelOptions = [
-        {
-            label: 'A',
-            value: 'A',
-        }, {
-            label: 'B',
-            value: 'B',
-        }, {
-            label: 'C',
-            value: 'C',
-        }, {
-            label: 'D',
-            value: 'D',
-        },
-
-    ]
-    const [level, setLevel] = useState('');
+    const [isManager, setIsManager] = useState(false);
 
     useEffect(() => {
         if (isShowAddStaffModal) {
             dispatch({
                 type: staffAction.GET_COMBO_BRANCHES,
             });
+
+            dispatch({
+                type: staffAction.GET_COMBO_LEVELS,
+            });
         }
     }, [isShowAddStaffModal]);
 
     useEffect(() => {
-        setOptions(branches.map((branch) => {
+        setBranchOptions(branches.map((branch) => {
             return {
                 ...branch,
                 label: branch.title,
@@ -63,6 +51,16 @@ const AddStaffModal = () => {
             }
         }));
     }, [branches]);
+
+    useEffect(() => {
+        setLevelOptions(levels.map((level) => {
+            return {
+                ...level,
+                label: level.title,
+                id: level.value,
+            }
+        }));
+    }, [levels]);
 
     const onBranchIdSelected = (e) => {
         let index = e.target.dataset.optionIndex
@@ -208,7 +206,7 @@ const AddStaffModal = () => {
                                 fullWidth
                                 size="small"
                                 id="branch-id"
-                                options={options}
+                                options={branchOptions}
                                 getOptionLabel={option => option.title}
                                 onChange={onBranchIdSelected}
                                 sx={{ p: 0 }}
@@ -312,7 +310,7 @@ const AddStaffModal = () => {
                     {/* is manager */}
                     <li>
                         <div>
-                            <Checkbox onChange={onIsManagerChanged} />
+                            <Checkbox onChange={onIsManagerChanged} value={isManager}/>
                             <span>{t('staff.is_manager')}</span>
                         </div>
                     </li>

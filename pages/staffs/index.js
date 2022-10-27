@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import styles from '../../assets/styles/staffs.module.scss';
 import AddStaffModal from '../../components/staffs/addStaff.modal';
 import DeleteStaffModal from '../../components/staffs/deleteStaff.modal';
+import DetailStaffModal from '../../components/staffs/detailStaff.modal';
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -43,6 +44,11 @@ const Staffs = () => {
             type: staffAction.SELECT_STAFF,
             value: staff
         });
+
+        dispatch({
+            type: staffAction.SHOW_DETAIL_STAFF_MODAL,
+            value: staff
+        }); 
     }
 
     const onAddBtnClicked = () => {
@@ -60,6 +66,13 @@ const Staffs = () => {
         dispatch({
             type: staffAction.SHOW_DELETE_STAFF_MODAL,
             value: staff
+        }); 
+    }
+
+    const onPageChanged = (event, page) => {
+        dispatch({
+            type: staffAction.PAGE_CHANGE,
+            value: page
         }); 
     }
 
@@ -165,7 +178,10 @@ const Staffs = () => {
                         <Grid item lg={6}
                             sx={{ display: 'flex', justifyContent: 'flex-end', height: "3em", mt: 2 }}>
                             <Stack spacing={page}>
-                                <Pagination count={totalPage} shape="rounded" />
+                                <Pagination 
+                                    count={totalPage} 
+                                    shape="rounded"
+                                    onChange={onPageChanged} />
                             </Stack>
                         </Grid>
                     </Grid>
@@ -174,6 +190,7 @@ const Staffs = () => {
         </Grid>
 
         <AddStaffModal />
+        <DetailStaffModal />
         <DeleteStaffModal />
     </Grid>
 

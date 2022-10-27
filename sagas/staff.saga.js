@@ -90,6 +90,53 @@ const getComboBranchesSaga = function* (action) {
     }
 };
 
+const getComboLevelsSaga = function* (action) {
+    try {
+        let response = yield call(staffApi.getComboLevels);
+        if (response.status === 200) {
+            let data = response.data;
+            console.log(data);
+            yield put({
+                type: staffAction.GET_COMBO_LEVELS_SUCCESS,
+                value: data.data,
+            });
+        } else {
+            yield put({
+                type: staffAction.GET_COMBO_LEVELS_FAIL,
+                value: 'API error!'
+            });
+            yield put({
+                type: notificationAction.ERROR,
+                value: "notification.api_error",
+            });
+        }
+    } catch (err) {
+        const errorMsg = err.response.data.error;
+        console.log(errorMsg);
+        if (errorMsg == 'invalid_token') {
+            yield put({
+                type: userAction.LOG_OUT,
+                value: ''
+            });
+            yield put({
+                type: notificationAction.ERROR,
+                value: "notification.session_is_expired"
+            });
+        } else {
+            yield put({
+                type: staffAction.GET_COMBO_LEVELS_FAIL,
+                value: errorMsg
+            });
+            yield put({
+                type: notificationAction.ERROR,
+                value: errorMsg,
+            });
+        }
+
+
+    }
+};
+
 
 const addStaffSaga = function* (action) {
     const { fullName, idCard, phone, dob, address, branchId, isManager, level, passCode } = action.value;
@@ -183,7 +230,9 @@ const deleteStaffSaga = function* (action) {
 export const staffSaga = function* () {
     yield all([
         takeEvery(staffAction.GET_PAGGING_STAFFS, getPaggingStaffsSage),
+        takeEvery(staffAction.PAGE_CHANGE, getPaggingStaffsSage),
         takeEvery(staffAction.GET_COMBO_BRANCHES, getComboBranchesSaga),
+        takeEvery(staffAction.GET_COMBO_LEVELS, getComboLevelsSaga),
         takeEvery(staffAction.ADD_STAFF, addStaffSaga),
         takeEvery(staffAction.ADD_STAFF_SUCCESS, getPaggingStaffsSage),
         takeEvery(staffAction.DELETE_STAFF, deleteStaffSaga),
