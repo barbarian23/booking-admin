@@ -26,7 +26,10 @@ const NestedList = ({ group }) => {
     }
 
     return <React.Fragment>
-        <ListItemButton className={styles.items_group} onClick={handleClick} >
+        <ListItemButton 
+            className={styles.items_group} 
+            onClick={handleClick} 
+            sx={{backgroundColor:'rgba(0, 0, 0, 0.1)'}}>
             <ListItemIcon>
                 <Icon name={group.icon} />
             </ListItemIcon>
