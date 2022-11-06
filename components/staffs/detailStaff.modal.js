@@ -2,6 +2,7 @@ import React, { useEffect, memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { staffAction } from '../../actions';
+import {dtStr2dStr} from '../../services/utils/time';
 import styles from '../../assets/styles/addStaff.module.scss';
 
 import Box from '@mui/material/Box';
@@ -100,7 +101,7 @@ const DetailStaffModal = () => {
                         </div>
 
                         <div className={styles.input}>
-                            <span><b>{selectedStaff?.dob}</b></span>
+                            <span><b>{dtStr2dStr(selectedStaff?.dob)}</b></span>
                         </div>
                     </li>
 
@@ -136,17 +137,17 @@ const DetailStaffModal = () => {
                         </div>
                     </li>
 
-                    {/* branch */}
-                    {/* <li>
+                    {/* rate */}
+                    <li>
                         <div className={styles.input_title}>
-                            <span>{t('staff.level')}</span>
+                            <span>{t('staff.rate')}</span>
                         </div>
 
                         <div className={styles.input}>
-                            <span><b>{selectedStaff?.fullName}</b></span>
+                            <span><b>{selectedStaff?.rate} %</b></span>
                         </div>
 
-                    </li> */}
+                    </li>
 
                     {/* is manager */}
                     {/* <li>

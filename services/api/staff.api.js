@@ -11,7 +11,7 @@ class employeeApi {
             });
     }
 
-    add(fullName, idCard, phone, dob, address, branchId, isManager, level, passCode){
+    add(fullName, idCard, phone, dob, address, branchId, isManager, level, passCode, rate){
         return Request.post(`manager/employee`,
             {
                 fullName : fullName,
@@ -23,6 +23,7 @@ class employeeApi {
                 isManager : isManager,
                 level : level,
                 passCode : passCode,
+                rate: rate,
             },
             true,
             {

@@ -107,6 +107,7 @@ const en = {
             is_manager : "Is Manager",
             manager: "Manager",
             level : "Level",
+            rate : "Rate",
             pass_code : "Pass code",
             status: "Status",
             created_date: "Created date",

@@ -1,5 +1,5 @@
 import { all, put, call, select, takeEvery } from "redux-saga/effects";
-import { staffAction, userAction } from "../actions";
+import { staffAction, userAction, notificationAction } from "../actions";
 import { staffApi, branchApi } from "../services/api";
 
 const getPaggingStaffsSage = function* (action) {
@@ -139,15 +139,15 @@ const getComboLevelsSaga = function* (action) {
 
 
 const addStaffSaga = function* (action) {
-    const { fullName, idCard, phone, dob, address, branchId, isManager, level, passCode } = action.value;
+    const { fullName, idCard, phone, dob, address, branchId, isManager, level, passCode, rate } = action.value;
     try {
-        let response = yield call(staffApi.add, fullName, idCard, phone, dob, address, branchId, isManager, level, passCode);
+        let response = yield call(staffApi.add, fullName, idCard, phone, dob, address, branchId, isManager, level, passCode, rate);
         if (response.status === 200) {
             let data = response.data;
-            console.log(data);
+            // console.log(data);
             yield put({
                 type: staffAction.ADD_STAFF_SUCCESS,
-                value: data.data,
+                value: data,
             });
             yield put({
                 type: notificationAction.SUCCESS,
@@ -164,7 +164,7 @@ const addStaffSaga = function* (action) {
             });
         }
     } catch (err) {
-        const errorMsg = err.response.data.error;
+        const errorMsg = err.response?.data?.error;
         if (errorMsg == 'invalid_token') {
             yield put({
                 type: userAction.LOG_OUT,
@@ -192,19 +192,27 @@ const deleteStaffSaga = function* (action) {
         let response = yield call(staffApi.delete, staffId);
         if (response.status === 200) {
             let data = response.data;
-            console.log(data);
+            // console.log(data);
             yield put({
                 type: staffAction.DELETE_STAFF_SUCCESS,
                 value: data.data,
+            });
+            yield put({
+                type: notificationAction.SUCCESS,
+                value: "notification.deleting_success"
             });
         } else {
             yield put({
                 type: staffAction.DELETE_STAFF_FAIL,
                 value: ''
             });
+            yield put({
+                type: notificationAction.ERROR,
+                value: "notification.deleting_fail"
+            });
         }
     } catch (err) {
-        const errorMsg = err.response.data.error;
+        const errorMsg = err.response?.data?.error;
         if (errorMsg == 'invalid_token') {
             yield put({
                 type: userAction.LOG_OUT,

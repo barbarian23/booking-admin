@@ -22,6 +22,7 @@ const AddStaffModal = () => {
     const [levelOptions, setLevelOptions] = useState([]);
     const [branchId, setBranchId] = useState(0);
     const [level, setLevel] = useState('');
+    const [rate, setRate] = useState(50);
     const [dob, setDoB] = useState(new Date());
     const [fullName, setFullName] = useState('');
     const [passCode, setPassCode] = useState('');
@@ -104,6 +105,10 @@ const AddStaffModal = () => {
         }
     }
 
+    const onRateChanged = (e) => {
+        setRate(e.target.value)
+    }
+
     const onIsManagerChanged = (e) => {
         setIsManager(e.target.checked);
     }
@@ -127,6 +132,7 @@ const AddStaffModal = () => {
                 isManager: isManager,
                 level: level,
                 passCode: passCode,
+                rate: rate,
             }
         });
         dispatch({
@@ -262,12 +268,14 @@ const AddStaffModal = () => {
                                 fullWidth
                                 size="small"
                                 id="phone"
+                                type="number"
                                 value={phone}
                                 sx={{ p: 0 }}
                                 onChange={onPhoneChanged}
                             />
                         </div>
                     </li>
+
                     {/* address */}
                     <li>
                         <div className={styles.input_title}>
@@ -286,7 +294,7 @@ const AddStaffModal = () => {
                         </div>
                     </li>
 
-                    {/* branch */}
+                    {/* level */}
                     <li>
                         <div className={styles.input_title}>
                             <span>{t('staff.level')}</span>
@@ -304,7 +312,32 @@ const AddStaffModal = () => {
                                     {...params} />}
                             />
                         </div>
+                    </li>
 
+                    {/* rate */}
+                    <li>
+                        <div className={styles.input_title}>
+                            <span>{t('staff.rate')}</span>
+                        </div>
+
+                        <div className={styles.input}>
+                            <TextField
+                                
+                                size="small"
+                                id="rate"
+                                type="number"
+                                value={rate}
+                                sx={{ p: 0 }}
+                                onChange={onRateChanged}
+                            />
+                            <span 
+                                style={{    
+                                    display: 'inline-flex',
+                                    marginTop: 10,
+                                    marginLeft: 10
+                                }} 
+                            > % </span>
+                        </div>
                     </li>
 
                     {/* is manager */}
@@ -324,7 +357,8 @@ const AddStaffModal = () => {
                     className={styles.btn}
                     sx={{
                         fontSize: 14,
-                        fontWeight: '700'
+                        fontWeight: '700',
+                        mr: 1
                     }}
                     onClick={handleSave}
                 >
