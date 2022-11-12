@@ -192,9 +192,9 @@ const deleteServiceSaga = function* (action) {
 };
 
 const addServiceDetailSaga = function* (action) {
-    const { name, price, time, description, serviceId, turn } = action.value;
+    const { name, price, time, description, serviceId, turn, supply } = action.value;
     try {
-        let response = yield call(serviceDetailApi.add, name, price, time, description, serviceId, turn);
+        let response = yield call(serviceDetailApi.add, name, price, time, description, serviceId, turn, supply);
         if (response.status === 200) {
             let data = response.data;
             console.log(data);

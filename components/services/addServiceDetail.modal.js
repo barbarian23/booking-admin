@@ -21,6 +21,7 @@ const AddServiceDetailModal = () => {
     const [time, setTime] = useState(0);
     const [description, setDescription] = useState('');
     const [turn, setTurn] = useState(1);
+    const [supply, setSupply] = useState(0);
 
     useEffect(() => {
         //reset
@@ -51,6 +52,10 @@ const AddServiceDetailModal = () => {
         setTurn(e.target.value)
     }
 
+    const onSupplyChanged = (e) => {
+        setSupply(e.target.value)
+    }
+
     const handleClose = () => {
         dispatch({
             type: serviceAction.HIDE_ADD_SERVICE_DETAIL_MODAL,
@@ -67,6 +72,7 @@ const AddServiceDetailModal = () => {
                 description : description,
                 serviceId : selectedService.id,
                 turn: turn,
+                supply: supply,
             }
         });
         dispatch({
@@ -172,6 +178,7 @@ const AddServiceDetailModal = () => {
                         </div>
                     </li>
 
+                    {/* turn */}
                     <li>
                         <div className={styles.input_title}>
                             <span>{t('service.turn')}</span>
@@ -186,6 +193,25 @@ const AddServiceDetailModal = () => {
                                 value={turn}
                                 sx={{ p: 0 }}
                                 onChange={onTurnChanged}
+                            />
+                        </div>
+                    </li>
+
+                    {/* supply */}
+                    <li>
+                        <div className={styles.input_title}>
+                            <span>{t('service.supply')}</span>
+                        </div>
+
+                        <div className={styles.input}>
+                            <TextField
+                                fullWidth
+                                size="small"
+                                id="supply"
+                                type="number"
+                                value={supply}
+                                sx={{ p: 0 }}
+                                onChange={onSupplyChanged}
                             />
                         </div>
                     </li>

@@ -70,6 +70,7 @@ const en = {
             modifided_date: "Modifided date",
             total_employee: "Total employee",
             turn: "Turn",
+            supply: "Supply",
             action: "Action",
             add_service: "Add service",
             add_service_detail: "Add service detail",

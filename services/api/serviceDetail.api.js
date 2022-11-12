@@ -2,7 +2,7 @@ import Request from './api.request';
 import { getLocalData } from '../localStorage';
 
 class serviceDetailApi {
-    add(name, price, time, description, serviceId, turn){
+    add(name, price, time, description, serviceId, turn, supply){
         return Request.post(`manager/business/service-detail`,
             {
                 name : name,
@@ -11,6 +11,7 @@ class serviceDetailApi {
                 description : description,
                 serviceId : serviceId,
                 turn: turn,
+                supply: supply,
             },
             true,
             {

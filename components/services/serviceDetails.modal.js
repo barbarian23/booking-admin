@@ -52,7 +52,7 @@ const ServiceDetailsModal = () => {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 1000,
+        width: 1200,
         bgcolor: 'background.paper',
         border: '1px solid #000',
         boxShadow: 24,
@@ -97,6 +97,8 @@ const ServiceDetailsModal = () => {
                             <TableCell align="center" sx={{ fontWeight: '700' }}>{t('service.code')}</TableCell>
                             <TableCell align="center" sx={{ fontWeight: '700' }}>{t('service.price')}</TableCell>
                             <TableCell align="center" sx={{ fontWeight: '700' }}>{t('service.time')}</TableCell>
+                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('service.turn')}</TableCell>
+                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('service.supply')}</TableCell>
                             <TableCell align="center" sx={{ fontWeight: '700' }}>{t('service.created_date')}</TableCell>
                             <TableCell align="center" sx={{ fontWeight: '700' }}>{t('service.modifided_date')}</TableCell>
                             <TableCell align="center" sx={{ fontWeight: '700' }}>{t('service.action')}</TableCell>
@@ -110,12 +112,14 @@ const ServiceDetailsModal = () => {
                                 <TableCell component="th" scope="row" align="center" sx={{ fontWeight: '700' }}>
                                     {row.id}
                                 </TableCell>
-                                <TableCell align="center">{row.name}</TableCell>
-                                <TableCell align="center">{row.code}</TableCell>
-                                <TableCell align="center">{row.price}</TableCell>
-                                <TableCell align="center">{row.time}</TableCell>
-                                <TableCell align="center">{row.createdDate}</TableCell>
-                                <TableCell align="center">{row.modifiedDate}</TableCell>
+                                <TableCell align="center">{row?.name}</TableCell>
+                                <TableCell align="center">{row?.code}</TableCell>
+                                <TableCell align="center">{row?.price}</TableCell>
+                                <TableCell align="center">{row?.time}</TableCell>
+                                <TableCell align="center">{row?.turn}</TableCell>
+                                <TableCell align="center">{row?.supply}</TableCell>
+                                <TableCell align="center">{row?.createdDate}</TableCell>
+                                <TableCell align="center">{row?.modifiedDate}</TableCell>
                                 <TableCell align="center" className={styles.buttons}>
                                     <Button
                                         variant="contained"
