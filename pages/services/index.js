@@ -69,6 +69,13 @@ const Services = () => {
         }); 
     }
 
+    const onPageChanged = (event, page) => {
+        dispatch({
+            type: serviceAction.PAGE_CHANGE,
+            value: page
+        }); 
+    }
+
     return <Grid container>
         <Box>
             <Breadcrumbs
@@ -169,7 +176,10 @@ const Services = () => {
                         <Grid item lg={6}
                             sx={{ display: 'flex', justifyContent: 'flex-end', height: "3em", mt: 2 }}>
                             <Stack spacing={page}>
-                                <Pagination count={totalPage} shape="rounded" />
+                                <Pagination 
+                                    count={totalPage} 
+                                    shape="rounded"
+                                    onChange={onPageChanged} />
                             </Stack>
                         </Grid>
                     </Grid>

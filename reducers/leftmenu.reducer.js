@@ -10,17 +10,17 @@ const initState = {
     },
     menu: [
         {
-            name: 'order',
+            name: 'store',
             isGroup: false,
             title: 'menu.stores',
-            icon: 'shopping-cart',
-            link: PAGE_URLS.ORDERS,
+            icon: 'store-front',
+            link: PAGE_URLS.STORES,
         }, 
         {
-            name: 'store',
+            name: 'order',
             isGroup: true,
             title: 'menu.orders',
-            icon: 'store-front',
+            icon: 'shopping-cart',
             items: [
                 {
                     name: 'branch',

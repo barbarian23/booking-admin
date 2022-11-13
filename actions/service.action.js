@@ -9,6 +9,9 @@ const serviceAction = {
     //change action
     CHANGE_ACTION: PREFIX + 'CHANGE_ACTION',
     
+    //page change
+    PAGE_CHANGE: PREFIX + 'PAGE_CHANGE',
+
     //add
     ADD_SERVICE: PREFIX + 'ADD_SERVICE',
     ADD_SERVICE_SUCCESS: PREFIX + 'ADD_SERVICE_SUCCESS',

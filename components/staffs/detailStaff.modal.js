@@ -101,7 +101,7 @@ const DetailStaffModal = () => {
                         </div>
 
                         <div className={styles.input}>
-                            <span><b>{dtStr2dStr(selectedStaff?.dob)}</b></span>
+                            <span><b>{selectedStaff.dob ? dtStr2dStr(selectedStaff?.dob) : null}</b></span>
                         </div>
                     </li>
 

@@ -1,22 +1,22 @@
 import { all, put, call, select, takeEvery } from "redux-saga/effects";
-import { branchAction, userAction, notificationAction } from "../actions";
-import { branchApi } from "../services/api";
+import { storeAction, userAction, notificationAction } from "../actions";
+import { storeApi, branchApi } from "../services/api";
 
-const getPaggingBranchesSage = function* (action) {
-    const branch = yield select(state => state.branch);
-    const { page, pageSize } = branch;
+const getPaggingStaffsSage = function* (action) {
+    const store = yield select(state => state.store);
+    const { page, pageSize } = store;
     try {
-        let response = yield call(branchApi.getPagging, page, pageSize);
+        let response = yield call(storeApi.getPagging, page, pageSize);
         if (response.status === 200) {
             let data = response.data;
             console.log(data);
             yield put({
-                type: branchAction.GET_PAGGING_BRANCHES_SUCCESS,
+                type: storeAction.GET_PAGGING_STORES_SUCCESS,
                 value: data.data,
             });
         } else {
             yield put({
-                type: branchAction.GET_PAGGING_BRANCHES_FAIL,
+                type: storeAction.GET_PAGGING_STORES_FAIL,
                 value: ''
             });
             yield put({
@@ -36,7 +36,48 @@ const getPaggingBranchesSage = function* (action) {
             });
         } else {
             yield put({
-                type: branchAction.GET_PAGGING_BRANCHES_FAIL,
+                type: storeAction.GET_PAGGING_STORES_FAIL,
+                value: errorMsg
+            });
+        }
+    }
+};
+
+const getComboBranchesSaga = function* (action) {
+    try {
+        let response = yield call(branchApi.getComboData);
+        if (response.status === 200) {
+            let data = response.data;
+            console.log(data);
+            yield put({
+                type: storeAction.GET_COMBO_BRANCHES_SUCCESS,
+                value: data.data,
+            });
+        } else {
+            yield put({
+                type: storeAction.GET_COMBO_BRANCHES_FAIL,
+                value: 'API error!'
+            });
+            yield put({
+                type: notificationAction.ERROR,
+                value: "notification.api_error",
+            });
+        }
+    } catch (err) {
+        const errorMsg = err.response.data.error;
+        console.log(errorMsg);
+        if (errorMsg == 'invalid_token') {
+            yield put({
+                type: userAction.LOG_OUT,
+                value: ''
+            });
+            yield put({
+                type: notificationAction.ERROR,
+                value: "notification.session_is_expired"
+            });
+        } else {
+            yield put({
+                type: storeAction.GET_COMBO_BRANCHES_FAIL,
                 value: errorMsg
             });
             yield put({
@@ -44,20 +85,21 @@ const getPaggingBranchesSage = function* (action) {
                 value: errorMsg,
             });
         }
+
+
     }
 };
 
-
-const addBranchSaga = function* (action) {
-    const { name, address, hotLine, description } = action.value;
+const addStaffSaga = function* (action) {
+    const { fullName, idCard, phone, dob, address, branchId, isManager, level, passCode, rate } = action.value;
     try {
-        let response = yield call(branchApi.add, name, address, hotLine, description);
+        let response = yield call(storeApi.add, fullName, idCard, phone, dob, address, branchId, isManager, level, passCode, rate);
         if (response.status === 200) {
             let data = response.data;
-            console.log(data);
+            // console.log(data);
             yield put({
-                type: branchAction.ADD_BRANCH_SUCCESS,
-                value: data.data,
+                type: storeAction.ADD_STORE_SUCCESS,
+                value: data,
             });
             yield put({
                 type: notificationAction.SUCCESS,
@@ -65,7 +107,7 @@ const addBranchSaga = function* (action) {
             });
         } else {
             yield put({
-                type: branchAction.ADD_BRANCH_FAIL,
+                type: storeAction.ADD_STORE_FAIL,
                 value: ''
             });
             yield put({
@@ -74,7 +116,7 @@ const addBranchSaga = function* (action) {
             });
         }
     } catch (err) {
-        const errorMsg = err.response.data.error;
+        const errorMsg = err.response?.data?.error;
         if (errorMsg == 'invalid_token') {
             yield put({
                 type: userAction.LOG_OUT,
@@ -85,7 +127,7 @@ const addBranchSaga = function* (action) {
             });
         } else {
             yield put({
-                type: branchAction.ADD_BRANCH_FAIL,
+                type: storeAction.ADD_STORE_FAIL,
                 value: errorMsg
             });
             yield put({
@@ -96,62 +138,12 @@ const addBranchSaga = function* (action) {
     }
 };
 
-const deleteBranchSaga = function* (action) {
-    const { branchId } = action.value;
-    try {
-        let response = yield call(branchApi.delete, branchId);
-        if (response.status === 200) {
-            let data = response.data;
-            console.log(data);
-            yield put({
-                type: branchAction.DELETE_BRANCH_SUCCESS,
-                value: data.data,
-            });
-            yield put({
-                type: notificationAction.SUCCESS,
-                value: "notification.deleting_success"
-            });
-        } else {
-            yield put({
-                type: branchAction.DELETE_BRANCH_FAIL,
-                value: ''
-            });
-            yield put({
-                type: notificationAction.ERROR,
-                value: "notification.deleting_fail"
-            });
-        }
-    } catch (err) {
-        const errorMsg = err.response.data.error;
-        if (errorMsg == 'invalid_token') {
-            yield put({
-                type: userAction.LOG_OUT,
-            });
-            yield put({
-                type: notificationAction.ERROR,
-                value: "notification.session_is_expired"
-            });
-        } else {
-            yield put({
-                type: branchAction.DELETE_BRANCH_FAIL,
-                value: errorMsg
-            });
-            yield put({
-                type: notificationAction.ERROR,
-                value: errorMsg,
-            });
-        }
-    }
-};
-
-
-export const branchSaga = function* () {
+export const storeSaga = function* () {
     yield all([
-        takeEvery(branchAction.GET_PAGGING_BRANCHES, getPaggingBranchesSage),
-        takeEvery(branchAction.PAGE_CHANGE, getPaggingBranchesSage),
-        takeEvery(branchAction.ADD_BRANCH, addBranchSaga),
-        takeEvery(branchAction.ADD_BRANCH_SUCCESS, getPaggingBranchesSage),
-        takeEvery(branchAction.DELETE_BRANCH, deleteBranchSaga),
-        takeEvery(branchAction.DELETE_BRANCH_SUCCESS, getPaggingBranchesSage),
+        takeEvery(storeAction.GET_PAGGING_STORES, getPaggingStaffsSage),
+        takeEvery(storeAction.PAGE_CHANGE, getPaggingStaffsSage),
+        takeEvery(storeAction.GET_COMBO_BRANCHES, getComboBranchesSaga),
+        takeEvery(storeAction.ADD_STORE, addStaffSaga),
+        takeEvery(storeAction.ADD_STORE_SUCCESS, getPaggingStaffsSage),
     ])
 };

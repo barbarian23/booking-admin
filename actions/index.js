@@ -5,6 +5,7 @@ import userAction from "./user.action";
 import serviceAction from "./service.action";
 import branchAction from "./branch.action";
 import staffAction from "./staff.action";
+import storeAction from "./store.action";
 
 export{
     notificationAction,
@@ -14,4 +15,5 @@ export{
     serviceAction,
     branchAction,
     staffAction,
+    storeAction,
 }

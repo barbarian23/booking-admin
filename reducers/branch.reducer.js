@@ -16,7 +16,7 @@ const initState = {
     isShowAddBranchModal: false,
     branches: [],
 
-    isShowDeleteBranchModal:false,
+    isShowDeleteBranchModal: false,
 }
 
 const branchReducer = (state = initState, action) => {
@@ -38,6 +38,13 @@ const branchReducer = (state = initState, action) => {
                 ...state,
                 currentAction: action.value,
             }
+
+        case branchAction.PAGE_CHANGE:
+            return {
+                ...state,
+                page: action.value,
+            }
+
 
         case branchAction.SELECT_BRANCH:
             return {

@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { branchAction } from '../../actions';
+import { storeAction } from '../../actions';
 import { useTranslation } from 'react-i18next'
-import styles from '../../assets/styles/branches.module.scss';
-import AddBranchModal from '../../components/branches/addBranch.modal';
-import DeleteBranchModal from '../../components/branches/deleteBranch.modal';
+import styles from '../../assets/styles/stores.module.scss';
+// import AddStoreModal from '../../components/stores/addStore.modal';
+// import DeleteStoreModal from '../../components/stores/deleteStore.modal';
+// import DetailStoreModal from '../../components/stores/detailStore.modal';
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -27,44 +28,50 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
-const Branches = () => {
+const Stores = () => {
     const { t, i18n } = useTranslation();
     const dispatch = useDispatch();
-    let { branches, page, totalPage } = useSelector(state => state.branch);
+    let { stores, page, totalPage } = useSelector(state => state.store);
 
     useEffect(() => {
         dispatch({
-            type: branchAction.GET_PAGGING_BRANCHES,
+            type: storeAction.GET_PAGGING_STORES,
         });
     }, []);
 
-    const showBranchDetails = (branch) => {
+    const showStoreDetails = (store) => {
         dispatch({
-            type: branchAction.SELECT_BRANCH,
-            value: branch
+            type: storeAction.SELECT_STORE,
+            value: store
         });
+
+        dispatch({
+            type: storeAction.SHOW_DETAIL_STORE_MODAL,
+            value: store
+        }); 
     }
 
     const onAddBtnClicked = () => {
         dispatch({
-            type: branchAction.SHOW_ADD_BRANCH_MODAL,
-        });
-    }
-
-    const onDeleteBtnClicked = (branch) => {
-        dispatch({
-            type: branchAction.SELECT_BRANCH,
-            value: branch
-        });
-        dispatch({
-            type: branchAction.SHOW_DELETE_BRANCH_MODAL,
-            value: branch
+            type: storeAction.SHOW_ADD_STORE_MODAL,
         }); 
     }
-    
+
+    const onDeleteBtnClicked = (store) => {
+        dispatch({
+            type: storeAction.SELECT_STORE,
+            value: store
+        }); 
+
+        dispatch({
+            type: storeAction.SHOW_DELETE_STORE_MODAL,
+            value: store
+        }); 
+    }
+
     const onPageChanged = (event, page) => {
         dispatch({
-            type: branchAction.PAGE_CHANGE,
+            type: storeAction.PAGE_CHANGE,
             value: page
         }); 
     }
@@ -85,14 +92,14 @@ const Branches = () => {
                 </Link>
 
                 <Typography color="text.primary">
-                    {t('menu.branches')}
+                    {t('menu.stores')}
                 </Typography>
             </Breadcrumbs>
         </Box>
 
         <Grid container>
             <Grid item xs={10}>
-                <h3>{t('menu.branches')}</h3>
+                <h3>{t('menu.stores')}</h3>
             </Grid>
             <Grid item
                 xs={2}
@@ -113,28 +120,26 @@ const Branches = () => {
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('branch.id')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('branch.name')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('branch.address')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('branch.hot_line')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('branch.status')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('branch.created_date')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('branch.modifided_date')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('branch.action')}</TableCell>
+                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('store.id')}</TableCell>
+                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('store.code')}</TableCell>
+                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('store.name')}</TableCell>
+                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('store.phone')}</TableCell>
+                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('store.created_date')}</TableCell>
+                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('store.modifided_date')}</TableCell>
+                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('store.action')}</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {branches.map((row) => (
+                        {stores.map((row) => (
                             <TableRow
                                 key={row.id}
                             >
                                 <TableCell component="th" scope="row" align="center" sx={{ fontWeight: '700' }}>
                                     {row.id}
                                 </TableCell>
+                                <TableCell align="center">{row.code}</TableCell>
                                 <TableCell align="center">{row.name}</TableCell>
-                                <TableCell align="center">{row.address}</TableCell>
-                                <TableCell align="center">{row.hotLine}</TableCell>
-                                <TableCell align="center">{row.status}</TableCell>
+                                <TableCell align="center">{row.phone}</TableCell>
                                 <TableCell align="center">{row.createdDate}</TableCell>
                                 <TableCell align="center">{row.modifiedDate}</TableCell>
                                 <TableCell align="center" className={styles.buttons}>
@@ -145,7 +150,7 @@ const Branches = () => {
                                             fontSize: 14,
                                             fontWeight: '700'
                                         }}
-                                        onClick={() => { onDeleteBtnClicked(row) }}
+                                        onClick={() => {onDeleteBtnClicked(row)}}
                                     >
                                         {t('button.delete')}
                                     </Button>
@@ -156,9 +161,9 @@ const Branches = () => {
                                             fontSize: 14,
                                             fontWeight: '700'
                                         }}
-                                        onClick={() => { showBranchDetails(row) }}
+                                        onClick={() => {showStoreDetails(row)}}
                                     >
-                                        {t('button.stores')}
+                                        {t('button.detail')}
                                     </Button>
                                 </TableCell>
                             </TableRow>
@@ -183,11 +188,12 @@ const Branches = () => {
                 </Box>
             </TableContainer>
         </Grid>
-
-        <AddBranchModal />
-        <DeleteBranchModal />
+{/* 
+        <AddStoreModal />
+        <DetailStoreModal />
+        <DeleteStoreModal /> */}
     </Grid>
 
 
 }
-export default Branches;
+export default Stores;

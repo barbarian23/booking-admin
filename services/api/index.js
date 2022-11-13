@@ -3,6 +3,7 @@ import serviceApi from './service.api';
 import serviceDetailApi from './serviceDetail.api';
 import branchApi from './branch.api';
 import staffApi from './staff.api';
+import storeApi from './store.api';
 
 export{
     userApi,
@@ -10,4 +11,5 @@ export{
     serviceDetailApi,
     branchApi,
     staffApi,
+    storeApi,
 }

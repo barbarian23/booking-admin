@@ -7,6 +7,7 @@ export const PAGE_URLS = {
     //private
     CHANGE_PASSWORD: "/change-password",
 
+    STORES: "/stores",
     ORDERS: "/orders",
     BRANCHES: "/branches",
     SERVICES: "/services",

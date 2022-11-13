@@ -9,6 +9,9 @@ const branchAction = {
     //change action
     CHANGE_ACTION: PREFIX + 'CHANGE_ACTION',
     
+    //page change
+    PAGE_CHANGE: PREFIX + 'PAGE_CHANGE',
+
     //add
     ADD_BRANCH: PREFIX + 'ADD_BRANCH',
     ADD_BRANCH_SUCCESS: PREFIX + 'ADD_BRANCH_SUCCESS',

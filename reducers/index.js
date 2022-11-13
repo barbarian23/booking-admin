@@ -5,6 +5,7 @@ import userReducer from "./user.reducer";
 import serviceReducer from "./service.reducer";
 import branchReducer from "./branch.reducer";
 import staffReducer from "./staff.reducer";
+import storeReducer from "./store.reducer";
 
 export default combineReducers({
     leftMenu: leftMenuReducer,
@@ -12,4 +13,5 @@ export default combineReducers({
     service: serviceReducer,
     branch: branchReducer,
     staff: staffReducer,
+    store: storeReducer,
 });

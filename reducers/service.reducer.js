@@ -48,6 +48,12 @@ const serviceReducer = (state = initState, action) => {
                 currentAction: action.value,
             }
 
+        case serviceAction.PAGE_CHANGE:
+            return {
+                ...state,
+                page: action.value,
+            }
+
         case serviceAction.SELECT_SERVICE:
             return {
                 ...state,

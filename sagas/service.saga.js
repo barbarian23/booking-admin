@@ -290,6 +290,7 @@ const deleteServiceDetailSaga = function* (action) {
 export const serviceSaga = function* () {
     yield all([
         takeEvery(serviceAction.GET_PAGGING_SERVICES, getPaggingServicesSage),
+        takeEvery(serviceAction.PAGE_CHANGE, getPaggingServicesSage),
         takeEvery(serviceAction.GET_COMBO_BRANCHES, getComboBranchesSaga),
         takeEvery(serviceAction.ADD_SERVICE, addServiceSaga),
         takeEvery(serviceAction.ADD_SERVICE_SUCCESS, getPaggingServicesSage),
