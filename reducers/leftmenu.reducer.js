@@ -9,13 +9,13 @@ const initState = {
         icon: '',
     },
     menu: [
-        {
-            name: 'store',
-            isGroup: false,
-            title: 'menu.stores',
-            icon: 'store-front',
-            link: PAGE_URLS.STORES,
-        }, 
+        // {
+        //     name: 'store',
+        //     isGroup: false,
+        //     title: 'menu.stores',
+        //     icon: 'store-front',
+        //     link: PAGE_URLS.STORES,
+        // }, 
         {
             name: 'order',
             isGroup: true,
@@ -34,58 +34,58 @@ const initState = {
                     icon: 'layers',
                     link: PAGE_URLS.SERVICES,
                 },
-                {
-                    name: 'customer',
-                    title: 'menu.customers',
-                    icon: 'people',
-                    link: PAGE_URLS.CUSTOMERS,
-                },
-                {
-                    name: 'staff_schedule',
-                    title: 'menu.staff_schedule',
-                    icon: 'event-available',
-                    link: PAGE_URLS.STAFF_SCHEDULE,
-                },
-                {
-                    name: 'storage',
-                    title: 'menu.storage',
-                    icon: 'warehouse',
-                    link: PAGE_URLS.STORAGE,
-                },
-                {
-                    name: 'payroll',
-                    title: 'menu.payroll',
-                    icon: 'currency-exchange',
-                    link: PAGE_URLS.PAYROLL,
-                }
+                // {
+                //     name: 'customer',
+                //     title: 'menu.customers',
+                //     icon: 'people',
+                //     link: PAGE_URLS.CUSTOMERS,
+                // },
+                // {
+                //     name: 'staff_schedule',
+                //     title: 'menu.staff_schedule',
+                //     icon: 'event-available',
+                //     link: PAGE_URLS.STAFF_SCHEDULE,
+                // },
+                // {
+                //     name: 'storage',
+                //     title: 'menu.storage',
+                //     icon: 'warehouse',
+                //     link: PAGE_URLS.STORAGE,
+                // },
+                // {
+                //     name: 'payroll',
+                //     title: 'menu.payroll',
+                //     icon: 'currency-exchange',
+                //     link: PAGE_URLS.PAYROLL,
+                // }
             ]
         },
-        {
-            name: 'booking',
-            isGroup: true,
-            title: 'menu.booking',
-            icon: 'add-task',
-            items: [
-                {
-                    name: 'bill',
-                    title: 'menu.bills',
-                    icon: 'local-atm',
-                    link: PAGE_URLS.BILLS,
-                },
-                {
-                    name: 'appointment_reminder',
-                    title: 'menu.appointment_reminder',
-                    icon: 'access-alarms',
-                    link: PAGE_URLS.APPOINTMENT_REMINDER,
-                },
-                {
-                    name: 'customer_review',
-                    title: 'menu.customer_review',
-                    icon: 'message',
-                    link: PAGE_URLS.CUSTOMER_REVIEW,
-                }
-            ]
-        },
+        // {
+        //     name: 'booking',
+        //     isGroup: true,
+        //     title: 'menu.booking',
+        //     icon: 'add-task',
+        //     items: [
+        //         {
+        //             name: 'bill',
+        //             title: 'menu.bills',
+        //             icon: 'local-atm',
+        //             link: PAGE_URLS.BILLS,
+        //         },
+        //         {
+        //             name: 'appointment_reminder',
+        //             title: 'menu.appointment_reminder',
+        //             icon: 'access-alarms',
+        //             link: PAGE_URLS.APPOINTMENT_REMINDER,
+        //         },
+        //         {
+        //             name: 'customer_review',
+        //             title: 'menu.customer_review',
+        //             icon: 'message',
+        //             link: PAGE_URLS.CUSTOMER_REVIEW,
+        //         }
+        //     ]
+        // },
         {
             name: 'staff',
             isGroup: true,
@@ -98,12 +98,12 @@ const initState = {
                     icon: 'switch-account',
                     link: PAGE_URLS.STAFFS,
                 },
-                {
-                    name: 'structure',
-                    title: 'menu.structure',
-                    icon: 'account-tree',
-                    link: PAGE_URLS.STRUCTURE,
-                }
+                // {
+                //     name: 'structure',
+                //     title: 'menu.structure',
+                //     icon: 'account-tree',
+                //     link: PAGE_URLS.STRUCTURE,
+                // }
             ]
         },
     ]
