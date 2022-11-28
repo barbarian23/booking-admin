@@ -143,6 +143,54 @@ const addServiceSaga = function* (action) {
     }
 };
 
+const updateServiceSaga = function* (action) {
+    const { serviceID, branchID, serviceName } = action.value;
+    try {
+        let response = yield call(serviceApi.update, serviceID, branchID, serviceName);
+        if (response.status === 200) {
+            let data = response.data;
+            console.log(data);
+            yield put({
+                type: serviceAction.UPDATE_SERVICE_SUCCESS,
+                value: data.data,
+            });
+            yield put({
+                type: notificationAction.SUCCESS,
+                value: "notification.updating_success"
+            });
+        } else {
+            yield put({
+                type: serviceAction.UPDATE_SERVICE_FAIL,
+                value: ''
+            });
+            yield put({
+                type: notificationAction.ERROR,
+                value: "notification.updating_fail"
+            });
+        }
+    } catch (err) {
+        const errorMsg = err.response.data.error;
+        if (errorMsg == 'invalid_token') {
+            yield put({
+                type: userAction.LOG_OUT,
+            });
+            yield put({
+                type: notificationAction.ERROR,
+                value: "notification.session_is_expired"
+            });
+        } else {
+            yield put({
+                type: serviceAction.UPDATE_SERVICE_FAIL,
+                value: errorMsg
+            });
+            yield put({
+                type: notificationAction.ERROR,
+                value: errorMsg,
+            });
+        }
+    }
+};
+
 const deleteServiceSaga = function* (action) {
     const { serviceId } = action.value;
     try {
@@ -239,6 +287,54 @@ const addServiceDetailSaga = function* (action) {
     }
 };
 
+const updateServiceDetailSaga = function* (action) {
+    const { id, name, price, time, description, serviceId, turn, supply } = action.value;
+    try {
+        let response = yield call(serviceDetailApi.update, id, name, price, time, description, serviceId, turn, supply);
+        if (response.status === 200) {
+            let data = response.data;
+            console.log(data);
+            yield put({
+                type: serviceAction.UPDATE_SERVICE_DETAIL_SUCCESS,
+                value: data.data,
+            });
+            yield put({
+                type: notificationAction.SUCCESS,
+                value: "notification.updating_success"
+            });
+        } else {
+            yield put({
+                type: serviceAction.UPDATE_SERVICE_DETAIL_FAIL,
+                value: ''
+            });
+            yield put({
+                type: notificationAction.ERROR,
+                value: "notification.updating_fail"
+            });
+        }
+    } catch (err) {
+        const errorMsg = err.response.data.error;
+        if (errorMsg == 'invalid_token') {
+            yield put({
+                type: userAction.LOG_OUT,
+            });
+            yield put({
+                type: notificationAction.ERROR,
+                value: "notification.session_is_expired"
+            });
+        } else {
+            yield put({
+                type: serviceAction.UPDATE_SERVICE_DETAIL_FAIL,
+                value: errorMsg
+            });
+            yield put({
+                type: notificationAction.ERROR,
+                value: errorMsg,
+            });
+        }
+    }
+};
+
 const deleteServiceDetailSaga = function* (action) {
     const { serviceDetailId } = action.value;
     try {
@@ -294,8 +390,12 @@ export const serviceSaga = function* () {
         takeEvery(serviceAction.GET_COMBO_BRANCHES, getComboBranchesSaga),
         takeEvery(serviceAction.ADD_SERVICE, addServiceSaga),
         takeEvery(serviceAction.ADD_SERVICE_SUCCESS, getPaggingServicesSage),
+        takeEvery(serviceAction.UPDATE_SERVICE, updateServiceSaga),
+        takeEvery(serviceAction.UPDATE_SERVICE_SUCCESS, getPaggingServicesSage),
         takeEvery(serviceAction.ADD_SERVICE_DETAIL, addServiceDetailSaga),
         takeEvery(serviceAction.ADD_SERVICE_DETAIL_SUCCESS, getPaggingServicesSage),
+        takeEvery(serviceAction.UPDATE_SERVICE_DETAIL, updateServiceDetailSaga),
+        takeEvery(serviceAction.UPDATE_SERVICE_DETAIL_SUCCESS, getPaggingServicesSage),
         takeEvery(serviceAction.DELETE_SERVICE, deleteServiceSaga),
         takeEvery(serviceAction.DELETE_SERVICE_SUCCESS, getPaggingServicesSage),
         takeEvery(serviceAction.DELETE_SERVICE_DETAIL, deleteServiceDetailSaga),

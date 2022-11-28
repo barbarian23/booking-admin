@@ -25,6 +25,10 @@ class Request{
         return this.callService(url, 'GET', data, respData, header);
     }
 
+    patch(url, data=null, respData=true, header={}){
+        return this.callService(url, 'PATCH', data, respData, header);
+    }
+
     post(url, data=null, respData=true, header={}){
         return this.callService(url, 'POST', data, respData, header);
     }

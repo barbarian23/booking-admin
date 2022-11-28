@@ -39,7 +39,7 @@ function Login() {
 
   useEffect(() => {
     if(isLogedIn){
-      router.push(PAGE_URLS.ORDERS);
+      router.push(PAGE_URLS.BRANCHES);
     }
   }, [isLogedIn]);
 

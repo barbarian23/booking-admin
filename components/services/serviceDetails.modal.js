@@ -46,6 +46,17 @@ const ServiceDetailsModal = () => {
         }); 
     }
 
+    const onUpdateBtnClicked = (serviceDetail) => {
+        dispatch({
+            type: serviceAction.SELECTE_SERVICE_DETAIL,
+            value: serviceDetail
+        }); 
+        dispatch({
+            type: serviceAction.SHOW_UPDATE_SERVICE_DETAIL_MODAL,
+        }); 
+    }
+
+
 
     const style = {
         position: 'absolute',
@@ -121,6 +132,17 @@ const ServiceDetailsModal = () => {
                                 <TableCell align="center">{row?.createdDate}</TableCell>
                                 <TableCell align="center">{row?.modifiedDate}</TableCell>
                                 <TableCell align="center" className={styles.buttons}>
+                                    <Button
+                                        variant="contained"
+                                        color="success"
+                                        sx={{
+                                            fontSize: 14,
+                                            fontWeight: '700'
+                                        }}
+                                        onClick={() => { onUpdateBtnClicked(row) }}
+                                    >
+                                        {t('button.update')}
+                                    </Button>
                                     <Button
                                         variant="contained"
                                         color="error"

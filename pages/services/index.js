@@ -4,9 +4,11 @@ import { serviceAction } from '../../actions';
 import { useTranslation } from 'react-i18next'
 import styles from '../../assets/styles/services.module.scss';
 import AddServiceModal from '../../components/services/addService.modal';
+import UpdateServiceModal from '../../components/services/updateService.modal';
 import DeleteServiceModal from '../../components/services/deleteService.modal';
 import ServiceDetailsModal from '../../components/services/serviceDetails.modal';
 import AddServiceDetailModal from '../../components/services/addServiceDetail.modal';
+import UpdateServiceDetailModal from '../../components/services/updateServiceDetail.modal';
 import DeleteServiceDetailModal from '../../components/services/deleteServiceDetail.modal';
 
 import Box from '@mui/material/Box';
@@ -58,6 +60,16 @@ const Services = () => {
         }); 
     }
 
+    const onUpdateBtnClicked = (service) => {
+        dispatch({
+            type: serviceAction.SELECT_SERVICE,
+            value: service
+        }); 
+        dispatch({
+            type: serviceAction.SHOW_UPDATE_SERVICE_MODAL,
+        });  
+    }
+
     const onDeleteBtnClicked = (service) => {
         dispatch({
             type: serviceAction.SELECT_SERVICE,
@@ -65,7 +77,6 @@ const Services = () => {
         }); 
         dispatch({
             type: serviceAction.SHOW_DELETE_SERVICE_MODAL,
-            value: service
         }); 
     }
 
@@ -154,6 +165,17 @@ const Services = () => {
                                     </Button>
                                     <Button
                                         variant="contained"
+                                        color="success"
+                                        sx={{
+                                            fontSize: 14,
+                                            fontWeight: '700'
+                                        }}
+                                        onClick={() => {onUpdateBtnClicked(row)}}
+                                    >
+                                        {t('button.update')}
+                                    </Button>
+                                    <Button
+                                        variant="contained"
                                         color="primary"
                                         sx={{
                                             fontSize: 14,
@@ -188,10 +210,12 @@ const Services = () => {
         </Grid>
 
         <AddServiceModal />
+        <UpdateServiceModal />
         <DeleteServiceModal />
 
         <ServiceDetailsModal />
         <AddServiceDetailModal />
+        <UpdateServiceDetailModal />
         <DeleteServiceDetailModal />
     </Grid>
 

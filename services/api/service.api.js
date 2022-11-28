@@ -23,6 +23,18 @@ class serviceApi {
             });
     }
 
+    update(service_id, branch_id, name){
+        return Request.patch(`manager/business/service/${service_id}`,
+            {
+                branch_id: branch_id,
+                name: name,
+            },
+            true,
+            {
+                'Authorization': `Bearer ${getLocalData('access_token')}`,
+            });
+    }
+
     delete(serviceId){
         return Request.delete(`manager/business/service/${serviceId}`,
         {},

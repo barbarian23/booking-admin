@@ -14,12 +14,14 @@ const initState = {
     },
 
     isShowAddServiceModal: false,
+    isShowUpdateServiceModal: false,
     branches: [],
 
     isShowDeleteServiceModal: false,
 
     isShowServiceDetailsModal: false,
     isShowAddServiceDetailModal: false,
+    isShowUpdateServiceDetailModal: false,
 
     selectedServiceDetail: {
         id: 0,
@@ -59,7 +61,7 @@ const serviceReducer = (state = initState, action) => {
                 ...state,
                 selectedService: action.value,
             }
-        //service details modal
+        //add service modal
         case serviceAction.SHOW_ADD_SERVICE_MODAL:
             return {
                 ...state,
@@ -69,6 +71,18 @@ const serviceReducer = (state = initState, action) => {
             return {
                 ...state,
                 isShowAddServiceModal: false,
+            }
+
+        //update service modal
+        case serviceAction.SHOW_UPDATE_SERVICE_MODAL:
+            return {
+                ...state,
+                isShowUpdateServiceModal: true,
+            }
+        case serviceAction.HIDE_UPDATE_SERVICE_MODAL:
+            return {
+                ...state,
+                isShowUpdateServiceModal: false,
             }
 
         //get combo braches
@@ -118,6 +132,18 @@ const serviceReducer = (state = initState, action) => {
             return {
                 ...state,
                 isShowAddServiceDetailModal: false,
+            }
+
+        //update service details modal
+        case serviceAction.SHOW_UPDATE_SERVICE_DETAIL_MODAL:
+            return {
+                ...state,
+                isShowUpdateServiceDetailModal: true,
+            }
+        case serviceAction.HIDE_UPDATE_SERVICE_DETAIL_MODAL:
+            return {
+                ...state,
+                isShowUpdateServiceDetailModal: false,
             }
 
         case serviceAction.SELECTE_SERVICE_DETAIL:
