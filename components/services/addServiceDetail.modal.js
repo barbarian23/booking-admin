@@ -1,5 +1,6 @@
 import React, { useState, useEffect, memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { SketchPicker } from 'react-color';
 import { useTranslation } from 'react-i18next';
 import { serviceAction } from '../../actions';
 import styles from '../../assets/styles/addService.module.scss';
@@ -20,6 +21,10 @@ const AddServiceDetailModal = () => {
     const [price, setPrice] = useState(0);
     const [time, setTime] = useState(0);
     const [description, setDescription] = useState('');
+    const [color, setColor] = useState('#000000');
+    const [redColor, setRedColor] = useState(0);
+    const [greenColor, setGreenColor] = useState(0);
+    const [blueColor, setBlueColor] = useState(0);
     const [turn, setTurn] = useState(1);
     const [supply, setSupply] = useState(0);
 
@@ -29,6 +34,7 @@ const AddServiceDetailModal = () => {
         setPrice(0);
         setTime(0);
         setDescription('');
+        setColor('#000000');
         setTurn('');
     }, [isShowAddServiceDetailModal]);
 
@@ -46,6 +52,13 @@ const AddServiceDetailModal = () => {
 
     const onDescriptionChanged = (e) => {
         setDescription(e.target.value)
+    }
+
+    const onColorChanged = (color) => {
+        setColor(color.hex);
+        setRedColor(color.rgb.r);
+        setGreenColor(color.rgb.g);
+        setBlueColor(color.rgb.b);
     }
 
     const onTurnChanged = (e) => {
@@ -70,6 +83,7 @@ const AddServiceDetailModal = () => {
                 price : price,
                 time : time,
                 description : description,
+                colorCode: `${redColor}:${greenColor}:${blueColor}`,
                 serviceId : selectedService.id,
                 turn: turn,
                 supply: supply,
@@ -174,6 +188,27 @@ const AddServiceDetailModal = () => {
                                 value={description}
                                 sx={{ p: 0 }}
                                 onChange={onDescriptionChanged}
+                            />
+                        </div>
+                    </li>
+
+                    <li>
+                        <div className={styles.input_title}>
+                            <span>{t('service.color_code')}</span>
+                        </div>
+
+                        <div className={styles.input}>
+                            {/* <TextField
+                                fullWidth
+                                size="small"
+                                id="description"
+                                value={description}
+                                sx={{ p: 0 }}
+                                onChange={onDescriptionChanged}
+                            /> */}
+                            <SketchPicker 
+                                color={color}
+                                onChange={onColorChanged}
                             />
                         </div>
                     </li>

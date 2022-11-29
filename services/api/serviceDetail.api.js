@@ -2,13 +2,14 @@ import Request from './api.request';
 import { getLocalData } from '../localStorage';
 
 class serviceDetailApi {
-    add(name, price, time, description, serviceId, turn, supply){
+    add(name, price, time, description, colorCode, serviceId, turn, supply){
         return Request.post(`manager/business/service-detail`,
             {
                 name : name,
                 price : price,
                 time : time,
                 description : description,
+                colorCode: colorCode,
                 serviceId : serviceId,
                 turn: turn,
                 supply: supply,
@@ -19,13 +20,14 @@ class serviceDetailApi {
             });
     }
 
-    update(id, name, price, time, description, serviceId, turn, supply){
+    update(id, name, price, time, description, colorCode, serviceId, turn, supply){
         return Request.patch(`manager/business/service-detail/${id}`,
             {
                 name: name,
                 price: price,
                 time: time,
                 description: description,
+                colorCode: colorCode,
                 serviceId: serviceId,
                 turn: turn,
                 supply: supply,

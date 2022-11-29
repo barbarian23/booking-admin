@@ -15,6 +15,7 @@ const en = {
         notification:{
             API_error: "API error!",
             login_success: "Login success!",
+            login_fail: "Login fail!",
             incorrect_username_password: "Incorrect username or password!",
             session_is_expired : "The session is expired!",
             adding_success: "Adding success!",
@@ -67,6 +68,7 @@ const en = {
             time: "Time",
             code: "Code",
             description: "Description",
+            color_code: "Color code",
             branch: "Branch",
             status: "Status",
             created_date: "Created date",
@@ -78,6 +80,7 @@ const en = {
             add_service: "Add service",
             update_service: "Update service",
             add_service_detail: "Add service detail",
+            update_service_detail: "Update service detail",
             delete_service: "Delete service",
             do_you_want_to_delete_service: "Do you want to delete service",
             do_you_want_to_delete_service_detail: "Do you want to delete service detail",

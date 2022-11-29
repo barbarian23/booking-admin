@@ -98,7 +98,7 @@ const ServiceDetailsModal = () => {
             </Grid>
 
 
-            <Grid container>
+            <Grid container sx={{maxHeight: 600, overflowY: 'scroll'}}>
                 {/* <TableContainer component={Paper}> */}
                 <Table sx={{ minWidth: 650, mb: 1 }} aria-label="simple table">
                     <TableHead>

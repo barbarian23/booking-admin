@@ -37,7 +37,8 @@ const loginSaga = function* (action) {
         });
         yield put({
             type: notificationAction.ERROR,
-            value: error,
+            value: 'notification.login_fail',
+            // value: error,
         });
     }
 };

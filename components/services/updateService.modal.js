@@ -23,11 +23,11 @@ const UpdateServiceModal = () => {
 
 
     useEffect(() => {
-        if (isShowUpdateServiceModal) {
-            dispatch({
-                type: serviceAction.GET_COMBO_BRANCHES,
-            });
-        }
+        // if (isShowUpdateServiceModal) {
+        //     dispatch({
+        //         type: serviceAction.GET_COMBO_BRANCHES,
+        //     });
+        // }
 
         setBranchID(selectedService.branch?.id);
         setServiceName(selectedService.name);
@@ -44,14 +44,14 @@ const UpdateServiceModal = () => {
         }));
     }, [branches]);
 
-    const onBranchIDSelected = (e) => {
-        let index = e.target.dataset.optionIndex
-        if(index >=0){
-            setBranchID(Number(branches[index].value));
-        }else{
-            setBranchID(-1);
-        }
-    }
+    // const onBranchIDSelected = (e) => {
+    //     let index = e.target.dataset.optionIndex
+    //     if(index >=0){
+    //         setBranchID(Number(branches[index].value));
+    //     }else{
+    //         setBranchID(-1);
+    //     }
+    // }
 
     const onServiceNameChanged = (e) => {
         setServiceName(e.target.value)
@@ -101,7 +101,7 @@ const UpdateServiceModal = () => {
 
             <Grid container>
                 <ul className={styles.form}>
-                    <li>
+                    {/* <li>
                         <div className={styles.input_title}>
                             <span>{t('service.branch')}</span>
                         </div>
@@ -124,7 +124,7 @@ const UpdateServiceModal = () => {
                             />
                         </div>
 
-                    </li>
+                    </li> */}
                     <li>
                         <div className={styles.input_title}>
                             <span>{t('service.service_name')}</span>

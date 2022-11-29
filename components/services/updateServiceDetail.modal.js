@@ -1,5 +1,6 @@
 import React, { useState, useEffect, memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { SketchPicker } from 'react-color';
 import { useTranslation } from 'react-i18next';
 import { serviceAction } from '../../actions';
 import styles from '../../assets/styles/addService.module.scss';
@@ -20,16 +21,41 @@ const UpdateServiceDetailModal = () => {
     const [price, setPrice] = useState(0);
     const [time, setTime] = useState(0);
     const [description, setDescription] = useState('');
+    const [color, setColor] = useState('#000000');
+    const [redColor, setRedColor] = useState(0);
+    const [greenColor, setGreenColor] = useState(0);
+    const [blueColor, setBlueColor] = useState(0);
     const [turn, setTurn] = useState(1);
     const [supply, setSupply] = useState(0);
 
     useEffect(() => {
         //reset
-        setName(selectedServiceDetail?.name);
-        setPrice(selectedServiceDetail?.price);
-        setTime(selectedServiceDetail?.time);
-        setDescription(selectedServiceDetail?.description);
-        setTurn(selectedServiceDetail?.turn);
+        setName(selectedServiceDetail.name ? selectedServiceDetail.name : '');
+        setPrice(selectedServiceDetail.price ? selectedServiceDetail?.price : 0);
+        setTime(selectedServiceDetail.time ? selectedServiceDetail.time : 0);
+        setDescription(selectedServiceDetail.description ? selectedServiceDetail.description : '');
+        setTurn(selectedServiceDetail.turn ? selectedServiceDetail.turn : 0);
+        setSupply(selectedServiceDetail.supply ? selectedServiceDetail.supply : 0);
+
+        let _color = selectedServiceDetail.colorCode ? selectedServiceDetail.colorCode : '00:00:00';
+        let codes = _color.split(':');
+        if (codes.length == 3) {
+            let r = parseInt(codes[0]);
+            let g = parseInt(codes[1]);
+            let b = parseInt(codes[2]);
+            setRedColor(r);
+            setGreenColor(g);
+            setBlueColor(b);
+            
+            let colorStr = `#${r.toString(16)}${g.toString(16)}${b.toString(16)}`;
+            setColor(colorStr);
+        } else {
+            setColor('#000000');
+            setRedColor(0);
+            setGreenColor(0);
+            setBlueColor(0);
+        }
+
     }, [isShowUpdateServiceDetailModal]);
 
     const onNameChanged = (e) => {
@@ -46,6 +72,13 @@ const UpdateServiceDetailModal = () => {
 
     const onDescriptionChanged = (e) => {
         setDescription(e.target.value)
+    }
+
+    const onColorChanged = (color) => {
+        setColor(color.hex);
+        setRedColor(color.rgb.r);
+        setGreenColor(color.rgb.g);
+        setBlueColor(color.rgb.b);
     }
 
     const onTurnChanged = (e) => {
@@ -67,11 +100,12 @@ const UpdateServiceDetailModal = () => {
             type: serviceAction.UPDATE_SERVICE_DETAIL,
             value: {
                 id: selectedServiceDetail?.id,
-                name : name,
-                price : price,
-                time : time,
-                description : description,
-                serviceId : selectedService.id,
+                name: name,
+                price: price,
+                time: time,
+                description: description,
+                colorCode: `${redColor}:${greenColor}:${blueColor}`,
+                serviceId: selectedService.id,
                 turn: turn,
                 supply: supply,
             }
@@ -175,6 +209,19 @@ const UpdateServiceDetailModal = () => {
                                 value={description}
                                 sx={{ p: 0 }}
                                 onChange={onDescriptionChanged}
+                            />
+                        </div>
+                    </li>
+
+                    <li>
+                        <div className={styles.input_title}>
+                            <span>{t('service.color_code')}</span>
+                        </div>
+
+                        <div className={styles.input}>
+                            <SketchPicker
+                                color={color}
+                                onChange={onColorChanged}
                             />
                         </div>
                     </li>
