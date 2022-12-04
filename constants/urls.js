@@ -20,4 +20,5 @@ export const PAGE_URLS = {
     CUSTOMER_REVIEW: "/customer-review",
     STAFFS: "/staffs",
     STRUCTURE: "/structure",
+    REPORT: "/report"
 }

@@ -260,7 +260,8 @@ const AddServiceDetailModal = () => {
                     className={styles.btn}
                     sx={{
                         fontSize: 14,
-                        fontWeight: '700'
+                        fontWeight: '700',
+                        mr: 1,
                     }}
                     onClick={handleSave}
                 >

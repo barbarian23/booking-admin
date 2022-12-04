@@ -13,3 +13,12 @@ export const dtStr2dStr = (str) => {
 
     return `${(dd > 9 ? '' : '0') + dd}/${(mm > 9 ? '' : '0') + mm}/${yyyy}`;
 };
+
+//yyyy-mm-dd
+export const date2dStr = (date) => {
+    const mm = date.getMonth() + 1; // getMonth() is zero-based
+    const dd = date.getDate();
+    const yyyy = date.getFullYear();
+
+    return `${yyyy}-${(mm > 9 ? '' : '0') + mm}-${(dd > 9 ? '' : '0') + dd}`;
+};

@@ -11,6 +11,7 @@ const en = {
             no: "No",
             ok: "OK",
             stores: "Stores",
+            search: "Search",
         },
         notification:{
             API_error: "API error!",
@@ -53,6 +54,7 @@ const en = {
             staffs: 'Staffs',
             staffs_list: 'Staffs list',
             structure: 'Structure',
+            report: 'Report',
         },
         orders: {
             customer: "Customer",
@@ -147,6 +149,14 @@ const en = {
             active: "Active",
             add_store: "Add store",
             do_you_want_to_delete_store: "Do you want to delete store",
+        },
+        report:{
+            id: "ID",
+            name: "Name",
+            address: "Address",
+            hot_line: "Hotline",
+            total: "Total",
+            employee_rate: "Employee rate",
         }
     }
 }

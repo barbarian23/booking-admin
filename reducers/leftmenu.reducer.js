@@ -98,6 +98,12 @@ const initState = {
                     icon: 'switch-account',
                     link: PAGE_URLS.STAFFS,
                 },
+                {
+                    name: 'report',
+                    title: 'menu.report',
+                    icon: 'assessment',
+                    link: PAGE_URLS.REPORT,
+                },
                 // {
                 //     name: 'structure',
                 //     title: 'menu.structure',
