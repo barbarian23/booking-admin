@@ -1,4 +1,4 @@
-export const API_URL = 'http://103.75.184.126:8080/api/pos';
+export const API_URL = 'https://server.6figurespos.com/api/pos';
 
 export const defaultHeader = {
     'Accept': '*/*',
