@@ -137,7 +137,6 @@ const getComboLevelsSaga = function* (action) {
     }
 };
 
-
 const addStaffSaga = function* (action) {
     const { fullName, idCard, phone, dob, address, branchId, isManager, level, passCode, rate } = action.value;
     try {
@@ -176,6 +175,54 @@ const addStaffSaga = function* (action) {
         } else {
             yield put({
                 type: staffAction.ADD_STAFF_FAIL,
+                value: errorMsg
+            });
+            yield put({
+                type: notificationAction.ERROR,
+                value: errorMsg,
+            });
+        }
+    }
+};
+
+const updateStaffSaga = function* (action) {
+    const { id, fullName, idCard, phone, dob, address, passCode, rate } = action.value;
+    try {
+        let response = yield call(staffApi.update, id, fullName, idCard, phone, dob, address, passCode, rate);
+        if (response.status === 200) {
+            let data = response.data;
+            console.log(data);
+            yield put({
+                type: staffAction.UPDATE_STAFF_SUCCESS,
+                value: data.data,
+            });
+            yield put({
+                type: notificationAction.SUCCESS,
+                value: "notification.updating_success"
+            });
+        } else {
+            yield put({
+                type: staffAction.UPDATE_STAFF_FAIL,
+                value: ''
+            });
+            yield put({
+                type: notificationAction.ERROR,
+                value: "notification.updating_fail"
+            });
+        }
+    } catch (err) {
+        const errorMsg = err.response.data.error;
+        if (errorMsg == 'invalid_token') {
+            yield put({
+                type: userAction.LOG_OUT,
+            });
+            yield put({
+                type: notificationAction.ERROR,
+                value: "notification.session_is_expired"
+            });
+        } else {
+            yield put({
+                type: staffAction.UPDATE_STAFF_FAIL,
                 value: errorMsg
             });
             yield put({
@@ -243,6 +290,8 @@ export const staffSaga = function* () {
         takeEvery(staffAction.GET_COMBO_LEVELS, getComboLevelsSaga),
         takeEvery(staffAction.ADD_STAFF, addStaffSaga),
         takeEvery(staffAction.ADD_STAFF_SUCCESS, getPaggingStaffsSage),
+        takeEvery(staffAction.UPDATE_STAFF, updateStaffSaga),
+        takeEvery(staffAction.UPDATE_STAFF_SUCCESS, getPaggingStaffsSage),
         takeEvery(staffAction.DELETE_STAFF, deleteStaffSaga),
         takeEvery(staffAction.DELETE_STAFF_SUCCESS, getPaggingStaffsSage),
     ])

@@ -125,6 +125,7 @@ const en = {
             action: "Action",
             active: "Active",
             add_staff: "Add staff",
+            update_staff: "Update staff",
             do_you_want_to_delete_staff: "Do you want to delete staff",
         },
         store:{

@@ -31,6 +31,23 @@ class employeeApi {
             });
     }
 
+    update(id, fullName, idCard, phone, dob, address, passCode, rate){
+        return Request.patch(`manager/business/employee/${id}`,
+            {
+                fullName : fullName,
+                idCard : idCard,
+                phone : phone,
+                dob : dob,
+                address : address, 
+                passCode : passCode,
+                rate: rate,
+            },
+            true,
+            {
+                'Authorization': `Bearer ${getLocalData('access_token')}`,
+            });
+    }
+
     delete(staffId){
         return Request.delete(`manager/employee/${staffId}`,
         {},

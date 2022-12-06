@@ -4,6 +4,7 @@ import { staffAction } from '../../actions';
 import { useTranslation } from 'react-i18next'
 import styles from '../../assets/styles/staffs.module.scss';
 import AddStaffModal from '../../components/staffs/addStaff.modal';
+import UpdateStaffModal from '../../components/staffs/updateStaff.modal';
 import DeleteStaffModal from '../../components/staffs/deleteStaff.modal';
 import DetailStaffModal from '../../components/staffs/detailStaff.modal';
 
@@ -55,6 +56,16 @@ const Staffs = () => {
         dispatch({
             type: staffAction.SHOW_ADD_STAFF_MODAL,
         }); 
+    }
+
+    const onUpdateBtnClicked = (staff) => {
+        dispatch({
+            type: staffAction.SELECT_STAFF,
+            value: staff
+        }); 
+        dispatch({
+            type: staffAction.SHOW_UPDATE_STAFF_MODAL,
+        });  
     }
 
     const onDeleteBtnClicked = (staff) => {
@@ -156,6 +167,17 @@ const Staffs = () => {
                                     </Button>
                                     <Button
                                         variant="contained"
+                                        color="success"
+                                        sx={{
+                                            fontSize: 14,
+                                            fontWeight: '700'
+                                        }}
+                                        onClick={() => {onUpdateBtnClicked(row)}}
+                                    >
+                                        {t('button.update')}
+                                    </Button>
+                                    <Button
+                                        variant="contained"
                                         color="primary"
                                         sx={{
                                             fontSize: 14,
@@ -190,6 +212,7 @@ const Staffs = () => {
         </Grid>
 
         <AddStaffModal />
+        <UpdateStaffModal />
         <DetailStaffModal />
         <DeleteStaffModal />
     </Grid>

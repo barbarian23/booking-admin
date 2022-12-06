@@ -14,6 +14,7 @@ const initState = {
     },
 
     isShowAddStaffModal: false,
+    isShowUpdateStaffModal: false,
     branches: [],
     levels: [],
 
@@ -64,6 +65,18 @@ const staffReducer = (state = initState, action) => {
             return {
                 ...state,
                 isShowAddStaffModal: false,
+            }
+
+        //update service modal
+        case staffAction.SHOW_UPDATE_STAFF_MODAL:
+            return {
+                ...state,
+                isShowUpdateStaffModal: true,
+            }
+        case staffAction.HIDE_UPDATE_STAFF_MODAL:
+            return {
+                ...state,
+                isShowUpdateStaffModal: false,
             }
 
         //get combo braches
