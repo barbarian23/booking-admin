@@ -22,6 +22,7 @@ const UpdateStaffModal = () => {
     let { isShowUpdateStaffModal, branches, levels, selectedStaff } = useSelector(state => state.staff);
     const [branchOptions, setBranchOptions] = useState([]);
     const [levelOptions, setLevelOptions] = useState([]);
+    const [levelOption, setLevelOption] = useState({id:'', label: ''});
     const [branchId, setBranchId] = useState(0);
     const [fullName, setFullName] = useState('');
     const [idCard, setIdCard] = useState('');
@@ -41,7 +42,7 @@ const UpdateStaffModal = () => {
         setPhone(selectedStaff.phone ? selectedStaff.phone : 0);
         setDoB(selectedStaff.dob ? dtStr2ISODateStr(selectedStaff.dob) : '');
         setAddress(selectedStaff.address ? selectedStaff.address : '');
-        setLevel(selectedStaff.level ? selectedStaff.level : 0);
+        setLevel(selectedStaff.level ? selectedStaff.level : '');
         setPassCode(selectedStaff.code ? selectedStaff.code : '');
         setRate(selectedStaff.rate ? selectedStaff.rate : 0);
         // setIsManager(selectedStaff.isManager ? selectedStaff.isManager : false);
@@ -70,27 +71,20 @@ const UpdateStaffModal = () => {
     }, [branches]);
 
     useEffect(() => {
-        setLevelOptions(levels.map((level) => {
+        setLevelOptions(levels.map((_level) => {
+            if(level == _level.value){
+                setLevelOption({
+                    id: _level.value,
+                    label: _level.title,
+                })
+            }
             return {
-                ...level,
-                id: level.value,
-                label: level.title,
+                ..._level,
+                id: _level.value,
+                label: _level.title,
             }
         }));
     }, [levels]);
-
-    
-    const getLevelOption = (id) =>{
-        for(let i = 0; i<levels.lenght ; i++){
-            if(id==levels[i].id){
-                return {
-                    id: levels[i].value,
-                    label: levels[i].title,
-                }
-            }
-        }
-        return null
-    }
 
     const onBranchIdSelected = (e) => {
         let index = e.target.dataset.optionIndex
@@ -342,8 +336,10 @@ const UpdateStaffModal = () => {
                                 size="small"
                                 id="level"
                                 options={levelOptions}
+                                getOptionLabel={option => option.label}
+                                isOptionEqualToValue={option => option.id}
                                 onChange={onLevelSelected}
-                                defaultValue={getLevelOption(selectedStaff.level)}
+                                value={levelOption}
                                 sx={{ p: 0 }}
                                 renderInput={(params) => <TextField
                                     {...params} />}
