@@ -20,72 +20,86 @@ const UpdateStaffModal = () => {
     const { t, i18n } = useTranslation();
     const dispatch = useDispatch();
     let { isShowUpdateStaffModal, branches, levels, selectedStaff } = useSelector(state => state.staff);
-    // const [branchOptions, setBranchOptions] = useState([]);
-    // const [levelOptions, setLevelOptions] = useState([]);
-    // const [branchID, setBranchID] = useState(0);
+    const [branchOptions, setBranchOptions] = useState([]);
+    const [levelOptions, setLevelOptions] = useState([]);
+    const [branchId, setBranchId] = useState(0);
     const [fullName, setFullName] = useState('');
     const [idCard, setIdCard] = useState('');
     const [phone, setPhone] = useState('');
     const [dob, setDoB] = useState('');
     const [address, setAddress] = useState('');
-    // const [level, setLevel] = useState('');
+    const [level, setLevel] = useState('');
     const [passCode, setPassCode] = useState('');
     const [rate, setRate] = useState(0);
     // const [isManager, setIsManager] = useState('');
 
 
     useEffect(() => {
-        // setBranchID(selectedStaff.branchid ? selectedStaff.branchid : '');
+        setBranchId(selectedStaff?.branchStore?.id ? selectedStaff.branchStore.id : '');
         setFullName(selectedStaff.fullName ? selectedStaff.fullName : '');
         setIdCard(selectedStaff.idCard ? selectedStaff.idCard : '');
         setPhone(selectedStaff.phone ? selectedStaff.phone : 0);
         setDoB(selectedStaff.dob ? dtStr2ISODateStr(selectedStaff.dob) : '');
         setAddress(selectedStaff.address ? selectedStaff.address : '');
-        // setLevel(selectedStaff.level ? selectedStaff.level : 0);
+        setLevel(selectedStaff.level ? selectedStaff.level : 0);
         setPassCode(selectedStaff.code ? selectedStaff.code : '');
         setRate(selectedStaff.rate ? selectedStaff.rate : 0);
         // setIsManager(selectedStaff.isManager ? selectedStaff.isManager : false);
 
-        // if (isShowUpdateStaffModal) {
-        //     dispatch({
-        //         type: staffAction.GET_COMBO_BRANCHES,
-        //     });
+        if (isShowUpdateStaffModal) {
+            dispatch({
+                type: staffAction.GET_COMBO_BRANCHES,
+            });
 
-        //     dispatch({
-        //         type: staffAction.GET_COMBO_LEVELS,
-        //     });
-        // }
+            dispatch({
+                type: staffAction.GET_COMBO_LEVELS,
+            });
+        }
 
     }, [isShowUpdateStaffModal]);
 
-    // useEffect(() => {
-    //     setBranchOptions(branches.map((branch) => {
-    //         return {
-    //             ...branch,
-    //             title: branch.title,
-    //             id: branch.value,
-    //         }
-    //     }));
-    // }, [branches]);
+    useEffect(() => {
+        setBranchOptions(branches.map((branch) => {
+            return {
+                // ...branch,
+                id: Number(branch.value),
+                label: branch.title,
+            }
+        }));
 
-    // useEffect(() => {
-    //     setLevelOptions(levels.map((level) => {
-    //         return {
-    //             ...level,
-    //             label: level.title,
-    //             id: level.value,
-    //         }
-    //     }));
-    // }, [levels]);
+    }, [branches]);
 
-    // const onBranchIdSelected = (e) => {
-    //     let index = e.target.dataset.optionIndex
-    //     if (index >= 0) {
-    //         setBranchId(Number(branches[index].value));
-    //     } else {
-    //         setBranchId(-1);
-    //     }
-    // }
+    useEffect(() => {
+        setLevelOptions(levels.map((level) => {
+            return {
+                ...level,
+                id: level.value,
+                label: level.title,
+            }
+        }));
+    }, [levels]);
+
+    
+    const getLevelOption = (id) =>{
+        for(let i = 0; i<levels.lenght ; i++){
+            if(id==levels[i].id){
+                return {
+                    id: levels[i].value,
+                    label: levels[i].title,
+                }
+            }
+        }
+        return null
+    }
+
+    const onBranchIdSelected = (e) => {
+        let index = e.target.dataset.optionIndex
+        if (index >= 0) {
+            setBranchId(Number(branches[index].value));
+        } else {
+            setBranchId(-1);
+        }
+    }
 
     const onFullNameChanged = (e) => {
         setFullName(e.target.value)
@@ -97,7 +111,6 @@ const UpdateStaffModal = () => {
 
     const onDoBChanged = (e) => {
         setDoB(e.target.value);
-        console.log(e.target.value)
     }
 
     const onIdCardChanged = (e) => {
@@ -112,14 +125,14 @@ const UpdateStaffModal = () => {
         setPhone(e.target.value)
     }
 
-    // const onLevelSelected = (e) => {
-    //     let index = e.target.dataset.optionIndex
-    //     if (index >= 0) {
-    //         setLevel(levelOptions[index].value);
-    //     } else {
-    //         setLevel('');
-    //     }
-    // }
+    const onLevelSelected = (e) => {
+        let index = e.target.dataset.optionIndex
+        if (index >= 0) {
+            setLevel(levelOptions[index].value);
+        } else {
+            setLevel('');
+        }
+    }
 
     const onRateChanged = (e) => {
         setRate(e.target.value)
@@ -145,9 +158,9 @@ const UpdateStaffModal = () => {
                 phone : phone,
                 dob : dob,
                 address : address, 
-                // branchId : branchID,
+                branchId : branchId,
                 // isManager : isManager,
-                // level : level,
+                level : level,
                 passCode : passCode,
                 rate: rate,
             }
@@ -219,7 +232,7 @@ const UpdateStaffModal = () => {
                     </li>
 
                     {/* branch */}
-                    {/* <li>
+                    <li>
                         <div className={styles.input_title}>
                             <span>{t('staff.branch')}</span>
                         </div>
@@ -230,7 +243,12 @@ const UpdateStaffModal = () => {
                                 size="small"
                                 id="branch-id"
                                 options={branchOptions}
-                                getOptionLabel={option => option.title}
+                                defaultValue={{
+                                    id: selectedStaff.branchStore?.id,
+                                    label: selectedStaff.branchStore?.name,
+                                }}
+                                getOptionLabel={option => option.label}
+                                isOptionEqualToValue={option => option.id}
                                 onChange={onBranchIdSelected}
                                 sx={{ p: 0 }}
                                 renderInput={(params) => <TextField
@@ -238,7 +256,7 @@ const UpdateStaffModal = () => {
                             />
                         </div>
 
-                    </li> */}
+                    </li>
 
                     {/* dob */}
                     <li>
@@ -313,7 +331,7 @@ const UpdateStaffModal = () => {
                     </li>
 
                     {/* level */}
-                    {/* <li>
+                    <li>
                         <div className={styles.input_title}>
                             <span>{t('staff.level')}</span>
                         </div>
@@ -325,16 +343,13 @@ const UpdateStaffModal = () => {
                                 id="level"
                                 options={levelOptions}
                                 onChange={onLevelSelected}
-                                // defaultValue={{
-                                //     id: selectedStaff.level,
-                                //     title: 'a', //selectedStaff.level
-                                // }}
+                                defaultValue={getLevelOption(selectedStaff.level)}
                                 sx={{ p: 0 }}
                                 renderInput={(params) => <TextField
                                     {...params} />}
                             />
                         </div>
-                    </li> */}
+                    </li>
 
                     {/* rate */}
                     <li>

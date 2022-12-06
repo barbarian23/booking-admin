@@ -186,9 +186,9 @@ const addStaffSaga = function* (action) {
 };
 
 const updateStaffSaga = function* (action) {
-    const { id, fullName, idCard, phone, dob, address, passCode, rate } = action.value;
+    const { id, fullName, idCard, phone, dob, address, branchId, level, passCode, rate } = action.value;
     try {
-        let response = yield call(staffApi.update, id, fullName, idCard, phone, dob, address, passCode, rate);
+        let response = yield call(staffApi.update, id, fullName, idCard, phone, dob, address, branchId, level, passCode, rate);
         if (response.status === 200) {
             let data = response.data;
             console.log(data);

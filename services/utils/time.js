@@ -11,7 +11,7 @@ export const dtStr2dStr = (str) => {
     const dd = dt.getDate();
     const yyyy = dt.getFullYear();
 
-    return `${(dd > 9 ? '' : '0') + dd}/${(mm > 9 ? '' : '0') + mm}/${yyyy}`;
+    return `${dd.toString().padStart(2,'0')}/${mm.toString().padStart(2,'0')}/${yyyy.toString().padStart(4,'0')}`;
 };
 
 //yyyy-mm-dd
@@ -20,7 +20,7 @@ export const date2dStr = (date) => {
     const dd = date.getDate();
     const yyyy = date.getFullYear();
 
-    return `${yyyy}-${(mm > 9 ? '' : '0') + mm}-${(dd > 9 ? '' : '0') + dd}`;
+    return `${yyyy.toString().padStart(4,'0')}-${mm.toString().padStart(2,'0')}-${dd.toString().padStart(2,'0')}`;
 };
 
 //30-09-2022 09:15:31 PM => yyyy-mm-dd
@@ -30,7 +30,7 @@ export const dtStr2ISODateStr = (str) => {
     const mm = dt.getMonth() + 1; // getMonth() is zero-based
     const dd = dt.getDate();
     const yyyy = dt.getFullYear();
-    
 
-    return `${yyyy}-${(mm > 9 ? '' : '0') + mm}-${(dd > 9 ? '' : '0') + dd}`;
+
+    return `${yyyy.toString().padStart(4,'0')}-${mm.toString().padStart(2,'0')}-${dd.toString().padStart(2,'0')}`;
 };

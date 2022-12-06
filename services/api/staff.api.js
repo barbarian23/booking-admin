@@ -31,14 +31,16 @@ class employeeApi {
             });
     }
 
-    update(id, fullName, idCard, phone, dob, address, passCode, rate){
-        return Request.patch(`manager/business/employee/${id}`,
+    update(id, fullName, idCard, phone, dob, address, branchId, level, passCode, rate){
+        return Request.patch(`manager/employee/${id}`,
             {
                 fullName : fullName,
                 idCard : idCard,
                 phone : phone,
                 dob : dob,
                 address : address, 
+                branchId : branchId,
+                level : level,
                 passCode : passCode,
                 rate: rate,
             },
