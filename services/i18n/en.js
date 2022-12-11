@@ -158,6 +158,9 @@ const en = {
             hot_line: "Hotline",
             total: "Total",
             employee_rate: "Employee rate",
+            employee_name: "Employee name",
+            from_date: "From date",
+            to_date: "To date",
         }
     }
 }

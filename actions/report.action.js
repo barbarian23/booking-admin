@@ -9,6 +9,8 @@ const reportAction = {
     //page change
     PAGE_CHANGE: PREFIX + 'PAGE_CHANGE',
 
+    EMPLOYEE_NAME_CHANGE: PREFIX + 'EMPLOYEE_NAME_CHANGE',
+
     //from date change
     FROM_DATE_CHANGE: PREFIX + 'FROM_DATE_CHANGE',
     TO_DATE_CHANGE: PREFIX + 'TO_DATE_CHANGE',

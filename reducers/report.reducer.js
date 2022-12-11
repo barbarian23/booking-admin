@@ -1,4 +1,4 @@
-import { date2dStr } from '../services/utils/time'; 
+import { date2dStr } from '../services/utils/time';
 import { reportAction } from '../actions';
 
 const initState = {
@@ -8,6 +8,7 @@ const initState = {
     total: 0,
     totalPage: 1,
 
+    employeeName: '',
     fromDate: date2dStr(new Date()),
     toDate: date2dStr(new Date()),
     branchCode: '10e0633b-9f1c-438e-95e8-a86a7a2499fc',
@@ -31,6 +32,11 @@ const reportReducer = (state = initState, action) => {
             return {
                 ...state,
                 page: action.value,
+            }
+        case reportAction.EMPLOYEE_NAME_CHANGE:
+            return {
+                ...state,
+                employeeName: action.value,
             }
         case reportAction.FROM_DATE_CHANGE:
             return {

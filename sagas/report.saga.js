@@ -4,9 +4,9 @@ import { reportApi } from "../services/api";
 
 const getPaggingRateEmployeeReportSage = function* (action) {
     const report = yield select(state => state.report);
-    const { branchCode, fromDate, toDate, page, pageSize } = report;
+    const { branchCode, fromDate, toDate, employeeName, page, pageSize } = report;
     try {
-        let response = yield call(reportApi.getPagingRateEmployeeReport, branchCode, fromDate, toDate, page, pageSize);
+        let response = yield call(reportApi.getPagingRateEmployeeReport, branchCode, fromDate, toDate, employeeName, page, pageSize);
         if (response.status === 200) {
             let data = response.data;
             console.log(data);

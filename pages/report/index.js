@@ -28,7 +28,7 @@ import TableRow from '@mui/material/TableRow';
 const Report = () => {
     const { t, i18n } = useTranslation();
     const dispatch = useDispatch();
-    let { reports, page, totalPage, fromDate, toDate } = useSelector(state => state.report);
+    let { reports, page, totalPage, employeeName, fromDate, toDate } = useSelector(state => state.report);
 
     // useEffect(() => {
     //     dispatch({
@@ -51,6 +51,12 @@ const Report = () => {
         });
     }
 
+    const onEmployeeNameChange = (event) => {
+        dispatch({
+            type: reportAction.EMPLOYEE_NAME_CHANGE,
+            value: event.target.value
+        });
+    }
 
     const onSearchBtnClicked = () => {
         dispatch({
@@ -88,9 +94,26 @@ const Report = () => {
         </Box>
 
         <Grid container>
-            <Grid item xs={7}>
+            <Grid item xs={4}>
                 <h3>{t('menu.report')}</h3>
             </Grid>
+
+            <Grid item xs={3}
+                sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <TextField
+                    fullWidth
+                    size="small"
+                    id="query"
+                    label={t('report.employee_name')}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    value={employeeName}
+                    sx={{ m: 2}}
+                    onChange={onEmployeeNameChange}
+                />
+            </Grid>
+
             <Grid item xs={2}
                 sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 <TextField
@@ -98,7 +121,7 @@ const Report = () => {
                     size="small"
                     type="date"
                     id="from-date"
-                    label="From date"
+                    label={t('report.from_date')}
                     InputLabelProps={{
                         shrink: true,
                     }}
@@ -115,7 +138,7 @@ const Report = () => {
                     size="small"
                     type="date"
                     id="to-date"
-                    label="To date"
+                    label={t('report.to_date')}
                     InputLabelProps={{
                         shrink: true,
                     }}
