@@ -11,7 +11,6 @@ const initState = {
     employeeName: '',
     fromDate: date2dStr(new Date()),
     toDate: date2dStr(new Date()),
-    branchCode: '10e0633b-9f1c-438e-95e8-a86a7a2499fc',
 }
 
 const reportReducer = (state = initState, action) => {

@@ -159,6 +159,8 @@ const en = {
             total: "Total",
             employee_rate: "Employee rate",
             employee_name: "Employee name",
+            employee_code: "Employee code",
+            check_in_time: "Check-in time",
             from_date: "From date",
             to_date: "To date",
         }

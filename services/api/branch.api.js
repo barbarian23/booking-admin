@@ -1,5 +1,6 @@
 import Request from './api.request';
 import { getLocalData } from '../localStorage';
+// import { BRANCH_CODE, TENANT } from './api.config';
 
 class branchApi {
     getComboData() {

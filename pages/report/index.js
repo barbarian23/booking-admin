@@ -25,6 +25,9 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+
+import {dtStr2dStr} from '../../services/utils/time';
+
 const Report = () => {
     const { t, i18n } = useTranslation();
     const dispatch = useDispatch();
@@ -109,7 +112,7 @@ const Report = () => {
                         shrink: true,
                     }}
                     value={employeeName}
-                    sx={{ m: 2}}
+                    sx={{ m: 2 }}
                     onChange={onEmployeeNameChange}
                 />
             </Grid>
@@ -126,7 +129,7 @@ const Report = () => {
                         shrink: true,
                     }}
                     value={fromDate}
-                    sx={{ m: 2}}
+                    sx={{ m: 2 }}
                     onChange={onFromDateChange}
                 />
             </Grid>
@@ -167,27 +170,31 @@ const Report = () => {
                     <TableHead>
                         <TableRow>
                             <TableCell align="center" sx={{ fontWeight: '700' }}>{t('report.id')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('report.name')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('report.hot_line')}</TableCell>
+                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('report.employee_name')}</TableCell>
+                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('report.employee_code')}</TableCell>
+                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('report.check_in_time')}</TableCell>
                             <TableCell align="center" sx={{ fontWeight: '700' }}>{t('report.total')}</TableCell>
                             <TableCell align="center" sx={{ fontWeight: '700' }}>{t('report.employee_rate')}</TableCell>
 
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {reports.map((row) => (
-                            <TableRow
-                                key={row.id}
-                            >
-                                <TableCell component="th" scope="row" align="center" sx={{ fontWeight: '700' }}>
-                                    {row.id}
-                                </TableCell>
-                                <TableCell align="center">{row.customerName}</TableCell>
-                                <TableCell align="center">{row.customerPhone}</TableCell>
-                                <TableCell align="center">{row.total}</TableCell>
-                                <TableCell align="center">{row.rateEmployee}</TableCell>
-                            </TableRow>
-                        ))}
+                        {reports.map((row) => {
+                            if (row.checkIn)
+                                return <TableRow
+                                    key={row.id}
+                                >
+                                    <TableCell component="th" scope="row" align="center" sx={{ fontWeight: '700' }}>
+                                        {row.id}
+                                    </TableCell>
+                                    <TableCell align="center">{row.checkIn?.employeeFullName}</TableCell>
+                                    <TableCell align="center">{row.checkIn?.employeeCode}</TableCell>
+                                    <TableCell align="center">{dtStr2dStr(row.checkIn?.checkInDay)} - {row.checkIn?.checkInTime}</TableCell>
+                                    <TableCell align="center">{row.total}</TableCell>
+                                    <TableCell align="center">{row.rateEmployee}</TableCell>
+                                </TableRow>
+                            else return null
+                        })}
                     </TableBody>
                 </Table>
 
