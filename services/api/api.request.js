@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {API_URL, defaultHeader} from './api.config';
+import {API_URL, BRANCH_CODE, defaultHeader} from './api.config';
 
 class Request{
     async callService(endpoint, method = 'GET', body = null, respData = true, header={}){
@@ -7,7 +7,7 @@ class Request{
                 method: method,
                 url: `${API_URL}/${endpoint}`,
                 headers: {
-                    branch_code: "3abe1bf2-3b51-4cb3-b034-000f3b43b9e6",
+                    branch_code: BRANCH_CODE,
                     //tenant: "NIKNAILHUB",
                     ...defaultHeader,
                     ...header,
