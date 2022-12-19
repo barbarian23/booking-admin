@@ -5,4 +5,6 @@ export const TENANT = 'TEXASNAILSBAR';
 export const defaultHeader = {
     'Accept': '*/*',
     'Content-Type': 'application/json',
+    'branchCode': BRANCH_CODE,
+    'tenant': TENANT,
 };
