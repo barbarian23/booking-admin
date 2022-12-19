@@ -77,7 +77,7 @@ const DetailStaffModal = () => {
                         </div>
 
                         <div className={styles.input}>
-                            <span><b>{selectedStaff?.code}</b></span>
+                            <span><b>{selectedStaff?.passCodeDecode}</b></span>
                         </div>
                     </li>
 
