@@ -7,8 +7,8 @@ class Request{
                 method: method,
                 url: `${API_URL}/${endpoint}`,
                 headers: {
-                    branch_code: "10e0633b-9f1c-438e-95e8-a86a7a2499fc",
-                    tenant: "NIKNAILHUB",
+                    branch_code: "3abe1bf2-3b51-4cb3-b034-000f3b43b9e6",
+                    //tenant: "NIKNAILHUB",
                     ...defaultHeader,
                     ...header,
                 },

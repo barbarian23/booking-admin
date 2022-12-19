@@ -148,7 +148,7 @@ const Staffs = () => {
                                 <TableCell component="th" scope="row" align="center" sx={{ fontWeight: '700' }}>
                                     {row.id}
                                 </TableCell>
-                                <TableCell align="center">{row.code}</TableCell>
+                                <TableCell align="center">{row.passCodeDecode}</TableCell>
                                 <TableCell align="center">{row.fullName}</TableCell>
                                 <TableCell align="center">{row.phone}</TableCell>
                                 <TableCell align="center">{row.createdDate}</TableCell>
