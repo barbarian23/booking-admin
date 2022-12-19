@@ -149,6 +149,18 @@ const DetailStaffModal = () => {
 
                     </li>
 
+                    {/* level */}
+                    <li>
+                        <div className={styles.input_title}>
+                            <span>{t('staff.level')}</span>
+                        </div>
+
+                        <div className={styles.input}>
+                            <span><b>{selectedStaff?.level} %</b></span>
+                        </div>
+
+                    </li>
+
                     {/* is manager */}
                     {/* <li>
                         <div>
