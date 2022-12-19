@@ -156,7 +156,7 @@ const DetailStaffModal = () => {
                         </div>
 
                         <div className={styles.input}>
-                            <span><b>{selectedStaff?.level} %</b></span>
+                            <span><b>{selectedStaff?.level}</b></span>
                         </div>
 
                     </li>
