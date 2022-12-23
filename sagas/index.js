@@ -9,6 +9,7 @@ import { branchSaga } from "./branch.saga";
 import { staffSaga } from "./staff.saga";
 import { storeSaga } from "./store.saga";
 import { reportSaga } from "./report.saga";
+import { bookingSaga } from "./booking.saga";
 
 //quan sát toàn bộ các action
 const watchAndLog = function* () {
@@ -31,6 +32,7 @@ const rootSaga = function* () {
     staffSaga(),
     storeSaga(),
     reportSaga(),
+    bookingSaga(),
   ]);
 };
 

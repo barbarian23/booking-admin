@@ -7,6 +7,7 @@ import branchAction from "./branch.action";
 import staffAction from "./staff.action";
 import storeAction from "./store.action";
 import reportAction from "./report.action";
+import bookingAction from "./booking.action";
 
 export{
     notificationAction,
@@ -18,4 +19,5 @@ export{
     staffAction,
     storeAction,
     reportAction,
+    bookingAction,
 }

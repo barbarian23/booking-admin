@@ -34,6 +34,12 @@ const initState = {
                     icon: 'layers',
                     link: PAGE_URLS.SERVICES,
                 },
+                {
+                    name: 'booking',
+                    title: 'menu.booking',
+                    icon: 'add-task',
+                    link: PAGE_URLS.BOOKING,
+                },
                 // {
                 //     name: 'customer',
                 //     title: 'menu.customers',

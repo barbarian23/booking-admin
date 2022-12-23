@@ -14,8 +14,19 @@ export const dtStr2dStr = (str) => {
     return `${dd.toString().padStart(2,'0')}/${mm.toString().padStart(2,'0')}/${yyyy.toString().padStart(4,'0')}`;
 };
 
-//yyyy-mm-dd
-export const date2dStr = (date) => {
+//=>dd-mm-yyyy
+export const dt2dtStr = (date) => {
+    if(!date) return ''; 
+    
+    const mm = date.getMonth() + 1; // getMonth() is zero-based
+    const dd = date.getDate();
+    const yyyy = date.getFullYear();
+
+    return `${dd.toString().padStart(2,'0')}-${mm.toString().padStart(2,'0')}-${yyyy.toString().padStart(4,'0')}`;
+}
+
+//=>yyyy-mm-dd
+export const date2ISODateStr = (date) => {
     const mm = date.getMonth() + 1; // getMonth() is zero-based
     const dd = date.getDate();
     const yyyy = date.getFullYear();

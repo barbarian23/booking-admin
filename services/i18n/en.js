@@ -163,7 +163,27 @@ const en = {
             check_in_time: "Check-in time",
             from_date: "From date",
             to_date: "To date",
-        }
+        },
+        booking:{
+            id: "ID",
+            code: "Code",
+            customer: "Customer",
+            name: "Name",
+            address: "Address",
+            phone: "Phone",
+            email: "Email",
+            branch: "Branch",
+            booking: "Booking",
+            booking_date: "Booking date",
+            description: "Description",
+            timeline: "Timeline",
+            status: "Status",
+            created_date: "Created date",
+            modifided_date: "Modifided date",
+            detail_booking: "Detail Booking",
+            customer_information: "Customer information",
+            action: "Action",
+        },
     }
 }
 

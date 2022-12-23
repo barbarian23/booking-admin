@@ -11,6 +11,7 @@ export const PAGE_URLS = {
     ORDERS: "/orders",
     BRANCHES: "/branches",
     SERVICES: "/services",
+    BOOKING: "/booking",
     CUSTOMERS: "/customers",
     STAFF_SCHEDULE: "/staff-schedule",
     STORAGE: "/storage",

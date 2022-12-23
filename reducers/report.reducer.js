@@ -1,4 +1,4 @@
-import { date2dStr } from '../services/utils/time';
+import { date2ISODateStr } from '../services/utils/time';
 import { reportAction } from '../actions';
 
 const initState = {
@@ -9,8 +9,8 @@ const initState = {
     totalPage: 1,
 
     employeeName: '',
-    fromDate: date2dStr(new Date()),
-    toDate: date2dStr(new Date()),
+    fromDate: date2ISODateStr(new Date()),
+    toDate: date2ISODateStr(new Date()),
 }
 
 const reportReducer = (state = initState, action) => {
