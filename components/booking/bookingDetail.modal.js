@@ -107,6 +107,7 @@ const DetailBookingModal = () => {
                             <span><b>{selectedBooking?.timeLine?.title}</b></span>
                         </div>
                     </li>
+
                     {/* description */}
                     <li>
                         <div className={styles.input_title}>
@@ -118,6 +119,51 @@ const DetailBookingModal = () => {
                         </div>
                     </li>
 
+                    {/* booking detail */}
+                    {
+                        selectedBooking?.bookingDetails ?
+                            <>
+                                <h4 className={styles.section_title}>{t('booking.detail')}</h4>
+                                {
+                                    selectedBooking?.bookingDetails?.map((item, index) => {
+                                        return (
+                                            <>
+                                                <li>
+                                                    <div className={styles.input_title}>
+                                                        <span>{t('booking.detailName')}</span>
+                                                    </div>
+
+                                                    <div className={styles.input}>
+                                                        <span><b>{item.serviceDetail.name}</b></span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div className={styles.input_title}>
+                                                        <span>{t('booking.detailQuantity')}</span>
+                                                    </div>
+
+                                                    <div className={styles.input}>
+                                                        <span><b>{item.quantity}</b></span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div className={styles.input_title}>
+                                                        <span>{t('booking.detailPrice')}</span>
+                                                    </div>
+
+                                                    <div className={styles.input}>
+                                                        <span><b>{item.serviceDetail.price}</b></span>
+                                                    </div>
+                                                </li>
+                                                <br></br>
+                                            </>
+                                        )
+                                    })
+                                }
+                            </>
+                            :
+                            null
+                    }
                     {selectedBooking?.branch ? <>
                         <h4 className={styles.section_title}>{t('booking.branch')}</h4>
                         {/* branch name */}
