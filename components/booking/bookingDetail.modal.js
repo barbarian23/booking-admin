@@ -42,7 +42,7 @@ const DetailBookingModal = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
     >
-        <Box sx={style} >
+        <Box sx={style} className={styles.book_detail}>
             <Typography id="modal-modal-title" variant="h5" component="h2">
                 {t('booking.detail_booking')}
             </Typography>
@@ -122,7 +122,7 @@ const DetailBookingModal = () => {
                     {/* booking detail */}
                     {
                         selectedBooking?.bookingDetails ?
-                            <div className={styles.book_detail}>
+                            <>
                                 <h4 className={styles.section_title}>{t('booking.detail')}</h4>
                                 {
                                     selectedBooking?.bookingDetails?.map((item, index) => {
@@ -160,7 +160,7 @@ const DetailBookingModal = () => {
                                         )
                                     })
                                 }
-                            </div>
+                            </>
                             :
                             null
                     }

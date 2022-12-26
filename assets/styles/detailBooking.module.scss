@@ -1,3 +1,8 @@
+.book_detail{
+    overflow-y: scroll!important;
+    height:80%!important;
+}
+
 .form {
     width: 100%;
     list-style: none;
@@ -11,11 +16,6 @@
     .section_title{
         margin: 0 0 5px;
         border-bottom: 1px solid #000000;
-    }
-
-    .book_detail{
-        overflow-y: scroll;
-        height:80%;
     }
 
     .input_title {
