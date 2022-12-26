@@ -13,6 +13,11 @@
         border-bottom: 1px solid #000000;
     }
 
+    .book_detail{
+        overflow-y: scroll;
+        height:80%;
+    }
+
     .input_title {
         flex: 2;
         margin: auto;
