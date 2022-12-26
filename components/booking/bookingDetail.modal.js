@@ -122,7 +122,7 @@ const DetailBookingModal = () => {
                     {/* booking detail */}
                     {
                         selectedBooking?.bookingDetails ?
-                            <>
+                            <div style={{overflowY: "scroll", height:"80%"}}>
                                 <h4 className={styles.section_title}>{t('booking.detail')}</h4>
                                 {
                                     selectedBooking?.bookingDetails?.map((item, index) => {
@@ -160,7 +160,7 @@ const DetailBookingModal = () => {
                                         )
                                     })
                                 }
-                            </>
+                            </div>
                             :
                             null
                     }
