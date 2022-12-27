@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import ReactLoading from 'react-loading';
 import { useSelector, useDispatch } from 'react-redux';
 import { bookingAction } from '../../actions';
 import { useTranslation } from 'react-i18next'
@@ -30,7 +31,7 @@ import { dt2dtStr } from '../../services/utils/time';
 const Booking = () => {
     const { t, i18n } = useTranslation();
     const dispatch = useDispatch();
-    let { bookings, page, totalPage } = useSelector(state => state.booking);
+    let { bookings, isLoading, page, totalPage } = useSelector(state => state.booking);
 
     useEffect(() => {
         dispatch({
@@ -89,66 +90,76 @@ const Booking = () => {
         </Grid>
 
         <Grid container>
-            <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('booking.id')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('booking.customer')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('booking.phone')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('booking.booking_date')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('booking.timeline')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('booking.branch')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('booking.action')}</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {bookings.map((row) => (
-                            <TableRow
-                                key={row.id}
-                            >
-                                <TableCell component="th" scope="row" align="center" sx={{ fontWeight: '700' }}>
-                                    {row.id}
-                                </TableCell>
-                                <TableCell align="center">{row.customerName}</TableCell>
-                                <TableCell align="center">{row.numberPhone}</TableCell>
-                                <TableCell align="center">{dt2dtStr(new Date(row.bookingDate))}</TableCell>
-                                <TableCell align="center">{row.timeLine?.localTime}</TableCell>
-                                <TableCell align="center">{row.branch?.name}</TableCell>
-                                <TableCell align="center" className={styles.buttons}>
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        sx={{
-                                            fontSize: 14,
-                                            fontWeight: '700'
-                                        }}
-                                        onClick={() => { showBookingDetails(row) }}
-                                    >
-                                        {t('button.detail')}
-                                    </Button>
-                                </TableCell>
+            {isLoading
+                ? <div style={{ width: '100%', textAlign: '-webkit-center' }}>
+                    <ReactLoading
+                        type="spin"
+                        color="#1976d2"
+                        height={100}
+                        width={100} />
+                </div>
+                : <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell align="center" sx={{ fontWeight: '700' }}>{t('booking.id')}</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: '700' }}>{t('booking.customer')}</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: '700' }}>{t('booking.phone')}</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: '700' }}>{t('booking.booking_date')}</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: '700' }}>{t('booking.timeline')}</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: '700' }}>{t('booking.branch')}</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: '700' }}>{t('booking.action')}</TableCell>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
+                        </TableHead>
+                        <TableBody>
+                            {bookings.map((row) => (
+                                <TableRow
+                                    key={row.id}
+                                >
+                                    <TableCell component="th" scope="row" align="center" sx={{ fontWeight: '700' }}>
+                                        {row.id}
+                                    </TableCell>
+                                    <TableCell align="center">{row.customerName}</TableCell>
+                                    <TableCell align="center">{row.numberPhone}</TableCell>
+                                    <TableCell align="center">{dt2dtStr(new Date(row.bookingDate))}</TableCell>
+                                    <TableCell align="center">{row.timeLine?.localTime}</TableCell>
+                                    <TableCell align="center">{row.branch?.name}</TableCell>
+                                    <TableCell align="center" className={styles.buttons}>
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            sx={{
+                                                fontSize: 14,
+                                                fontWeight: '700'
+                                            }}
+                                            onClick={() => { showBookingDetails(row) }}
+                                        >
+                                            {t('button.detail')}
+                                        </Button>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
 
-                <Box>
-                    <Grid container>
-                        <Grid item lg={6}>
+                    <Box>
+                        <Grid container>
+                            <Grid item lg={6}>
+                            </Grid>
+                            <Grid item lg={6}
+                                sx={{ display: 'flex', justifyContent: 'flex-end', height: "3em", mt: 2 }}>
+                                <Stack spacing={page}>
+                                    <Pagination
+                                        page={page}
+                                        count={totalPage}
+                                        shape="rounded"
+                                        onChange={onPageChanged} />
+                                </Stack>
+                            </Grid>
                         </Grid>
-                        <Grid item lg={6}
-                            sx={{ display: 'flex', justifyContent: 'flex-end', height: "3em", mt: 2 }}>
-                            <Stack spacing={page}>
-                                <Pagination
-                                    count={totalPage}
-                                    shape="rounded"
-                                    onChange={onPageChanged} />
-                            </Stack>
-                        </Grid>
-                    </Grid>
-                </Box>
-            </TableContainer>
+                    </Box>
+                </TableContainer>
+            }
         </Grid>
 
         <BookingDetailModal />

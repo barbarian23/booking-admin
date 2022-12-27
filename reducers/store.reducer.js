@@ -7,6 +7,7 @@ const initState = {
     total: 0,
     totalPage: 1,
     currentAction: '',
+    isLoading: false,
 
     selectedStaff: {
         name: '',
@@ -24,6 +25,11 @@ const initState = {
 
 const storeReducer = (state = initState, action) => {
     switch (action.type) {
+        case storeAction.CHANGE_LOADING:
+            return {
+                ...state,
+                isLoading: action.value,
+            }
         case storeAction.GET_PAGGING_STORES_SUCCESS:
             return {
                 ...state,

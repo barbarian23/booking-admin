@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import ReactLoading from 'react-loading';
 import { useSelector, useDispatch } from 'react-redux';
 import { staffAction } from '../../actions';
 import { useTranslation } from 'react-i18next'
@@ -32,7 +33,7 @@ import TableRow from '@mui/material/TableRow';
 const Staffs = () => {
     const { t, i18n } = useTranslation();
     const dispatch = useDispatch();
-    let { staffs, page, totalPage } = useSelector(state => state.staff);
+    let { staffs, isLoading, page, totalPage } = useSelector(state => state.staff);
 
     useEffect(() => {
         dispatch({
@@ -49,42 +50,42 @@ const Staffs = () => {
         dispatch({
             type: staffAction.SHOW_DETAIL_STAFF_MODAL,
             value: staff
-        }); 
+        });
     }
 
     const onAddBtnClicked = () => {
         dispatch({
             type: staffAction.SHOW_ADD_STAFF_MODAL,
-        }); 
+        });
     }
 
     const onUpdateBtnClicked = (staff) => {
         dispatch({
             type: staffAction.SELECT_STAFF,
             value: staff
-        }); 
+        });
         dispatch({
             type: staffAction.SHOW_UPDATE_STAFF_MODAL,
-        });  
+        });
     }
 
     const onDeleteBtnClicked = (staff) => {
         dispatch({
             type: staffAction.SELECT_STAFF,
             value: staff
-        }); 
+        });
 
         dispatch({
             type: staffAction.SHOW_DELETE_STAFF_MODAL,
             value: staff
-        }); 
+        });
     }
 
     const onPageChanged = (event, page) => {
         dispatch({
             type: staffAction.PAGE_CHANGE,
             value: page
-        }); 
+        });
     }
 
     return <Grid container>
@@ -127,88 +128,98 @@ const Staffs = () => {
         </Grid>
 
         <Grid container>
-            <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('staff.id')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('staff.code')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('staff.full_name')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('staff.phone')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('staff.created_date')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('staff.modifided_date')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('staff.action')}</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {staffs.map((row) => (
-                            <TableRow
-                                key={row.id}
-                            >
-                                <TableCell component="th" scope="row" align="center" sx={{ fontWeight: '700' }}>
-                                    {row.id}
-                                </TableCell>
-                                <TableCell align="center">{row.passCodeDecode}</TableCell>
-                                <TableCell align="center">{row.fullName}</TableCell>
-                                <TableCell align="center">{row.phone}</TableCell>
-                                <TableCell align="center">{row.createdDate}</TableCell>
-                                <TableCell align="center">{row.modifiedDate}</TableCell>
-                                <TableCell align="center" className={styles.buttons}>
-                                    <Button
-                                        variant="contained"
-                                        color="error"
-                                        sx={{
-                                            fontSize: 14,
-                                            fontWeight: '700'
-                                        }}
-                                        onClick={() => {onDeleteBtnClicked(row)}}
-                                    >
-                                        {t('button.delete')}
-                                    </Button>
-                                    <Button
-                                        variant="contained"
-                                        color="success"
-                                        sx={{
-                                            fontSize: 14,
-                                            fontWeight: '700'
-                                        }}
-                                        onClick={() => {onUpdateBtnClicked(row)}}
-                                    >
-                                        {t('button.update')}
-                                    </Button>
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        sx={{
-                                            fontSize: 14,
-                                            fontWeight: '700'
-                                        }}
-                                        onClick={() => {showStaffDetails(row)}}
-                                    >
-                                        {t('button.detail')}
-                                    </Button>
-                                </TableCell>
+            {isLoading
+                ? <div style={{ width: '100%', textAlign: '-webkit-center' }}>
+                    <ReactLoading
+                        type="spin"
+                        color="#1976d2"
+                        height={100}
+                        width={100} />
+                </div>
+                : <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell align="center" sx={{ fontWeight: '700' }}>{t('staff.id')}</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: '700' }}>{t('staff.code')}</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: '700' }}>{t('staff.full_name')}</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: '700' }}>{t('staff.phone')}</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: '700' }}>{t('staff.created_date')}</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: '700' }}>{t('staff.modifided_date')}</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: '700' }}>{t('staff.action')}</TableCell>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
+                        </TableHead>
+                        <TableBody>
+                            {staffs.map((row) => (
+                                <TableRow
+                                    key={row.id}
+                                >
+                                    <TableCell component="th" scope="row" align="center" sx={{ fontWeight: '700' }}>
+                                        {row.id}
+                                    </TableCell>
+                                    <TableCell align="center">{row.passCodeDecode}</TableCell>
+                                    <TableCell align="center">{row.fullName}</TableCell>
+                                    <TableCell align="center">{row.phone}</TableCell>
+                                    <TableCell align="center">{row.createdDate}</TableCell>
+                                    <TableCell align="center">{row.modifiedDate}</TableCell>
+                                    <TableCell align="center" className={styles.buttons}>
+                                        <Button
+                                            variant="contained"
+                                            color="error"
+                                            sx={{
+                                                fontSize: 14,
+                                                fontWeight: '700'
+                                            }}
+                                            onClick={() => { onDeleteBtnClicked(row) }}
+                                        >
+                                            {t('button.delete')}
+                                        </Button>
+                                        <Button
+                                            variant="contained"
+                                            color="success"
+                                            sx={{
+                                                fontSize: 14,
+                                                fontWeight: '700'
+                                            }}
+                                            onClick={() => { onUpdateBtnClicked(row) }}
+                                        >
+                                            {t('button.update')}
+                                        </Button>
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            sx={{
+                                                fontSize: 14,
+                                                fontWeight: '700'
+                                            }}
+                                            onClick={() => { showStaffDetails(row) }}
+                                        >
+                                            {t('button.detail')}
+                                        </Button>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
 
-                <Box>
-                    <Grid container>
-                        <Grid item lg={6}>
+                    <Box>
+                        <Grid container>
+                            <Grid item lg={6}>
+                            </Grid>
+                            <Grid item lg={6}
+                                sx={{ display: 'flex', justifyContent: 'flex-end', height: "3em", mt: 2 }}>
+                                <Stack spacing={page}>
+                                    <Pagination
+                                        page={page}
+                                        count={totalPage}
+                                        shape="rounded"
+                                        onChange={onPageChanged} />
+                                </Stack>
+                            </Grid>
                         </Grid>
-                        <Grid item lg={6}
-                            sx={{ display: 'flex', justifyContent: 'flex-end', height: "3em", mt: 2 }}>
-                            <Stack spacing={page}>
-                                <Pagination 
-                                    count={totalPage} 
-                                    shape="rounded"
-                                    onChange={onPageChanged} />
-                            </Stack>
-                        </Grid>
-                    </Grid>
-                </Box>
-            </TableContainer>
+                    </Box>
+                </TableContainer>
+            }
         </Grid>
 
         <AddStaffModal />

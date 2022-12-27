@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import ReactLoading from 'react-loading';
 import { useSelector, useDispatch } from 'react-redux';
 import { serviceAction } from '../../actions';
 import { useTranslation } from 'react-i18next'
@@ -35,7 +36,7 @@ import TableRow from '@mui/material/TableRow';
 const Services = () => {
     const { t, i18n } = useTranslation();
     const dispatch = useDispatch();
-    let { services, page, totalPage } = useSelector(state => state.service);
+    let { services, isLoading, page, totalPage } = useSelector(state => state.service);
 
     useEffect(() => {
         dispatch({
@@ -51,40 +52,40 @@ const Services = () => {
 
         dispatch({
             type: serviceAction.SHOW_SERVICE_DETAILS_MODAL,
-        }); 
+        });
     }
 
     const onAddBtnClicked = () => {
         dispatch({
             type: serviceAction.SHOW_ADD_SERVICE_MODAL,
-        }); 
+        });
     }
 
     const onUpdateBtnClicked = (service) => {
         dispatch({
             type: serviceAction.SELECT_SERVICE,
             value: service
-        }); 
+        });
         dispatch({
             type: serviceAction.SHOW_UPDATE_SERVICE_MODAL,
-        });  
+        });
     }
 
     const onDeleteBtnClicked = (service) => {
         dispatch({
             type: serviceAction.SELECT_SERVICE,
             value: service
-        }); 
+        });
         dispatch({
             type: serviceAction.SHOW_DELETE_SERVICE_MODAL,
-        }); 
+        });
     }
 
     const onPageChanged = (event, page) => {
         dispatch({
             type: serviceAction.PAGE_CHANGE,
             value: page
-        }); 
+        });
     }
 
     return <Grid container>
@@ -127,86 +128,96 @@ const Services = () => {
         </Grid>
 
         <Grid container>
-            <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('service.id')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('service.name')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('service.branch')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('service.created_date')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('service.modifided_date')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('service.action')}</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {services.map((row) => (
-                            <TableRow
-                                key={row.id}
-                            >
-                                <TableCell component="th" scope="row" align="center" sx={{ fontWeight: '700' }}>
-                                    {row.id}
-                                </TableCell>
-                                <TableCell align="center">{row.name}</TableCell>
-                                <TableCell align="center">{row.branch.name}</TableCell>
-                                <TableCell align="center">{row.createdDate}</TableCell>
-                                <TableCell align="center">{row.modifiedDate}</TableCell>
-                                <TableCell align="center" className={styles.buttons}>
-                                    <Button
-                                        variant="contained"
-                                        color="error"
-                                        sx={{
-                                            fontSize: 14,
-                                            fontWeight: '700'
-                                        }}
-                                        onClick={() => {onDeleteBtnClicked(row)}}
-                                    >
-                                        {t('button.delete')}
-                                    </Button>
-                                    <Button
-                                        variant="contained"
-                                        color="success"
-                                        sx={{
-                                            fontSize: 14,
-                                            fontWeight: '700'
-                                        }}
-                                        onClick={() => {onUpdateBtnClicked(row)}}
-                                    >
-                                        {t('button.update')}
-                                    </Button>
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        sx={{
-                                            fontSize: 14,
-                                            fontWeight: '700'
-                                        }}
-                                        onClick={() => {showServiceDetails(row)}}
-                                    >
-                                        {t('button.detail')}
-                                    </Button>
-                                </TableCell>
+            {isLoading
+                ? <div style={{ width: '100%', textAlign: '-webkit-center' }}>
+                    <ReactLoading
+                        type="spin"
+                        color="#1976d2"
+                        height={100}
+                        width={100} />
+                </div>
+                : <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell align="center" sx={{ fontWeight: '700' }}>{t('service.id')}</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: '700' }}>{t('service.name')}</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: '700' }}>{t('service.branch')}</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: '700' }}>{t('service.created_date')}</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: '700' }}>{t('service.modifided_date')}</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: '700' }}>{t('service.action')}</TableCell>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
+                        </TableHead>
+                        <TableBody>
+                            {services.map((row) => (
+                                <TableRow
+                                    key={row.id}
+                                >
+                                    <TableCell component="th" scope="row" align="center" sx={{ fontWeight: '700' }}>
+                                        {row.id}
+                                    </TableCell>
+                                    <TableCell align="center">{row.name}</TableCell>
+                                    <TableCell align="center">{row.branch.name}</TableCell>
+                                    <TableCell align="center">{row.createdDate}</TableCell>
+                                    <TableCell align="center">{row.modifiedDate}</TableCell>
+                                    <TableCell align="center" className={styles.buttons}>
+                                        <Button
+                                            variant="contained"
+                                            color="error"
+                                            sx={{
+                                                fontSize: 14,
+                                                fontWeight: '700'
+                                            }}
+                                            onClick={() => { onDeleteBtnClicked(row) }}
+                                        >
+                                            {t('button.delete')}
+                                        </Button>
+                                        <Button
+                                            variant="contained"
+                                            color="success"
+                                            sx={{
+                                                fontSize: 14,
+                                                fontWeight: '700'
+                                            }}
+                                            onClick={() => { onUpdateBtnClicked(row) }}
+                                        >
+                                            {t('button.update')}
+                                        </Button>
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            sx={{
+                                                fontSize: 14,
+                                                fontWeight: '700'
+                                            }}
+                                            onClick={() => { showServiceDetails(row) }}
+                                        >
+                                            {t('button.detail')}
+                                        </Button>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
 
-                <Box>
-                    <Grid container>
-                        <Grid item lg={6}>
+                    <Box>
+                        <Grid container>
+                            <Grid item lg={6}>
+                            </Grid>
+                            <Grid item lg={6}
+                                sx={{ display: 'flex', justifyContent: 'flex-end', height: "3em", mt: 2 }}>
+                                <Stack spacing={page}>
+                                    <Pagination
+                                        page={page}
+                                        count={totalPage}
+                                        shape="rounded"
+                                        onChange={onPageChanged} />
+                                </Stack>
+                            </Grid>
                         </Grid>
-                        <Grid item lg={6}
-                            sx={{ display: 'flex', justifyContent: 'flex-end', height: "3em", mt: 2 }}>
-                            <Stack spacing={page}>
-                                <Pagination 
-                                    count={totalPage} 
-                                    shape="rounded"
-                                    onChange={onPageChanged} />
-                            </Stack>
-                        </Grid>
-                    </Grid>
-                </Box>
-            </TableContainer>
+                    </Box>
+                </TableContainer>
+            }
         </Grid>
 
         <AddServiceModal />

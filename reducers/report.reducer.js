@@ -7,6 +7,7 @@ const initState = {
     pageSize: 10,
     total: 0,
     totalPage: 1,
+    isLoading: false,
 
     employeeName: '',
     fromDate: date2ISODateStr(new Date()),
@@ -15,6 +16,11 @@ const initState = {
 
 const reportReducer = (state = initState, action) => {
     switch (action.type) {
+        case reportAction.CHANGE_LOADING:
+            return {
+                ...state,
+                isLoading: action.value,
+            }
         case reportAction.GET_PAGING_RATE_EMPLOYEE_REPORT_SUCCESS:
             return {
                 ...state,

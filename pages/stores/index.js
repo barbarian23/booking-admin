@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import ReactLoading from 'react-loading';
 import { useSelector, useDispatch } from 'react-redux';
 import { storeAction } from '../../actions';
 import { useTranslation } from 'react-i18next'
@@ -31,7 +32,7 @@ import TableRow from '@mui/material/TableRow';
 const Stores = () => {
     const { t, i18n } = useTranslation();
     const dispatch = useDispatch();
-    let { stores, page, totalPage } = useSelector(state => state.store);
+    let { stores, isLoading, page, totalPage } = useSelector(state => state.store);
 
     useEffect(() => {
         dispatch({
@@ -48,32 +49,32 @@ const Stores = () => {
         dispatch({
             type: storeAction.SHOW_DETAIL_STORE_MODAL,
             value: store
-        }); 
+        });
     }
 
     const onAddBtnClicked = () => {
         dispatch({
             type: storeAction.SHOW_ADD_STORE_MODAL,
-        }); 
+        });
     }
 
     const onDeleteBtnClicked = (store) => {
         dispatch({
             type: storeAction.SELECT_STORE,
             value: store
-        }); 
+        });
 
         dispatch({
             type: storeAction.SHOW_DELETE_STORE_MODAL,
             value: store
-        }); 
+        });
     }
 
     const onPageChanged = (event, page) => {
         dispatch({
             type: storeAction.PAGE_CHANGE,
             value: page
-        }); 
+        });
     }
 
     return <Grid container>
@@ -116,79 +117,89 @@ const Stores = () => {
         </Grid>
 
         <Grid container>
-            <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('store.id')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('store.code')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('store.name')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('store.phone')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('store.created_date')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('store.modifided_date')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('store.action')}</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {stores.map((row) => (
-                            <TableRow
-                                key={row.id}
-                            >
-                                <TableCell component="th" scope="row" align="center" sx={{ fontWeight: '700' }}>
-                                    {row.id}
-                                </TableCell>
-                                <TableCell align="center">{row.code}</TableCell>
-                                <TableCell align="center">{row.name}</TableCell>
-                                <TableCell align="center">{row.phone}</TableCell>
-                                <TableCell align="center">{row.createdDate}</TableCell>
-                                <TableCell align="center">{row.modifiedDate}</TableCell>
-                                <TableCell align="center" className={styles.buttons}>
-                                    <Button
-                                        variant="contained"
-                                        color="error"
-                                        sx={{
-                                            fontSize: 14,
-                                            fontWeight: '700'
-                                        }}
-                                        onClick={() => {onDeleteBtnClicked(row)}}
-                                    >
-                                        {t('button.delete')}
-                                    </Button>
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        sx={{
-                                            fontSize: 14,
-                                            fontWeight: '700'
-                                        }}
-                                        onClick={() => {showStoreDetails(row)}}
-                                    >
-                                        {t('button.detail')}
-                                    </Button>
-                                </TableCell>
+            {isLoading
+                ? <div style={{ width: '100%', textAlign: '-webkit-center' }}>
+                    <ReactLoading
+                        type="spin"
+                        color="#1976d2"
+                        height={100}
+                        width={100} />
+                </div>
+                : <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell align="center" sx={{ fontWeight: '700' }}>{t('store.id')}</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: '700' }}>{t('store.code')}</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: '700' }}>{t('store.name')}</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: '700' }}>{t('store.phone')}</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: '700' }}>{t('store.created_date')}</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: '700' }}>{t('store.modifided_date')}</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: '700' }}>{t('store.action')}</TableCell>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
+                        </TableHead>
+                        <TableBody>
+                            {stores.map((row) => (
+                                <TableRow
+                                    key={row.id}
+                                >
+                                    <TableCell component="th" scope="row" align="center" sx={{ fontWeight: '700' }}>
+                                        {row.id}
+                                    </TableCell>
+                                    <TableCell align="center">{row.code}</TableCell>
+                                    <TableCell align="center">{row.name}</TableCell>
+                                    <TableCell align="center">{row.phone}</TableCell>
+                                    <TableCell align="center">{row.createdDate}</TableCell>
+                                    <TableCell align="center">{row.modifiedDate}</TableCell>
+                                    <TableCell align="center" className={styles.buttons}>
+                                        <Button
+                                            variant="contained"
+                                            color="error"
+                                            sx={{
+                                                fontSize: 14,
+                                                fontWeight: '700'
+                                            }}
+                                            onClick={() => { onDeleteBtnClicked(row) }}
+                                        >
+                                            {t('button.delete')}
+                                        </Button>
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            sx={{
+                                                fontSize: 14,
+                                                fontWeight: '700'
+                                            }}
+                                            onClick={() => { showStoreDetails(row) }}
+                                        >
+                                            {t('button.detail')}
+                                        </Button>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
 
-                <Box>
-                    <Grid container>
-                        <Grid item lg={6}>
+                    <Box>
+                        <Grid container>
+                            <Grid item lg={6}>
+                            </Grid>
+                            <Grid item lg={6}
+                                sx={{ display: 'flex', justifyContent: 'flex-end', height: "3em", mt: 2 }}>
+                                <Stack spacing={page}>
+                                    <Pagination
+                                        page={page}
+                                        count={totalPage}
+                                        shape="rounded"
+                                        onChange={onPageChanged} />
+                                </Stack>
+                            </Grid>
                         </Grid>
-                        <Grid item lg={6}
-                            sx={{ display: 'flex', justifyContent: 'flex-end', height: "3em", mt: 2 }}>
-                            <Stack spacing={page}>
-                                <Pagination 
-                                    count={totalPage} 
-                                    shape="rounded"
-                                    onChange={onPageChanged} />
-                            </Stack>
-                        </Grid>
-                    </Grid>
-                </Box>
-            </TableContainer>
+                    </Box>
+                </TableContainer>
+            }
         </Grid>
-{/* 
+        {/* 
         <AddStoreModal />
         <DetailStoreModal />
         <DeleteStoreModal /> */}

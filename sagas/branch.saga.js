@@ -6,6 +6,11 @@ const getPaggingBranchesSage = function* (action) {
     const branch = yield select(state => state.branch);
     const { page, pageSize } = branch;
     try {
+        yield put({
+            type: branchAction.CHANGE_LOADING,
+            value: true,
+        });
+        
         let response = yield call(branchApi.getPagging, page, pageSize);
         if (response.status === 200) {
             let data = response.data;
@@ -45,6 +50,10 @@ const getPaggingBranchesSage = function* (action) {
             });
         }
     }
+    yield put({
+        type: branchAction.CHANGE_LOADING,
+        value: false,
+    });
 };
 
 

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import ReactLoading from 'react-loading';
 import { useSelector, useDispatch } from 'react-redux';
 import { reportAction } from '../../actions';
 import { useTranslation } from 'react-i18next'
@@ -26,12 +27,12 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
-import {dtStr2dStr} from '../../services/utils/time';
+import { dtStr2dStr } from '../../services/utils/time';
 
 const Report = () => {
     const { t, i18n } = useTranslation();
     const dispatch = useDispatch();
-    let { reports, page, totalPage, employeeName, fromDate, toDate } = useSelector(state => state.report);
+    let { reports, isLoading, page, totalPage, employeeName, fromDate, toDate } = useSelector(state => state.report);
 
     // useEffect(() => {
     //     dispatch({
@@ -165,55 +166,65 @@ const Report = () => {
         </Grid>
 
         <Grid container>
-            <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('report.id')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('report.employee_name')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('report.employee_code')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('report.check_in_time')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('report.total')}</TableCell>
-                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('report.employee_rate')}</TableCell>
+            {isLoading
+                ? <div style={{ width: '100%', textAlign: '-webkit-center' }}>
+                    <ReactLoading
+                        type="spin"
+                        color="#1976d2"
+                        height={100}
+                        width={100} />
+                </div>
+                : <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell align="center" sx={{ fontWeight: '700' }}>{t('report.id')}</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: '700' }}>{t('report.employee_name')}</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: '700' }}>{t('report.employee_code')}</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: '700' }}>{t('report.check_in_time')}</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: '700' }}>{t('report.total')}</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: '700' }}>{t('report.employee_rate')}</TableCell>
 
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {reports.map((row) => {
-                            if (row.checkIn)
-                                return <TableRow
-                                    key={row.id}
-                                >
-                                    <TableCell component="th" scope="row" align="center" sx={{ fontWeight: '700' }}>
-                                        {row.id}
-                                    </TableCell>
-                                    <TableCell align="center">{row.checkIn?.employeeFullName}</TableCell>
-                                    <TableCell align="center">{row.checkIn?.employeeCode}</TableCell>
-                                    <TableCell align="center">{dtStr2dStr(row.checkIn?.checkInDay)} - {row.checkIn?.checkInTime}</TableCell>
-                                    <TableCell align="center">{row.total}</TableCell>
-                                    <TableCell align="center">{row.rateEmployee}</TableCell>
-                                </TableRow>
-                            else return null
-                        })}
-                    </TableBody>
-                </Table>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {reports.map((row) => {
+                                if (row.checkIn)
+                                    return <TableRow
+                                        key={row.id}
+                                    >
+                                        <TableCell component="th" scope="row" align="center" sx={{ fontWeight: '700' }}>
+                                            {row.id}
+                                        </TableCell>
+                                        <TableCell align="center">{row.checkIn?.employeeFullName}</TableCell>
+                                        <TableCell align="center">{row.checkIn?.employeeCode}</TableCell>
+                                        <TableCell align="center">{dtStr2dStr(row.checkIn?.checkInDay)} - {row.checkIn?.checkInTime}</TableCell>
+                                        <TableCell align="center">{row.total}</TableCell>
+                                        <TableCell align="center">{row.rateEmployee}</TableCell>
+                                    </TableRow>
+                                else return null
+                            })}
+                        </TableBody>
+                    </Table>
 
-                <Box>
-                    <Grid container>
-                        <Grid item lg={6}>
+                    <Box>
+                        <Grid container>
+                            <Grid item lg={6}>
+                            </Grid>
+                            <Grid item lg={6}
+                                sx={{ display: 'flex', justifyContent: 'flex-end', height: "3em", mt: 2 }}>
+                                <Stack spacing={page}>
+                                    <Pagination
+                                        page={page}
+                                        count={totalPage}
+                                        shape="rounded"
+                                        onChange={onPageChanged} />
+                                </Stack>
+                            </Grid>
                         </Grid>
-                        <Grid item lg={6}
-                            sx={{ display: 'flex', justifyContent: 'flex-end', height: "3em", mt: 2 }}>
-                            <Stack spacing={page}>
-                                <Pagination
-                                    count={totalPage}
-                                    shape="rounded"
-                                    onChange={onPageChanged} />
-                            </Stack>
-                        </Grid>
-                    </Grid>
-                </Box>
-            </TableContainer>
+                    </Box>
+                </TableContainer>
+            }
         </Grid>
 
     </Grid>

@@ -7,6 +7,7 @@ const initState = {
     total: 0,
     totalPage: 1,
     currentAction: '',
+    isLoading: false,
 
     selectedService: {
         name: '',
@@ -32,6 +33,11 @@ const initState = {
 
 const serviceReducer = (state = initState, action) => {
     switch (action.type) {
+        case serviceAction.CHANGE_LOADING:
+            return {
+                ...state,
+                isLoading: action.value,
+            }
         case serviceAction.GET_PAGGING_SERVICES_SUCCESS:
             return {
                 ...state,

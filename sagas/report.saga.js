@@ -6,6 +6,11 @@ const getPaggingRateEmployeeReportSage = function* (action) {
     const report = yield select(state => state.report);
     const { fromDate, toDate, employeeName, page, pageSize } = report;
     try {
+        yield put({
+            type: reportAction.CHANGE_LOADING,
+            value: true,
+        });
+
         let response = yield call(reportApi.getPagingRateEmployeeReport, fromDate, toDate, employeeName, page, pageSize);
         if (response.status === 200) {
             let data = response.data;
@@ -45,6 +50,11 @@ const getPaggingRateEmployeeReportSage = function* (action) {
             });
         }
     }
+
+    yield put({
+        type: reportAction.CHANGE_LOADING,
+        value: false,
+    });
 };
 
 export const reportSaga = function* () {

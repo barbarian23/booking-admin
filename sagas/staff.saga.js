@@ -6,6 +6,11 @@ const getPaggingStaffsSage = function* (action) {
     const staff = yield select(state => state.staff);
     const { page, pageSize } = staff;
     try {
+        yield put({
+            type: staffAction.CHANGE_LOADING,
+            value: true,
+        });
+
         let response = yield call(staffApi.getPagging, page, pageSize);
         if (response.status === 200) {
             let data = response.data;
@@ -41,6 +46,11 @@ const getPaggingStaffsSage = function* (action) {
             });
         }
     }
+
+    yield put({
+        type: staffAction.CHANGE_LOADING,
+        value: false,
+    });
 };
 
 const getComboBranchesSaga = function* (action) {

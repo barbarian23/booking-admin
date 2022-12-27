@@ -6,6 +6,11 @@ const getPaggingStaffsSage = function* (action) {
     const store = yield select(state => state.store);
     const { page, pageSize } = store;
     try {
+        yield put({
+            type: storeAction.CHANGE_LOADING,
+            value: true,
+        });
+
         let response = yield call(storeApi.getPagging, page, pageSize);
         if (response.status === 200) {
             let data = response.data;
@@ -41,6 +46,11 @@ const getPaggingStaffsSage = function* (action) {
             });
         }
     }
+
+    yield put({
+        type: storeAction.CHANGE_LOADING,
+        value: false,
+    });
 };
 
 const getComboBranchesSaga = function* (action) {

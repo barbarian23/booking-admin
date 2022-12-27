@@ -7,6 +7,7 @@ const initState = {
     total: 0,
     totalPage: 1,
     currentAction: '',
+    isLoading: false,
 
     customerName: '',
     customerPhone: '',
@@ -18,6 +19,11 @@ const initState = {
 
 const bookingReducer = (state = initState, action) => {
     switch (action.type) {
+        case bookingAction.CHANGE_LOADING:
+            return {
+                ...state,
+                isLoading: action.value,
+            }
         case bookingAction.GET_PAGGING_BOOKINGS_SUCCESS:
             return {
                 ...state,

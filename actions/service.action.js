@@ -8,6 +8,7 @@ const serviceAction = {
 
     //change action
     CHANGE_ACTION: PREFIX + 'CHANGE_ACTION',
+    CHANGE_LOADING: PREFIX + 'CHANGE_LOADING',
     
     //page change
     PAGE_CHANGE: PREFIX + 'PAGE_CHANGE',

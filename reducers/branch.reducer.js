@@ -7,6 +7,7 @@ const initState = {
     total: 0,
     totalPage: 1,
     currentAction: '',
+    isLoading: false,
 
     selectedBranch: {
         name: '',
@@ -21,6 +22,12 @@ const initState = {
 
 const branchReducer = (state = initState, action) => {
     switch (action.type) {
+        case branchAction.CHANGE_LOADING:
+            return {
+                ...state,
+                isLoading: action.value,
+            }
+
         case branchAction.GET_PAGGING_BRANCHES_SUCCESS:
             return {
                 ...state,

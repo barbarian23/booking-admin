@@ -6,6 +6,11 @@ const getPaggingServicesSage = function* (action) {
     const service = yield select(state => state.service);
     const { page, pageSize } = service;
     try {
+        yield put({
+            type: serviceAction.CHANGE_LOADING,
+            value: true,
+        });
+
         let response = yield call(serviceApi.getPagging, page, pageSize);
         if (response.status === 200) {
             let data = response.data;
@@ -45,6 +50,11 @@ const getPaggingServicesSage = function* (action) {
             });
         }
     }
+
+    yield put({
+        type: serviceAction.CHANGE_LOADING,
+        value: false,
+    });
 };
 
 

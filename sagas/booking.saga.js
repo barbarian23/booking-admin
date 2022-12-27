@@ -6,6 +6,11 @@ const getPaggingStaffsSage = function* (action) {
     const booking = yield select(state => state.booking);
     const { page, pageSize, customerName, customerPhone } = booking;
     try {
+        yield put({
+            type: bookingAction.CHANGE_LOADING,
+            value: true,
+        });
+
         let response = yield call(bookingApi.getPagging, page, pageSize, customerName, customerPhone);
         if (response.status === 200) {
             let data = response.data;
@@ -41,6 +46,11 @@ const getPaggingStaffsSage = function* (action) {
             });
         }
     }
+
+    yield put({
+        type: bookingAction.CHANGE_LOADING,
+        value: false,
+    });
 };
 
 export const bookingSaga = function* () {
