@@ -8,6 +8,7 @@ import staffReducer from "./staff.reducer";
 import storeReducer from "./store.reducer";
 import reportReducer from "./report.reducer";
 import bookingReducer from "./booking.reducer";
+import checkInReducer from "./checkIn.reducer";
 
 export default combineReducers({
     leftMenu: leftMenuReducer,
@@ -18,4 +19,5 @@ export default combineReducers({
     store: storeReducer,
     report: reportReducer,
     booking: bookingReducer,
+    checkIn: checkInReducer,
 });

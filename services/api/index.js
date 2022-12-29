@@ -6,6 +6,7 @@ import staffApi from './staff.api';
 import storeApi from './store.api';
 import reportApi from './report.api';
 import bookingApi from './booking.api';
+import checkInApi from './checkIn.api';
 
 export{
     userApi,
@@ -16,4 +17,5 @@ export{
     storeApi,
     reportApi,
     bookingApi,
+    checkInApi,
 }

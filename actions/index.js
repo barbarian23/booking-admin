@@ -8,6 +8,7 @@ import staffAction from "./staff.action";
 import storeAction from "./store.action";
 import reportAction from "./report.action";
 import bookingAction from "./booking.action";
+import checkInAction from "./checkIn.action";
 
 export{
     notificationAction,
@@ -20,4 +21,5 @@ export{
     storeAction,
     reportAction,
     bookingAction,
+    checkInAction,
 }

@@ -1,27 +1,27 @@
 import { all, put, call, select, takeEvery } from "redux-saga/effects";
-import { reportAction, userAction, notificationAction } from "../actions";
-import { reportApi } from "../services/api";
+import { checkInAction, userAction, notificationAction } from "../actions";
+import { checkInApi } from "../services/api";
 
-const getPaggingRateEmployeeReportSage = function* (action) {
-    const report = yield select(state => state.report);
-    const { fromDate, toDate, employeeName, page, pageSize } = report;
+const getPaggingStaffsSage = function* (action) {
+    const checkIn = yield select(state => state.checkIn);
+    const { page, pageSize } = checkIn;
     try {
         yield put({
-            type: reportAction.CHANGE_LOADING,
+            type: checkInAction.CHANGE_LOADING,
             value: true,
         });
 
-        let response = yield call(reportApi.getPagingRateEmployeeReport, fromDate, toDate, employeeName, page, pageSize);
+        let response = yield call(checkInApi.getPagging, page, pageSize);
         if (response.status === 200) {
             let data = response.data;
             console.log(data);
             yield put({
-                type: reportAction.GET_PAGING_RATE_EMPLOYEE_REPORT_SUCCESS,
+                type: checkInAction.GET_PAGGING_CHECK_IN_CUSTOMERS_SUCCESS,
                 value: data.data,
             });
         } else {
             yield put({
-                type: reportAction.GET_PAGING_RATE_EMPLOYEE_REPORT_FAIL,
+                type: checkInAction.GET_PAGGING_CHECK_IN_CUSTOMERS_FAIL,
                 value: ''
             });
             yield put({
@@ -42,7 +42,7 @@ const getPaggingRateEmployeeReportSage = function* (action) {
         } else {
             const errorMsg = err.response.data.error;
             yield put({
-                type: reportAction.GET_PAGING_RATE_EMPLOYEE_REPORT_FAIL,
+                type: checkInAction.GET_PAGGING_CHECK_IN_CUSTOMERS_FAIL,
                 value: errorMsg
             });
             yield put({
@@ -53,14 +53,14 @@ const getPaggingRateEmployeeReportSage = function* (action) {
     }
 
     yield put({
-        type: reportAction.CHANGE_LOADING,
+        type: checkInAction.CHANGE_LOADING,
         value: false,
     });
 };
 
-export const reportSaga = function* () {
+export const checkInSaga = function* () {
     yield all([
-        takeEvery(reportAction.GET_PAGING_RATE_EMPLOYEE_REPORT, getPaggingRateEmployeeReportSage),
-        takeEvery(reportAction.PAGE_CHANGE, getPaggingRateEmployeeReportSage),
+        takeEvery(checkInAction.GET_PAGGING_CHECK_IN_CUSTOMERS, getPaggingStaffsSage),
+        takeEvery(checkInAction.PAGE_CHANGE, getPaggingStaffsSage),
     ])
 };

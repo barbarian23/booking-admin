@@ -30,8 +30,10 @@ const getPaggingServicesSage = function* (action) {
             });
         }
     } catch (err) {
-        const errorMsg = err.response.data.error;
-        if (errorMsg == 'invalid_token') {
+        // const errorMsg = err.response.data.error;
+        // if (errorMsg == 'invalid_token') {
+        const code = err.response.status;
+        if (code == 401) {
             yield put({
                 type: userAction.LOG_OUT,
             });
@@ -40,6 +42,7 @@ const getPaggingServicesSage = function* (action) {
                 value: "notification.session_is_expired"
             });
         } else {
+            const errorMsg = err.response.data.error;
             yield put({
                 type: serviceAction.GET_PAGGING_SERVICES_FAIL,
                 value: errorMsg

@@ -12,6 +12,7 @@ export const PAGE_URLS = {
     BRANCHES: "/branches",
     SERVICES: "/services",
     BOOKING: "/booking",
+    CHECK_IN: "/check-in",
     CUSTOMERS: "/customers",
     STAFF_SCHEDULE: "/staff-schedule",
     STORAGE: "/storage",

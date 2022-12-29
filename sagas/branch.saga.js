@@ -10,7 +10,7 @@ const getPaggingBranchesSage = function* (action) {
             type: branchAction.CHANGE_LOADING,
             value: true,
         });
-        
+
         let response = yield call(branchApi.getPagging, page, pageSize);
         if (response.status === 200) {
             let data = response.data;
@@ -30,8 +30,10 @@ const getPaggingBranchesSage = function* (action) {
             });
         }
     } catch (err) {
-        const errorMsg = err.response.data.error;
-        if (errorMsg == 'invalid_token') {
+        // const errorMsg = err.response.data.error;
+        // if (errorMsg == 'invalid_token') {
+        const code = err.response.status;
+        if (code == 401) {
             yield put({
                 type: userAction.LOG_OUT,
             });
@@ -40,6 +42,7 @@ const getPaggingBranchesSage = function* (action) {
                 value: "notification.session_is_expired"
             });
         } else {
+            const errorMsg = err.response.data.error;
             yield put({
                 type: branchAction.GET_PAGGING_BRANCHES_FAIL,
                 value: errorMsg

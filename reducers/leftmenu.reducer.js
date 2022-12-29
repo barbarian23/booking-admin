@@ -9,18 +9,12 @@ const initState = {
         icon: '',
     },
     menu: [
-        // {
-        //     name: 'store',
-        //     isGroup: false,
-        //     title: 'menu.stores',
-        //     icon: 'store-front',
-        //     link: PAGE_URLS.STORES,
-        // }, 
         {
-            name: 'order',
+            name: 'store',
             isGroup: true,
-            title: 'menu.orders',
-            icon: 'shopping-cart',
+            title: 'menu.stores',
+            icon: 'store-front',
+            // link: PAGE_URLS.STORES,
             items: [
                 {
                     name: 'branch',
@@ -34,23 +28,31 @@ const initState = {
                     icon: 'layers',
                     link: PAGE_URLS.SERVICES,
                 },
+            ]
+        }, 
+        {
+            name: 'order',
+            isGroup: true,
+            title: 'menu.orders',
+            icon: 'shopping-cart',
+            items: [
                 {
                     name: 'booking',
                     title: 'menu.booking',
                     icon: 'add-task',
                     link: PAGE_URLS.BOOKING,
                 },
+                {
+                    name: 'check_in',
+                    title: 'menu.check_in',
+                    icon: 'event-available',
+                    link: PAGE_URLS.CHECK_IN,
+                },
                 // {
                 //     name: 'customer',
                 //     title: 'menu.customers',
                 //     icon: 'people',
                 //     link: PAGE_URLS.CUSTOMERS,
-                // },
-                // {
-                //     name: 'staff_schedule',
-                //     title: 'menu.staff_schedule',
-                //     icon: 'event-available',
-                //     link: PAGE_URLS.STAFF_SCHEDULE,
                 // },
                 // {
                 //     name: 'storage',

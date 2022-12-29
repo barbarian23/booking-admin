@@ -30,8 +30,8 @@ const getPaggingStaffsSage = function* (action) {
             });
         }
     } catch (err) {
-        const errorMsg = err.response.data.error;
-        if (errorMsg == 'invalid_token') {
+        const code = err.response.status;
+        if (code == 401) {
             yield put({
                 type: userAction.LOG_OUT,
             });
@@ -40,6 +40,7 @@ const getPaggingStaffsSage = function* (action) {
                 value: "notification.session_is_expired"
             });
         } else {
+            const errorMsg = err.response.data.error;
             yield put({
                 type: storeAction.GET_PAGGING_STORES_FAIL,
                 value: errorMsg
