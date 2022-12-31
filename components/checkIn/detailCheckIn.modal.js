@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { checkInAction } from '../../actions';
+import { checkInAction, serviceAction } from '../../actions';
 import { dtStr2dStr } from '../../services/utils/time';
 import styles from '../../assets/styles/detailCheckIn.module.scss';
 
@@ -11,7 +11,15 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+
 import { dt2dtStr } from '../../services/utils/time';
+import { Container } from '@mui/system';
 
 const DetailCheckInModal = () => {
     const { t, i18n } = useTranslation();
@@ -29,7 +37,7 @@ const DetailCheckInModal = () => {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 500,
+        width: 800,
         bgcolor: 'background.paper',
         border: '1px solid #000',
         boxShadow: 24,
@@ -53,7 +61,7 @@ const DetailCheckInModal = () => {
                     {/* full name */}
                     <li>
                         <div className={styles.input_title}>
-                            <span>{t('checkIn.fullName')}</span>
+                            <span>{t('checkIn.full_name')}</span>
                         </div>
 
                         <div className={styles.input}>
@@ -94,7 +102,6 @@ const DetailCheckInModal = () => {
                         </div>
                     </li>
 
-                    <h4 className={styles.section_title}>{t('checkIn.check_in')}</h4>
                     {/* check in date */}
                     <li>
                         <div className={styles.input_title}>
@@ -106,100 +113,76 @@ const DetailCheckInModal = () => {
                         </div>
                     </li>
 
-                    {/* timeline */}
-                    <li>
-                        <div className={styles.input_title}>
-                            <span>{t('checkIn.timeline')}</span>
-                        </div>
 
-                        <div className={styles.input}>
-                            <span><b>{selectedCustomer?.timeLine?.title}</b></span>
-                        </div>
-                    </li>
-
-                    {/* description */}
-                    <li>
-                        <div className={styles.input_title}>
-                            <span>{t('checkIn.description')}</span>
-                        </div>
-
-                        <div className={styles.input}>
-                            <span><b>{selectedCustomer?.description}</b></span>
-                        </div>
-                    </li>
+                    <h4 className={styles.section_title}>{t('checkIn.check_in_list')}</h4>
 
                     {/* checkIn detail */}
-                    {
-                        selectedCustomer?.checkInDetails ?
-                            <>
-                                <h4 className={styles.section_title}>{t('checkIn.detail')}</h4>
-                                {
-                                    selectedCustomer?.checkInDetails?.map((item, index) => {
-                                        return (
-                                            <>
-                                                <li>
-                                                    <div className={styles.input_title}>
-                                                        <span>{t('checkIn.detailName')}</span>
-                                                    </div>
+                    {selectedCustomer.orders && selectedCustomer.orders.length > 0
+                        ? <>
+                            {
+                                selectedCustomer.orders?.map((order, index) => {
+                                    return (
+                                        <div key={index} style={{ marginLeft: 10 }}>
+                                            <li>
+                                                <div className={styles.input_title}>
+                                                    <span>{t('checkIn.id')}</span>
+                                                </div>
 
-                                                    <div className={styles.input}>
-                                                        <span><b>{item.serviceDetail.name}</b></span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div className={styles.input_title}>
-                                                        <span>{t('checkIn.detailQuantity')}</span>
-                                                    </div>
+                                                <div className={styles.input}>
+                                                    <span><b>{order.id}</b></span>
+                                                </div>
+                                            </li>
 
-                                                    <div className={styles.input}>
-                                                        <span><b>{item.quantity}</b></span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div className={styles.input_title}>
-                                                        <span>{t('checkIn.detailPrice')}</span>
-                                                    </div>
+                                            <li>
+                                                <div className={styles.input_title}>
+                                                    <span>{t('checkIn.created_date')}</span>
+                                                </div>
 
-                                                    <div className={styles.input}>
-                                                        <span><b>{item.serviceDetail.price}</b></span>
-                                                    </div>
-                                                </li>
-                                                <br></br>
-                                            </>
-                                        )
-                                    })
-                                }
-                            </>
-                            :
-                            null
+                                                <div className={styles.input}>
+                                                    <span><b>{dt2dtStr(new Date(order.createdDate))}</b></span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div className={styles.input_title}>
+                                                    <span>{t('checkIn.status')}</span>
+                                                </div>
+
+                                                <div className={styles.input}>
+                                                    <span><b>{order.status}</b></span>
+                                                </div>
+                                            </li>
+
+                                            {order.orderDetails && order.orderDetails.length > 0 ?
+                                                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                                                    <TableHead>
+                                                        <TableRow>
+                                                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('order.id')}</TableCell>
+                                                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('order.service_name')}</TableCell>
+                                                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('order.price')}</TableCell>
+                                                            <TableCell align="center" sx={{ fontWeight: '700' }}>{t('order.quantity')}</TableCell>
+                                                        </TableRow>
+                                                    </TableHead>
+                                                    <TableBody>
+                                                        {order.orderDetails.map((row) => (
+                                                            <TableRow key={row.id}>
+                                                                <TableCell align="center">{row.id}</TableCell>
+                                                                <TableCell align="center">{row.serviceName}</TableCell>
+                                                                <TableCell align="center">{row.servicePrice}</TableCell>
+                                                                <TableCell align="center">{row.quantity}</TableCell>
+                                                            </TableRow>
+                                                        ))}
+                                                    </TableBody>
+                                                </Table>
+                                                : null}
+
+                                        </div>
+                                    )
+                                })
+                            }
+                        </>
+
+                        : <span>No check in!</span>
                     }
-                    {selectedCustomer?.branch ? <>
-                        <h4 className={styles.section_title}>{t('checkIn.branch')}</h4>
-                        {/* branch name */}
-                        <li>
-                            <div className={styles.input_title}>
-                                <span>{t('checkIn.name')}</span>
-                            </div>
-
-                            <div className={styles.input}>
-                                <span><b>{selectedCustomer?.branch.name} %</b></span>
-                            </div>
-
-                        </li>
-
-                        {/* addrress */}
-                        <li>
-                            <div className={styles.input_title}>
-                                <span>{t('checkIn.address')}</span>
-                            </div>
-
-                            <div className={styles.input}>
-                                <span><b>{selectedCustomer?.branch?.address}</b></span>
-                            </div>
-
-                        </li>
-                    </>
-                        : null}
                 </ul>
             </Grid>
 

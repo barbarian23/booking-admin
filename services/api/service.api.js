@@ -3,7 +3,7 @@ import { getLocalData } from '../localStorage';
 
 class serviceApi {
     getPagging(page = 1, pageSize = 10) {
-        return Request.get(`manager/business/service?pageNum=${page}&pageSize=${pageSize}`,
+        return Request.get(`nail/manager/business/service?pageNum=${page}&pageSize=${pageSize}`,
             {},
             true,
             {
@@ -12,7 +12,7 @@ class serviceApi {
     }
 
     add(branch_id, name){
-        return Request.post(`manager/business/service`,
+        return Request.post(`nail/manager/business/service`,
             {
                 branch_id: branch_id,
                 name: name,
@@ -24,7 +24,7 @@ class serviceApi {
     }
 
     update(service_id, branch_id, name){
-        return Request.patch(`manager/business/service/${service_id}`,
+        return Request.patch(`nail/manager/business/service/${service_id}`,
             {
                 branch_id: branch_id,
                 name: name,
@@ -36,7 +36,7 @@ class serviceApi {
     }
 
     delete(serviceId){
-        return Request.delete(`manager/business/service/${serviceId}`,
+        return Request.delete(`nail/manager/business/service/${serviceId}`,
         {},
         true,
         {

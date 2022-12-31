@@ -3,7 +3,7 @@ import { getLocalData } from '../localStorage';
 
 class checkInApi {
     getPagging(page = 1, pageSize = 10) {
-        return Request.get(`manager/check-in/customer?pageNum=${page}&pageSize=${pageSize}`,
+        return Request.get(`nail/manager/check-in/customer?pageNum=${page}&pageSize=${pageSize}`,
             {},
             true,
             {

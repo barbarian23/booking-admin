@@ -3,7 +3,7 @@ import { getLocalData } from '../localStorage';
 
 class employeeApi {
     getPagging(page = 1, pageSize = 10) {
-        return Request.get(`manager/employee?pageNum=${page}&pageSize=${pageSize}`,
+        return Request.get(`nail/manager/employee?pageNum=${page}&pageSize=${pageSize}`,
             {},
             true,
             {
@@ -12,7 +12,7 @@ class employeeApi {
     }
 
     add(fullName, idCard, phone, dob, address, branchId, isManager, level, passCode, rate){
-        return Request.post(`manager/employee`,
+        return Request.post(`nail/manager/employee`,
             {
                 fullName : fullName,
                 idCard : idCard,
@@ -32,7 +32,7 @@ class employeeApi {
     }
 
     update(id, fullName, idCard, phone, dob, address, branchId, level, passCode, rate){
-        return Request.patch(`manager/employee/${id}`,
+        return Request.patch(`nail/manager/employee/${id}`,
             {
                 fullName : fullName,
                 idCard : idCard,
@@ -51,7 +51,7 @@ class employeeApi {
     }
 
     delete(staffId){
-        return Request.delete(`manager/employee/${staffId}`,
+        return Request.delete(`nail/manager/employee/${staffId}`,
         {},
         true,
         {
@@ -61,7 +61,7 @@ class employeeApi {
 
     
     getComboLevels(){
-        return Request.get(`common/combobox/level`, 
+        return Request.get(`nail/common/combobox/level`, 
         {},
         true,
         {

@@ -2,7 +2,7 @@ import Request from './api.request';
 
 class userApi {
     login(username = '', password = '', grant_type = '', scope = '') {
-        return Request.post(`user/login`, {
+        return Request.post(`auth/login`, {
             username: username,
             grant_type: grant_type,
             password: password,

@@ -3,7 +3,7 @@ import { getLocalData } from '../localStorage';
 
 class storeApi {
     getPagging(page = 1, pageSize = 10) {
-        return Request.get(`admin/store?pageNum=${page}&pageSize=${pageSize}`,
+        return Request.get(`nail/admin/store?pageNum=${page}&pageSize=${pageSize}`,
             {},
             true,
             {
@@ -12,7 +12,7 @@ class storeApi {
     }
 
     add(fullName, idCard, phone, dob, address, branchId, isManager, level, passCode, rate){
-        return Request.post(`admin/store`,
+        return Request.post(`nail/admin/store`,
             {
                 fullName : fullName,
                 idCard : idCard,

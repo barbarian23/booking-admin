@@ -4,7 +4,7 @@ import { getLocalData } from '../localStorage';
 
 class branchApi {
     getComboData() {
-        return Request.get(`common/combobox/branch`,
+        return Request.get(`nail/common/combobox/branch`,
             {},
             true,
             {
@@ -13,7 +13,7 @@ class branchApi {
     }
 
     getPagging(page = 1, pageSize = 10) {
-        return Request.get(`manager/branch/all?pageNum=${page}&pageSize=${pageSize}`,
+        return Request.get(`nail/manager/branch/all?pageNum=${page}&pageSize=${pageSize}`,
             {},
             true,
             {
@@ -22,7 +22,7 @@ class branchApi {
     }
 
     add(name, address, hotLine, description) {
-        return Request.post(`manager/branch`,
+        return Request.post(`nail/manager/branch`,
             {
                 name: name,
                 address: address,
@@ -36,7 +36,7 @@ class branchApi {
     }
 
     delete(branchId){
-        return Request.delete(`manager/branch/${branchId}`,
+        return Request.delete(`nail/manager/branch/${branchId}`,
         {},
         true,
         {

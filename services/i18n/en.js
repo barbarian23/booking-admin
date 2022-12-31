@@ -57,11 +57,14 @@ const en = {
             structure: 'Structure',
             report: 'Report',
         },
-        orders: {
+        order: {
             customer: "Customer",
             service: "Service",
             quantity: "Quantity",
-            total: "Total"
+            total: "Total",
+            price: "Price",
+            id: "ID",
+            service_name: "Service name",
         },
         service: {
             id: "ID",
@@ -203,7 +206,9 @@ const en = {
             status: "Status",
             created_date: "Created date",
             modifided_date: "Modifided date",
-            detail_booking: "Detail Booking",
+            detail_check_in: "Detail Check in",
+            check_in_date: "Check in date",
+            check_in_list: "Check in list",
             customer_information: "Customer information",
             check_in_date: "Check in date",
             action: "Action",

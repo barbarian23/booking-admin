@@ -1,0 +1,43 @@
+.book_detail{
+    overflow-y: scroll!important;
+    height:80%!important;
+}
+
+.form {
+    width: 100%;
+    list-style: none;
+    padding-left: 0;
+
+    li {
+        display: flex;
+        margin-bottom: 10px;
+    }
+
+    .section_title{
+        margin: 0 0 5px;
+        border-bottom: 1px solid #000000;
+    }
+
+    .input_title {
+        flex: 2;
+        margin: auto;
+    }
+
+    .input {
+        flex: 5;
+    }
+
+    .date_picker {
+        width: 100%;
+        padding: 8.5px 14px;
+        font-size: 16px;
+
+        outline-color: rgba(0, 0, 0, 0.4);
+        border-color: rgba(0, 0, 0, 0.3);
+        border-radius: 5px;
+    }
+}
+
+.btn {
+    margin-left: 10px;
+}

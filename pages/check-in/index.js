@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { checkInAction } from '../../actions';
 import { useTranslation } from 'react-i18next'
 import styles from '../../assets/styles/checkIn.module.scss';
-// import DetailCheckInCustomerModal from '../../components/customers/detailCheckInCustomer.modal';
+import DetailCheckInModal from '../../components/checkIn/detailCheckIn.modal';
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -13,6 +13,7 @@ import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
+import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import Pagination from '@mui/material/Pagination';
 
@@ -45,7 +46,7 @@ const CheckInCustomers = () => {
         });
 
         dispatch({
-            type: checkInAction.SHOW_DETAIL_CHECK_IN_CUSTOMER_MODAL,
+            type: checkInAction.SHOW_DETAIL_CHECK_IN_MODAL,
             value: customer
         });
     }
@@ -105,7 +106,6 @@ const CheckInCustomers = () => {
                                 <TableCell align="center" sx={{ fontWeight: '700' }}>{t('checkIn.id')}</TableCell>
                                 <TableCell align="center" sx={{ fontWeight: '700' }}>{t('checkIn.full_name')}</TableCell>
                                 <TableCell align="center" sx={{ fontWeight: '700' }}>{t('checkIn.phone_number')}</TableCell>
-                                <TableCell align="center" sx={{ fontWeight: '700' }}>{t('checkIn.email')}</TableCell>
                                 <TableCell align="center" sx={{ fontWeight: '700' }}>{t('checkIn.status')}</TableCell>
                                 <TableCell align="center" sx={{ fontWeight: '700' }}>{t('checkIn.created_date')}</TableCell>
                                 <TableCell align="center" sx={{ fontWeight: '700' }}>{t('checkIn.modifided_date')}</TableCell>
@@ -122,8 +122,13 @@ const CheckInCustomers = () => {
                                     </TableCell>
                                     <TableCell align="center">{row.fullName}</TableCell>
                                     <TableCell align="center">{row.numberPhone}</TableCell>
-                                    <TableCell align="center">{row.email}</TableCell>
-                                    <TableCell align="center">{row.statusWaiting}</TableCell>
+                                    <TableCell align="center">
+                                        {row.statusWaiting == 'NONE'
+                                            ? <Chip label={row.statusWaiting} color="error" variant="outlined" />
+                                            : (row.statusWaiting == 'WAITING' 
+                                                ? <Chip label={row.statusWaiting} color="success" variant="outlined" />
+                                                : <Chip label={row.statusWaiting} color="primary" variant="outlined" />)}
+                                    </TableCell>
                                     <TableCell align="center">{row.createdDate}</TableCell>
                                     <TableCell align="center">{row.modifiedDate}</TableCell>
                                     <TableCell align="center" className={styles.buttons}>
@@ -164,7 +169,7 @@ const CheckInCustomers = () => {
             }
         </Grid>
 
-        {/* <DetailCheckInCustomerModal /> */}
+        <DetailCheckInModal />
     </Grid>
 
 

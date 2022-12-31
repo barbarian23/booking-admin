@@ -3,7 +3,7 @@ import { getLocalData } from '../localStorage';
 
 class serviceDetailApi {
     add(name, price, time, description, colorCode, serviceId, turn, supply){
-        return Request.post(`manager/business/service-detail`,
+        return Request.post(`nail/manager/business/service-detail`,
             {
                 name : name,
                 price : price,
@@ -21,7 +21,7 @@ class serviceDetailApi {
     }
 
     update(id, name, price, time, description, colorCode, serviceId, turn, supply){
-        return Request.patch(`manager/business/service-detail/${id}`,
+        return Request.patch(`nail/manager/business/service-detail/${id}`,
             {
                 name: name,
                 price: price,
@@ -39,7 +39,7 @@ class serviceDetailApi {
     }
 
     delete(serviceDetailId){
-        return Request.delete(`manager/business/service-detail/${serviceDetailId}`,
+        return Request.delete(`nail/manager/business/service-detail/${serviceDetailId}`,
         {},
         true,
         {
