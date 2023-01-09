@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import ReactLoading from 'react-loading';
 import { useSelector, useDispatch } from 'react-redux';
-import { checkInAction } from '../../actions';
+import { checkInAction, notificationAction } from '../../actions';
 import { useTranslation } from 'react-i18next'
 import styles from '../../assets/styles/checkIn.module.scss';
 import DetailCheckInModal from '../../components/checkIn/detailCheckIn.modal';
@@ -28,10 +28,44 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
+import { WS_URL, BRANCH_CODE } from '../../services/api/api.config';
+
+const CHECKIN_SUBRIDRE_URL = `/topic/customer/checkin/success/${BRANCH_CODE}`;
+
 const CheckInCustomers = () => {
     const { t, i18n } = useTranslation();
     const dispatch = useDispatch();
     let { customers, isLoading, page, totalPage } = useSelector(state => state.checkIn);
+
+
+    useEffect(() => {
+        const ws = new WebSocket(WS_URL);
+
+        ws.onopen = () => {
+            console.log('[WS] Opened!');
+            const msg = {
+                type: 'subscribe',
+                channel: CHECKIN_SUBRIDRE_URL
+            };
+            ws.send(JSON.stringify(msg));
+        };
+
+        ws.onclose = () => console.log('[WS] Closed!');
+
+        ws.onmessage = e => {
+            dispatch({
+                type: notificationAction.SUCCESS,
+                value: "Recived new check-in!"
+            });
+            dispatch({
+                type: checkInAction.GET_PAGGING_CHECK_IN_CUSTOMERS,
+            });
+        };
+
+        return () => {
+            ws.close();
+        }
+    }, []);
 
     useEffect(() => {
         dispatch({
@@ -125,7 +159,7 @@ const CheckInCustomers = () => {
                                     <TableCell align="center">
                                         {row.statusWaiting == 'NONE'
                                             ? <Chip label={row.statusWaiting} color="error" variant="outlined" />
-                                            : (row.statusWaiting == 'WAITING' 
+                                            : (row.statusWaiting == 'WAITING'
                                                 ? <Chip label={row.statusWaiting} color="success" variant="outlined" />
                                                 : <Chip label={row.statusWaiting} color="primary" variant="outlined" />)}
                                     </TableCell>

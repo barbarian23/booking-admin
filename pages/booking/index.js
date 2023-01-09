@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactLoading from 'react-loading';
 import { useSelector, useDispatch } from 'react-redux';
-import { bookingAction } from '../../actions';
+
+import { bookingAction, notificationAction } from '../../actions';
 import { useTranslation } from 'react-i18next'
 import styles from '../../assets/styles/booking.module.scss';
 
@@ -28,10 +29,43 @@ import TableRow from '@mui/material/TableRow';
 import BookingDetailModal from '../../components/booking/bookingDetail.modal';
 import { dt2dtStr } from '../../services/utils/time';
 
+import { WS_URL, BRANCH_CODE } from '../../services/api/api.config';
+
+const BOOKING_SUBRIDRE_URL = `/topic/booking/success/${BRANCH_CODE}`;
+
 const Booking = () => {
     const { t, i18n } = useTranslation();
     const dispatch = useDispatch();
     let { bookings, isLoading, page, totalPage } = useSelector(state => state.booking);
+
+    useEffect(() => {
+        const ws = new WebSocket(WS_URL);
+
+        ws.onopen = () => {
+            console.log('[WS] Opened!');
+            const msg = {
+                type: 'subscribe',
+                channel: BOOKING_SUBRIDRE_URL
+            };
+            ws.send(JSON.stringify(msg));
+        };
+
+        ws.onclose = () => console.log('[WS] Closed!');
+
+        ws.onmessage = e => {
+            dispatch({
+                type: notificationAction.SUCCESS,
+                value: "Recived new booking!"
+            });
+            dispatch({
+                type: bookingAction.GET_PAGGING_BOOKINGS,
+            });
+        };
+
+        return () => {
+            ws.close();
+        }
+    }, []);
 
     useEffect(() => {
         dispatch({
